@@ -12,11 +12,11 @@ describe("Observability UI Components & Templates Test Suite", () => {
     expect(snapshot.summary.totalRequests).toBeGreaterThan(0);
     expect(snapshot.summary.p95LatencyMs).toBeGreaterThan(0);
     expect(snapshot.windows).toBeDefined();
-    expect(snapshot.windows.last5m.totalRequests).toBeGreaterThan(0);
+    expect(snapshot.windows?.last5m.totalRequests).toBeGreaterThan(0);
     expect(snapshot.http.statusBreakdown.status2xx).toBeGreaterThan(0);
     expect(snapshot.http.topEndpoints.length).toBeGreaterThan(0);
-    expect(snapshot.recentErrors.length).toBeGreaterThan(0);
-    expect(snapshot.breadcrumbs.length).toBeGreaterThan(0);
+    expect(snapshot.recentErrors?.length).toBeGreaterThan(0);
+    expect(snapshot.breadcrumbs?.length).toBeGreaterThan(0);
   });
 
   it("should export all 6 dashboard templates and the universal template", () => {
@@ -232,6 +232,34 @@ describe("Observability UI Components & Templates Test Suite", () => {
       } finally {
         (globalThis as any).window = originalWindow;
       }
+    });
+
+    it("should propagate theme color schemes dynamically across all 6 themes", () => {
+      const themeKeys: UI.RuntimeTheme[] = [
+        "tokyo-night",
+        "nord",
+        "dracula",
+        "catppuccin",
+        "emerald-terminal",
+        "cyberpunk",
+      ];
+
+      themeKeys.forEach((themeKey) => {
+        const store = UI.createObservabilityStore("tokyo-night");
+        store.dispatch(UI.setThemeAction(themeKey));
+
+        const activeTheme = store.getState().theme;
+        expect(activeTheme).toBe(themeKey);
+
+        const colors = UI.RUNTIME_THEMES[activeTheme];
+        expect(colors.background).toBeTruthy();
+        expect(colors.cardBg).toBeTruthy();
+        expect(colors.accent).toBeTruthy();
+        expect(colors.text).toBeTruthy();
+        expect(colors.cardBorder).toBeTruthy();
+        expect(colors.textMuted).toBeTruthy();
+        expect(colors.switcherBg).toBeTruthy();
+      });
     });
   });
 });

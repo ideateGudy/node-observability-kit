@@ -61,7 +61,7 @@ export function MetricCard({
           <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: themeColors?.textMuted || "#94a3b8", textTransform: "uppercase", letterSpacing: "0.05em" }}>
             {title}
           </span>
-          <div style={{ fontSize: "1.75rem", fontWeight: 700, color: "#f8fafc", marginTop: "0.375rem", letterSpacing: "-0.025em" }}>
+          <div style={{ fontSize: "1.75rem", fontWeight: 700, color: themeColors?.text || "#f8fafc", marginTop: "0.375rem", letterSpacing: "-0.025em" }}>
             {value}
           </div>
         </div>
@@ -72,7 +72,8 @@ export function MetricCard({
               style={{
                 padding: "0.625rem",
                 borderRadius: "0.625rem",
-                background: "rgba(255, 255, 255, 0.05)",
+                background: themeColors?.badgeBg || "rgba(255, 255, 255, 0.05)",
+                border: `1px solid ${themeColors?.badgeBorder || "transparent"}`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -91,9 +92,9 @@ export function MetricCard({
             alignItems: "center",
             marginTop: "1rem",
             paddingTop: "0.75rem",
-            borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+            borderTop: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
             fontSize: "0.8125rem",
-            color: "#64748b",
+            color: themeColors?.textMuted || "#64748b",
           }}
         >
           {trend && (

@@ -42,12 +42,12 @@ export function LatencyGauge({ p50, p95, p99, avg }: LatencyGaugeProps) {
           style={{
             padding: "0.875rem",
             borderRadius: "0.625rem",
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
+            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
             textAlign: "center",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#94a3b8", fontWeight: 500, marginBottom: "0.25rem" }}>
+          <div style={{ fontSize: "0.75rem", color: themeColors?.textMuted || "#94a3b8", fontWeight: 500, marginBottom: "0.25rem" }}>
             P50 (Median)
           </div>
           <div style={{ fontSize: "1.375rem", fontWeight: 700, color: getLatencyColor(p50) }}>
@@ -59,12 +59,12 @@ export function LatencyGauge({ p50, p95, p99, avg }: LatencyGaugeProps) {
           style={{
             padding: "0.875rem",
             borderRadius: "0.625rem",
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
+            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
             textAlign: "center",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#94a3b8", fontWeight: 500, marginBottom: "0.25rem" }}>
+          <div style={{ fontSize: "0.75rem", color: themeColors?.textMuted || "#94a3b8", fontWeight: 500, marginBottom: "0.25rem" }}>
             P95 Threshold
           </div>
           <div style={{ fontSize: "1.375rem", fontWeight: 700, color: getLatencyColor(p95) }}>
@@ -76,12 +76,12 @@ export function LatencyGauge({ p50, p95, p99, avg }: LatencyGaugeProps) {
           style={{
             padding: "0.875rem",
             borderRadius: "0.625rem",
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
+            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
             textAlign: "center",
           }}
         >
-          <div style={{ fontSize: "0.75rem", color: "#94a3b8", fontWeight: 500, marginBottom: "0.25rem" }}>
+          <div style={{ fontSize: "0.75rem", color: themeColors?.textMuted || "#94a3b8", fontWeight: 500, marginBottom: "0.25rem" }}>
             P99 Spike Limit
           </div>
           <div style={{ fontSize: "1.375rem", fontWeight: 700, color: getLatencyColor(p99) }}>

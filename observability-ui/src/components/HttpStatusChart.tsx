@@ -68,29 +68,29 @@ export function HttpStatusChart({ breakdown }: HttpStatusChartProps) {
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <CheckCircle2 size={16} color="#10b981" />
           <div style={{ fontSize: "0.8125rem" }}>
-            <span style={{ color: "#94a3b8" }}>2xx Success: </span>
-            <strong style={{ color: "#f1f5f9" }}>{breakdown.status2xx.toLocaleString()}</strong> ({pct2xx}%)
+            <span style={{ color: themeColors?.textMuted || "#94a3b8" }}>2xx Success: </span>
+            <strong style={{ color: themeColors?.text || "#f1f5f9" }}>{breakdown.status2xx.toLocaleString()}</strong> ({pct2xx}%)
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <Info size={16} color="#3b82f6" />
           <div style={{ fontSize: "0.8125rem" }}>
-            <span style={{ color: "#94a3b8" }}>3xx Redirect: </span>
-            <strong style={{ color: "#f1f5f9" }}>{breakdown.status3xx.toLocaleString()}</strong> ({pct3xx}%)
+            <span style={{ color: themeColors?.textMuted || "#94a3b8" }}>3xx Redirect: </span>
+            <strong style={{ color: themeColors?.text || "#f1f5f9" }}>{breakdown.status3xx.toLocaleString()}</strong> ({pct3xx}%)
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <AlertTriangle size={16} color="#f59e0b" />
           <div style={{ fontSize: "0.8125rem" }}>
-            <span style={{ color: "#94a3b8" }}>4xx Client Error: </span>
-            <strong style={{ color: "#f1f5f9" }}>{breakdown.status4xx.toLocaleString()}</strong> ({pct4xx}%)
+            <span style={{ color: themeColors?.textMuted || "#94a3b8" }}>4xx Client Error: </span>
+            <strong style={{ color: themeColors?.text || "#f1f5f9" }}>{breakdown.status4xx.toLocaleString()}</strong> ({pct4xx}%)
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <XCircle size={16} color="#ef4444" />
           <div style={{ fontSize: "0.8125rem" }}>
-            <span style={{ color: "#94a3b8" }}>5xx Server Error: </span>
-            <strong style={{ color: "#f1f5f9" }}>{breakdown.status5xx.toLocaleString()}</strong> ({pct5xx}%)
+            <span style={{ color: themeColors?.textMuted || "#94a3b8" }}>5xx Server Error: </span>
+            <strong style={{ color: themeColors?.text || "#f1f5f9" }}>{breakdown.status5xx.toLocaleString()}</strong> ({pct5xx}%)
           </div>
         </div>
       </div>

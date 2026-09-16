@@ -61,7 +61,7 @@ export function ServiceHeader({
         </div>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
-            <h1 style={{ fontSize: "1.25rem", fontWeight: 700, color: "#f8fafc", margin: 0 }}>
+            <h1 style={{ fontSize: "1.25rem", fontWeight: 700, color: themeColors?.text || "#f8fafc", margin: 0 }}>
               {serviceName}
             </h1>
             <span
@@ -105,8 +105,8 @@ export function ServiceHeader({
               </span>
             )}
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "0.25rem", fontSize: "0.8125rem", color: "#94a3b8" }}>
-            <span>Env: <strong style={{ color: "#cbd5e1" }}>{env}</strong></span>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "0.25rem", fontSize: "0.8125rem", color: themeColors?.textMuted || "#94a3b8" }}>
+            <span>Env: <strong style={{ color: themeColors?.text || "#cbd5e1" }}>{env}</strong></span>
             <span>•</span>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem" }}>
               <Clock size={13} /> Uptime: {uptime}

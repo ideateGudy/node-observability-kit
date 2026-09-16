@@ -56,7 +56,7 @@ export function EndpointTable({ endpoints }: EndpointTableProps) {
 
         {/* Live Filter / Search input */}
         <div style={{ position: "relative", minWidth: "220px" }}>
-          <Search size={14} color="#64748b" style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)" }} />
+          <Search size={14} color={themeColors?.textMuted || "#64748b"} style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)" }} />
           <input
             type="text"
             placeholder="Filter endpoint or method..."
@@ -64,12 +64,12 @@ export function EndpointTable({ endpoints }: EndpointTableProps) {
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
               width: "100%",
-              background: "rgba(30, 41, 59, 0.6)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
+              background: themeColors?.switcherBg || "rgba(30, 41, 59, 0.6)",
+              border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.1)"}`,
               borderRadius: "0.5rem",
               padding: "0.4rem 0.75rem 0.4rem 2.2rem",
               fontSize: "0.8125rem",
-              color: "#f8fafc",
+              color: themeColors?.text || "#f8fafc",
               outline: "none",
             }}
           />
@@ -79,7 +79,7 @@ export function EndpointTable({ endpoints }: EndpointTableProps) {
       <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "0.8125rem" }}>
           <thead>
-            <tr style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.08)", color: "#94a3b8" }}>
+            <tr style={{ borderBottom: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.08)"}`, color: themeColors?.textMuted || "#94a3b8" }}>
               <th style={{ padding: "0.75rem 0.5rem", fontWeight: 500 }}>METHOD</th>
               <th style={{ padding: "0.75rem 0.5rem", fontWeight: 500 }}>ROUTE</th>
               <th style={{ padding: "0.75rem 0.5rem", fontWeight: 500, textAlign: "right" }}>REQUESTS</th>
@@ -95,8 +95,8 @@ export function EndpointTable({ endpoints }: EndpointTableProps) {
                 <tr
                   key={`${ep.method}-${ep.route}-${i}`}
                   style={{
-                    borderBottom: "1px solid rgba(255, 255, 255, 0.04)",
-                    color: "#f1f5f9",
+                    borderBottom: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.04)"}`,
+                    color: themeColors?.text || "#f1f5f9",
                     transition: "background 0.15s ease",
                   }}
                 >
@@ -115,16 +115,16 @@ export function EndpointTable({ endpoints }: EndpointTableProps) {
                       {ep.method}
                     </span>
                   </td>
-                  <td style={{ padding: "0.75rem 0.5rem", fontFamily: "monospace", color: "#e2e8f0" }}>
+                  <td style={{ padding: "0.75rem 0.5rem", fontFamily: "monospace", color: themeColors?.accent || "#e2e8f0" }}>
                     {ep.route}
                   </td>
                   <td style={{ padding: "0.75rem 0.5rem", textAlign: "right", fontWeight: 600 }}>
                     {ep.requests.toLocaleString()}
                   </td>
-                  <td style={{ padding: "0.75rem 0.5rem", textAlign: "right", color: ep.avgDurationMs > 200 ? "#fbbf24" : "#cbd5e1" }}>
+                  <td style={{ padding: "0.75rem 0.5rem", textAlign: "right", color: ep.avgDurationMs > 200 ? "#fbbf24" : themeColors?.textMuted || "#cbd5e1" }}>
                     {ep.avgDurationMs} ms
                   </td>
-                  <td style={{ padding: "0.75rem 0.5rem", textAlign: "right", color: ep.p95DurationMs > 300 ? "#f87171" : "#cbd5e1" }}>
+                  <td style={{ padding: "0.75rem 0.5rem", textAlign: "right", color: ep.p95DurationMs > 300 ? "#f87171" : themeColors?.textMuted || "#cbd5e1" }}>
                     {ep.p95DurationMs} ms
                   </td>
                   <td style={{ padding: "0.75rem 0.5rem", textAlign: "right" }}>
@@ -133,7 +133,7 @@ export function EndpointTable({ endpoints }: EndpointTableProps) {
                         {ep.errorCount.toLocaleString()}
                       </span>
                     ) : (
-                      <span style={{ color: "#64748b" }}>0</span>
+                      <span style={{ color: themeColors?.textMuted || "#64748b" }}>0</span>
                     )}
                   </td>
                 </tr>

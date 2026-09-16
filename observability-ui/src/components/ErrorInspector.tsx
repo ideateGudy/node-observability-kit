@@ -149,7 +149,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <AlertCircle size={18} color="#ef4444" />
-            <h3 style={{ fontSize: "1rem", fontWeight: 600, color: "#f8fafc", margin: 0 }}>
+            <h3 style={{ fontSize: "1rem", fontWeight: 600, color: themeColors?.text || "#f8fafc", margin: 0 }}>
               Recent Exceptions & Failure Logs ({processedErrors.length})
             </h3>
           </div>

@@ -48,19 +48,19 @@ export function RuntimeMetrics({
           style={{
             padding: "1rem",
             borderRadius: "0.75rem",
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
+            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#38bdf8", marginBottom: "0.5rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: themeColors?.accent || "#38bdf8", marginBottom: "0.5rem" }}>
             <Cpu size={16} />
-            <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: "#94a3b8" }}>Process CPU</span>
+            <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: themeColors?.textMuted || "#94a3b8" }}>Process CPU</span>
           </div>
-          <div style={{ fontSize: "1.5rem", fontWeight: 700, color: "#f8fafc" }}>
+          <div style={{ fontSize: "1.5rem", fontWeight: 700, color: themeColors?.text || "#f8fafc" }}>
             {cpuPercent} %
           </div>
           <div style={{ width: "100%", height: "4px", background: "rgba(255, 255, 255, 0.1)", borderRadius: "9999px", marginTop: "0.5rem", overflow: "hidden" }}>
-            <div style={{ width: `${Math.min(100, cpuPercent)}%`, height: "100%", background: cpuPercent > 80 ? "#ef4444" : "#38bdf8" }} />
+            <div style={{ width: `${Math.min(100, cpuPercent)}%`, height: "100%", background: cpuPercent > 80 ? "#ef4444" : themeColors?.accent || "#38bdf8" }} />
           </div>
         </div>
 
@@ -69,18 +69,18 @@ export function RuntimeMetrics({
           style={{
             padding: "1rem",
             borderRadius: "0.75rem",
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
+            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#a855f7", marginBottom: "0.5rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: themeColors?.accentSecondary || "#a855f7", marginBottom: "0.5rem" }}>
             <HardDrive size={16} />
-            <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: "#94a3b8" }}>Resident Memory (RSS)</span>
+            <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: themeColors?.textMuted || "#94a3b8" }}>Resident Memory (RSS)</span>
           </div>
-          <div style={{ fontSize: "1.5rem", fontWeight: 700, color: "#f8fafc" }}>
+          <div style={{ fontSize: "1.5rem", fontWeight: 700, color: themeColors?.text || "#f8fafc" }}>
             {memoryRssMb} <span style={{ fontSize: "0.875rem", fontWeight: 500 }}>MB</span>
           </div>
-          <div style={{ fontSize: "0.75rem", color: "#64748b", marginTop: "0.5rem" }}>
+          <div style={{ fontSize: "0.75rem", color: themeColors?.textMuted || "#64748b", marginTop: "0.5rem" }}>
             Total process allocation
           </div>
         </div>
@@ -90,15 +90,15 @@ export function RuntimeMetrics({
           style={{
             padding: "1rem",
             borderRadius: "0.75rem",
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
+            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#10b981", marginBottom: "0.5rem" }}>
             <Box size={16} />
-            <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: "#94a3b8" }}>V8 Heap Used / Total</span>
+            <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: themeColors?.textMuted || "#94a3b8" }}>V8 Heap Used / Total</span>
           </div>
-          <div style={{ fontSize: "1.5rem", fontWeight: 700, color: "#f8fafc" }}>
+          <div style={{ fontSize: "1.5rem", fontWeight: 700, color: themeColors?.text || "#f8fafc" }}>
             {heapUsedMb} <span style={{ fontSize: "0.875rem", fontWeight: 500 }}>/ {heapTotalMb} MB</span>
           </div>
           <div style={{ width: "100%", height: "4px", background: "rgba(255, 255, 255, 0.1)", borderRadius: "9999px", marginTop: "0.5rem", overflow: "hidden" }}>
@@ -111,15 +111,15 @@ export function RuntimeMetrics({
           style={{
             padding: "1rem",
             borderRadius: "0.75rem",
-            background: "rgba(255, 255, 255, 0.03)",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
+            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#f59e0b", marginBottom: "0.5rem" }}>
             <Zap size={16} />
-            <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: "#94a3b8" }}>Event Loop Lag</span>
+            <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: themeColors?.textMuted || "#94a3b8" }}>Event Loop Lag</span>
           </div>
-          <div style={{ fontSize: "1.5rem", fontWeight: 700, color: "#f8fafc" }}>
+          <div style={{ fontSize: "1.5rem", fontWeight: 700, color: themeColors?.text || "#f8fafc" }}>
             {eventLoopLagMs} <span style={{ fontSize: "0.875rem", fontWeight: 500 }}>ms</span>
           </div>
           <div style={{ fontSize: "0.75rem", color: "#10b981", marginTop: "0.5rem" }}>

@@ -1,19 +1,20 @@
 {
-  "name": "@ideategudy/observability-cli",
+  "name": "stacklenzz-cli",
   "version": "0.1.0",
-  "description": "Zero-configuration CLI to install and validate @ideategudy backend observability dashboards in React and Next.js applications",
+  "description": "Stacklenzz CLI - Install and validate backend observability dashboards in React and Next.js applications",
   "author": "Goodnews Azonubi <azonubigoodnews@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ideateGudy/ideategudy-observability-toolkit.git",
+    "url": "git+https://github.com/ideateGudy/node-observability-kit.git",
     "directory": "observability-cli"
   },
   "bugs": {
-    "url": "https://github.com/ideateGudy/ideategudy-observability-toolkit/issues"
+    "url": "https://github.com/ideateGudy/node-observability-kit/issues"
   },
-  "homepage": "https://github.com/ideateGudy/ideategudy-observability-toolkit/tree/main/observability-cli#readme",
+  "homepage": "https://github.com/ideateGudy/node-observability-kit/tree/main/observability-cli#readme",
   "license": "MIT",
   "keywords": [
+    "stacklenzz",
     "observability",
     "cli",
     "dashboard",
@@ -24,9 +25,9 @@
     "nestjs"
   ],
   "bin": {
+    "stacklenzz": "./bin/observability.js",
     "obs-cli": "./bin/observability.js",
-    "observability": "./bin/observability.js",
-    "ideategudy-observability": "./bin/observability.js"
+    "stacklenzz-cli": "./bin/observability.js"
   },
   "type": "module",
   "main": "./dist/index.cjs",

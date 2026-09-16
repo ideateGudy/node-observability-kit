@@ -1,4 +1,4 @@
-# @ideategudy/express-nestjs-observability
+# @stacklenzz/server
 
 A comprehensive, production-ready observability and monitoring package for **Node.js**, **Express**, and **NestJS** applications with full **TypeScript** support.
 
@@ -12,18 +12,18 @@ It provides:
 - **Prometheus Metrics**: Standard Node.js runtime metrics (CPU, RSS, Heap, Event Loop lag) + HTTP request counters, histograms, and active request gauges via `prom-client` on `/metrics`.
 - **OpenTelemetry Distributed Tracing**: Auto-instrumentations + OTLP trace exporter with Winston trace correlation (`trace_id` and `span_id`).
 - **Clean Subpath Exports**:
-  - `@ideategudy/express-nestjs-observability` (core)
-  - `@ideategudy/express-nestjs-observability/express`
-  - `@ideategudy/express-nestjs-observability/nestjs`
+  - `@stacklenzz/server` (core)
+  - `@stacklenzz/server/express`
+  - `@stacklenzz/server/nestjs`
 
 ---
 
 ## Installation
 
 ```bash
-npm install @ideategudy/express-nestjs-observability
+npm install @stacklenzz/server
 # or
-pnpm add @ideategudy/express-nestjs-observability
+pnpm add @stacklenzz/server
 ```
 
 ### Peer Dependencies:
@@ -38,8 +38,7 @@ Instrument your Express app with one function:
 
 ```typescript
 import express from "express";
-import { setupObservability } from "@ideategudy/express-nestjs-observability/express";
-import { logger, addBreadcrumb } from "@ideategudy/express-nestjs-observability";
+import { setupObservability, logger, addBreadcrumb } from "@stacklenzz/server";
 
 const app = express();
 
@@ -71,7 +70,7 @@ In your root module (`app.module.ts`):
 
 ```typescript
 import { Module } from "@nestjs/common";
-import { ObservabilityModule } from "@ideategudy/express-nestjs-observability/nestjs";
+import { ObservabilityModule } from "@stacklenzz/server/nestjs";
 
 @Module({
   imports: [

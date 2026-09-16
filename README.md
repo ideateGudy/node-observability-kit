@@ -1,4 +1,4 @@
-# @ideategudy Observability Toolkit
+# Stacklenzz
 
 > A developer-first backend observability, monitoring, and logging ecosystem for **Express** and **NestJS**, paired with a zero-configuration, ready-to-install **React & Next.js** dashboard UI and CLI.
 
@@ -8,10 +8,10 @@
 
 ```
 1. Instrument Backend (Express or NestJS)
-   npm install @ideategudy/express-nestjs-observability
+   npm install @stacklenzz/server
 
 2. Add Dashboard to Frontend (Next.js or React + Vite)
-   npx @ideategudy/observability-cli dashboard
+   npx stacklenzz dashboard
 
 3. Open Protected Route
    http://localhost:3000/admin/observability
@@ -25,9 +25,9 @@ This repository contains three standalone, production-ready packages and concret
 
 | Package | Directory | Description | Documentation |
 |---|---|---|---|
-| [`@ideategudy/express-nestjs-observability`](./express-nestjs-observability) | `express-nestjs-observability/` | Backend SDK for Express & NestJS (OpenTelemetry tracing, Prometheus `/metrics`, Winston logger, rolling error rate windows, and intelligent error fingerprinting) | [Read SDK Guide →](./express-nestjs-observability/README.md) |
-| [`@ideategudy/observability-ui`](./observability-ui) | `observability-ui/` | Modern React/Next.js dashboard suite (6 templates, interactive template switcher, rich error inspector with breadcrumbs, latency gauges, and dark mode aesthetics) | [Read UI Guide →](./observability-ui/README.md) |
-| [`@ideategudy/observability-cli`](./observability-cli) | `observability-cli/` | Zero-configuration CLI detecting frameworks and package managers to scaffold dashboards and run `doctor` connectivity diagnostics | [Read CLI Guide →](./observability-cli/README.md) |
+| [`@stacklenzz/server`](./express-nestjs-observability) | `express-nestjs-observability/` | Backend SDK for Express & NestJS (OpenTelemetry tracing, Prometheus `/metrics`, Winston logger, rolling error rate windows, and intelligent error fingerprinting) | [Read SDK Guide →](./express-nestjs-observability/README.md) |
+| [`@stacklenzz/ui`](./observability-ui) | `observability-ui/` | Modern React/Next.js dashboard suite (6 templates, interactive template switcher, rich error inspector with breadcrumbs, latency gauges, and dark mode aesthetics) | [Read UI Guide →](./observability-ui/README.md) |
+| [`stacklenzz-cli`](./observability-cli) | `observability-cli/` | Zero-configuration CLI detecting frameworks and package managers to scaffold dashboards and run `doctor` connectivity diagnostics | [Read CLI Guide →](./observability-cli/README.md) |
 
 ---
 
@@ -37,8 +37,7 @@ This repository contains three standalone, production-ready packages and concret
 
 ```typescript
 import express from "express";
-import { setupObservability } from "@ideategudy/express-nestjs-observability/express";
-import { logger, addBreadcrumb } from "@ideategudy/express-nestjs-observability";
+import { setupObservability, logger, addBreadcrumb } from "@stacklenzz/server";
 
 const app = express();
 
@@ -66,7 +65,7 @@ app.listen(5000, () => console.log("Express API on http://localhost:5000"));
 In `app.module.ts`:
 ```typescript
 import { Module } from "@nestjs/common";
-import { ObservabilityModule } from "@ideategudy/express-nestjs-observability/nestjs";
+import { ObservabilityModule } from "@stacklenzz/server/nestjs";
 
 @Module({
   imports: [
@@ -101,7 +100,7 @@ bootstrap();
 
 Run inside your Next.js or React project:
 ```bash
-npx @ideategudy/observability-cli dashboard
+npx stacklenzz dashboard
 ```
 The CLI detects whether you are using **Next.js (App Router / Pages Router)** or **Vite/React**, installs the dependencies, and generates the dashboard route at `/admin/observability`.
 
@@ -109,14 +108,14 @@ The CLI detects whether you are using **Next.js (App Router / Pages Router)** or
 
 Install the UI package:
 ```bash
-npm install @ideategudy/observability-ui lucide-react
+npm install @stacklenzz/ui lucide-react
 ```
 
 Create your page (e.g., in Next.js App Router `app/admin/observability/page.tsx`):
 ```tsx
 "use client";
 
-import { ObservabilityDashboard } from "@ideategudy/observability-ui";
+import { ObservabilityDashboard } from "@stacklenzz/ui";
 
 export default function AdminObservabilityPage() {
   return (
@@ -141,16 +140,16 @@ export default function AdminObservabilityPage() {
 Verify your environment, framework, and test your backend telemetry connection at any time:
 
 ```bash
-npx @ideategudy/observability-cli doctor
+npx stacklenzz doctor
 ```
 
 ```
-🩺 @ideategudy/observability-cli - System & Health Doctor
+🩺 Stacklenzz CLI - System & Health Doctor
 
 ✓ Node.js runtime: v24.10.0 (compatible >= 18)
 ✓ Package manager: npm
 ✓ Frontend framework: next-app (TypeScript)
-✓ Observability UI: Installed
+✓ Stacklenzz UI: Installed
 ✓ Telemetry endpoint reachable! HTTP 200 (69ms)
    Backend service: my-nestjs-api [production]
    Requests recorded: 14,291

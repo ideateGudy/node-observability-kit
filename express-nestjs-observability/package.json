@@ -1,17 +1,17 @@
 {
-  "name": "@ideategudy/express-nestjs-observability",
+  "name": "@stacklenzz/server",
   "version": "0.1.0",
-  "description": "Observability package for Express and NestJS with OpenTelemetry, Prometheus metrics, and Winston logging",
+  "description": "Stacklenzz Observability SDK for Express and NestJS with OpenTelemetry, Prometheus metrics, and Winston logging",
   "author": "Goodnews Azonubi <azonubigoodnews@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ideateGudy/ideategudy-observability-toolkit.git",
+    "url": "git+https://github.com/ideateGudy/node-observability-kit.git",
     "directory": "express-nestjs-observability"
   },
   "bugs": {
-    "url": "https://github.com/ideateGudy/ideategudy-observability-toolkit/issues"
+    "url": "https://github.com/ideateGudy/node-observability-kit/issues"
   },
-  "homepage": "https://github.com/ideateGudy/ideategudy-observability-toolkit/tree/main/express-nestjs-observability#readme",
+  "homepage": "https://github.com/ideateGudy/node-observability-kit/tree/main/express-nestjs-observability#readme",
   "license": "MIT",
   "keywords": [
     "observability",

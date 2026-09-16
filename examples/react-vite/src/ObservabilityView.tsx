@@ -1,4 +1,5 @@
-import { ObservabilityDashboard } from "@ideategudy/observability-ui";
+import React, { useState, useEffect } from "react";
+import { ObservabilityDashboard } from "@stacklenzz/ui";
 
 /**
  * ObservabilityView with Universal Dashboard Switcher

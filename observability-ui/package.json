@@ -1,17 +1,17 @@
 {
-  "name": "@ideategudy/observability-ui",
+  "name": "@stacklenzz/ui",
   "version": "0.1.0",
-  "description": "Developer-first React dashboard component library for @ideategudy backend observability",
+  "description": "Stacklenzz developer-first React dashboard component library for backend observability",
   "author": "Goodnews Azonubi <azonubigoodnews@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ideateGudy/ideategudy-observability-toolkit.git",
+    "url": "git+https://github.com/ideateGudy/node-observability-kit.git",
     "directory": "observability-ui"
   },
   "bugs": {
-    "url": "https://github.com/ideateGudy/ideategudy-observability-toolkit/issues"
+    "url": "https://github.com/ideateGudy/node-observability-kit/issues"
   },
-  "homepage": "https://github.com/ideateGudy/ideategudy-observability-toolkit/tree/main/observability-ui#readme",
+  "homepage": "https://github.com/ideateGudy/node-observability-kit/tree/main/observability-ui#readme",
   "license": "MIT",
   "keywords": [
     "observability",

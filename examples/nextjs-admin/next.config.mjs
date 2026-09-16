@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   outputFileTracingRoot: __dirname,
-  transpilePackages: ["@ideategudy/observability-ui"],
+  transpilePackages: ["@stacklenzz/ui"],
 };
 
 export default nextConfig;

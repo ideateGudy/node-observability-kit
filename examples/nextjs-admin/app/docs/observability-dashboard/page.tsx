@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ObservabilityDashboard } from "@ideategudy/observability-ui";
+import { ObservabilityDashboard } from "@stacklenzz/ui";
 import { Sparkles, ArrowLeft, ShieldAlert } from "lucide-react";
 
 /**

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Observability Admin Portal",
-  description: "Next.js Observability Admin Portal for Express & NestJS Telemetry",
+  title: "Stacklenzz Admin Dashboard",
+  description: "Express & NestJS Telemetry",
 };
 
 export default function RootLayout({

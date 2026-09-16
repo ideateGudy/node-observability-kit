@@ -8,7 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@ideategudy/observability-ui": "file:../../observability-ui",
+    "@stacklenzz/ui": "*",
+    "clsx": "^2.1.1",
     "lucide-react": "^1.16.0",
     "next": "^15.2.0",
     "react": "^19.0.0",

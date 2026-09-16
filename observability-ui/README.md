@@ -1,4 +1,4 @@
-# @ideategudy/observability-ui
+# @stacklenzz/ui
 
 A stunning, developer-first React & Next.js dashboard UI ecosystem for backend observability, monitoring, and error tracking.
 
@@ -27,9 +27,9 @@ Built with Vanilla CSS & zero heavy UI framework lock-in, featuring glassmorphis
 ## Installation
 
 ```bash
-npm install @ideategudy/observability-ui lucide-react
+npm install @stacklenzz/ui lucide-react
 # or
-pnpm add @ideategudy/observability-ui lucide-react
+pnpm add @stacklenzz/ui lucide-react
 ```
 
 ### Peer Dependencies:
@@ -46,7 +46,7 @@ pnpm add @ideategudy/observability-ui lucide-react
 ```tsx
 "use client";
 
-import { ObservabilityDashboard } from "@ideategudy/observability-ui";
+import { ObservabilityDashboard } from "@stacklenzz/ui";
 
 export default function AdminObservabilityPage() {
   return (

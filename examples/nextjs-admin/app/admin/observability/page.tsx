@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ObservabilityDashboard } from "@ideategudy/observability-ui";
+import { ObservabilityDashboard } from "@stacklenzz/ui";
 
 /**
  * Next.js Admin Observability Page

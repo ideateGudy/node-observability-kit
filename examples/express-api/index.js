@@ -1,6 +1,5 @@
 import express from "express";
-import { setupObservability } from "@ideategudy/express-nestjs-observability/express";
-import { logger, addBreadcrumb } from "@ideategudy/express-nestjs-observability";
+import { setupObservability, logger, addBreadcrumb } from "@stacklenzz/server";
 
 const app = express();
 const PORT = process.env.PORT || 5000;

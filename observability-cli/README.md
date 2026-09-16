@@ -1,6 +1,6 @@
-# @ideategudy/observability-cli
+# stacklenzz-cli
 
-A zero-configuration command-line interface to inspect, install, and scaffold `@ideategudy` backend observability dashboards into React, Next.js (App Router & Pages Router), and Vite applications.
+A zero-configuration command-line interface to inspect, install, and scaffold **Stacklenzz** backend observability dashboards into React, Next.js (App Router & Pages Router), and Vite applications.
 
 ---
 
@@ -22,35 +22,32 @@ You can run the CLI on-demand via package runners (no permanent installation req
 
 ```bash
 # Using npx
-npx @ideategudy/observability-cli [command]
+npx stacklenzz-cli [command]
 
-# Using pnpm dlx
-pnpm dlx @ideategudy/observability-cli [command]
-
-# Using bunx
-bunx @ideategudy/observability-cli [command]
+# Or with short command runner
+npx stacklenzz [command]
 ```
 
 Or install globally:
 ```bash
-npm install -g @ideategudy/observability-cli
+npm install -g stacklenzz-cli
 ```
-Once installed globally, you can invoke all commands directly using the **`obs-cli`** shorthand:
+Once installed globally, you can invoke all commands directly using **`stacklenzz`**:
 ```bash
-obs-cli doctor
-obs-cli dashboard
-obs-cli init
+stacklenzz doctor
+stacklenzz dashboard
+stacklenzz init
 ```
 
 ---
 
 ## Commands & Usage
 
-### 1. `obs-cli doctor` (or `npx @ideategudy/observability-cli doctor`)
+### 1. `stacklenzz doctor` (or `npx stacklenzz doctor`)
 Diagnoses your environment, checks for installed dependencies, and verifies that your backend telemetry endpoint (`/api/observability/stats`) is online:
 
 ```bash
-obs-cli doctor
+stacklenzz doctor
 ```
 
 **Options:**
@@ -73,11 +70,11 @@ Doctor check finished.
 
 ---
 
-### 2. `observability dashboard`
+### 2. `stacklenzz dashboard`
 Scaffolds an observability dashboard page into your React or Next.js app:
 
 ```bash
-npx @ideategudy/observability-cli dashboard
+npx stacklenzz dashboard
 ```
 
 **Options:**
@@ -90,19 +87,19 @@ npx @ideategudy/observability-cli dashboard
 **Examples:**
 ```bash
 # Preview what would be created:
-npx @ideategudy/observability-cli dashboard --dry-run -y
+npx stacklenzz dashboard --dry-run -y
 
 # Generate a custom route in Next.js:
-npx @ideategudy/observability-cli dashboard --route /admin/system-health -y
+npx stacklenzz dashboard --route /admin/system-health -y
 ```
 
 ---
 
-### 3. `observability init`
+### 3. `stacklenzz init`
 Creates a standardized `observability.config.ts` file in your project root:
 
 ```bash
-npx @ideategudy/observability-cli init
+npx stacklenzz init
 ```
 
 ---

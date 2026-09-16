@@ -11,7 +11,7 @@ export interface DoctorCommandOptions {
 
 export async function runDoctorCommand(options: DoctorCommandOptions) {
   const cwd = process.cwd();
-  console.log(pc.bold(pc.cyan("\n🩺 @ideategudy/observability-cli - System & Health Doctor\n")));
+  console.log(pc.bold(pc.cyan("\n🩺 Stacklenzz CLI - System & Health Doctor\n")));
 
   const ctx = detectProject(cwd);
 
@@ -40,10 +40,10 @@ export async function runDoctorCommand(options: DoctorCommandOptions) {
     ...ctx.packageJson.devDependencies,
   };
 
-  if (allDeps["@ideategudy/observability-ui"]) {
-    console.log(`${pc.green("✓")} Observability UI: Installed (${allDeps["@ideategudy/observability-ui"]})`);
+  if (allDeps["@stacklenzz/ui"]) {
+    console.log(`${pc.green("✓")} Stacklenzz UI: Installed (${allDeps["@stacklenzz/ui"]})`);
   } else {
-    console.log(`${pc.yellow("!")} Observability UI: Not found in package.json. Run: ${pc.bold(`${ctx.packageManager} add @ideategudy/observability-ui`)}`);
+    console.log(`${pc.yellow("!")} Stacklenzz UI: Not found in package.json. Run: ${pc.bold(`${ctx.packageManager} add @stacklenzz/ui`)}`);
   }
 
   // 5. Config file
@@ -72,7 +72,7 @@ export async function runDoctorCommand(options: DoctorCommandOptions) {
     }
   } else {
     console.log(`${pc.red("✗")} Telemetry endpoint unreachable: ${pingResult.error}`);
-    console.log(`   ${pc.yellow("Suggestion:")} Ensure your Express or NestJS backend is running and instrumented with ${pc.bold("@ideategudy/express-nestjs-observability")}.`);
+    console.log(`   ${pc.yellow("Suggestion:")} Ensure your Express or NestJS backend is running and instrumented with ${pc.bold("@stacklenzz/server")}.`);
   }
 
   console.log("\n" + pc.dim("Doctor check finished.") + "\n");

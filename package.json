@@ -1,8 +1,8 @@
 {
-  "name": "ideategudy-observability-toolkit",
+  "name": "stacklenzz-monorepo",
   "version": "0.1.0",
   "private": true,
-  "description": "Developer-first backend observability system and UI ecosystem under @ideategudy namespace",
+  "description": "Stacklenzz - Developer-first backend observability system and UI ecosystem",
   "workspaces": [
     "express-nestjs-observability",
     "observability-ui",

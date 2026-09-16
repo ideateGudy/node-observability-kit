@@ -213,7 +213,7 @@ export default function DocumentationPage() {
                 <Activity size={18} color="#ffffff" />
               </div>
               <div style={{ fontWeight: 800, fontSize: "1rem", letterSpacing: "-0.02em", color: "#ffffff" }}>
-                Observability Kit
+                Stacklenzz
               </div>
             </Link>
             <div>
@@ -557,14 +557,14 @@ export default function DocumentationPage() {
                     Instrument Your Backend
                   </div>
                   <button
-                    onClick={() => copyToClipboard("npm install @ideategudy/express-nestjs-observability", "code-step1")}
+                    onClick={() => copyToClipboard("npm install @stacklenzz/server", "code-step1")}
                     style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.75rem" }}
                   >
                     {copiedCode === "code-step1" ? <Check size={14} color="#10b981" /> : <Copy size={14} />} Copy
                   </button>
                 </div>
                 <pre style={{ margin: 0, padding: "0.75rem 1rem", backgroundColor: "#020617", borderRadius: "0.5rem", color: "#e2e8f0", fontFamily: "monospace", fontSize: "0.82rem" }}>
-                  npm install @ideategudy/express-nestjs-observability
+                  npm install @stacklenzz/server
                 </pre>
               </div>
 
@@ -575,14 +575,14 @@ export default function DocumentationPage() {
                     Scaffold Frontend Dashboard
                   </div>
                   <button
-                    onClick={() => copyToClipboard("npx @ideategudy/observability-cli dashboard", "code-step2")}
+                    onClick={() => copyToClipboard("npx stacklenzz dashboard", "code-step2")}
                     style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.75rem" }}
                   >
                     {copiedCode === "code-step2" ? <Check size={14} color="#10b981" /> : <Copy size={14} />} Copy
                   </button>
                 </div>
                 <pre style={{ margin: 0, padding: "0.75rem 1rem", backgroundColor: "#020617", borderRadius: "0.5rem", color: "#e2e8f0", fontFamily: "monospace", fontSize: "0.82rem" }}>
-                  npx @ideategudy/observability-cli dashboard
+                  npx stacklenzz dashboard
                 </pre>
               </div>
 
@@ -656,14 +656,14 @@ export default function DocumentationPage() {
                   onClick={() => {
                     const cmd =
                       installPm === "cli"
-                        ? "npx @ideategudy/observability-cli dashboard"
+                        ? "npx stacklenzz dashboard"
                         : installPm === "pnpm"
-                        ? "pnpm add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react"
+                        ? "pnpm add @stacklenzz/server @stacklenzz/ui lucide-react"
                         : installPm === "bun"
-                        ? "bun add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react"
+                        ? "bun add @stacklenzz/server @stacklenzz/ui lucide-react"
                         : installPm === "yarn"
-                        ? "yarn add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react"
-                        : "npm install @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react";
+                        ? "yarn add @stacklenzz/server @stacklenzz/ui lucide-react"
+                        : "npm install @stacklenzz/server @stacklenzz/ui lucide-react";
                     copyToClipboard(cmd, "install-cmd");
                   }}
                   style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.72rem" }}
@@ -673,11 +673,11 @@ export default function DocumentationPage() {
               </div>
 
               <pre style={{ margin: 0, color: "#f8fafc", fontFamily: "monospace", fontSize: "0.85rem" }}>
-                {installPm === "cli" && `# 1. Scaffold Dashboard Route\nnpx @ideategudy/observability-cli dashboard\n\n# 2. Run Doctor to Validate Connection\nnpx @ideategudy/observability-cli doctor`}
-                {installPm === "npm" && `npm install @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react`}
-                {installPm === "pnpm" && `pnpm add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react`}
-                {installPm === "bun" && `bun add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react`}
-                {installPm === "yarn" && `yarn add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react`}
+                {installPm === "cli" && `# 1. Scaffold Dashboard Route\nnpx stacklenzz dashboard\n\n# 2. Run Doctor to Validate Connection\nnpx stacklenzz doctor`}
+                {installPm === "npm" && `npm install @stacklenzz/server @stacklenzz/ui lucide-react`}
+                {installPm === "pnpm" && `pnpm add @stacklenzz/server @stacklenzz/ui lucide-react`}
+                {installPm === "bun" && `bun add @stacklenzz/server @stacklenzz/ui lucide-react`}
+                {installPm === "yarn" && `yarn add @stacklenzz/server @stacklenzz/ui lucide-react`}
               </pre>
             </div>
           </section>
@@ -691,7 +691,7 @@ export default function DocumentationPage() {
             <pre style={{ margin: 0, padding: "1rem", backgroundColor: "#020617", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", color: "#f8fafc", fontFamily: "monospace", fontSize: "0.82rem", lineHeight: "1.5" }}>
 {`"use client";
 
-import { ObservabilityDashboard } from "@ideategudy/observability-ui";
+import { ObservabilityDashboard } from "@stacklenzz/ui";
 
 export default function AdminObservabilityPage() {
   return (
@@ -738,7 +738,7 @@ export default function AdminObservabilityPage() {
 
           {/* Section: CLI Commands */}
           <section id="cli-commands" style={{ marginBottom: "3.5rem" }}>
-            <h2 style={{ fontSize: "1.6rem", fontWeight: 700, margin: "0 0 1rem 0" }}>💻 Observability CLI Reference</h2>
+            <h2 style={{ fontSize: "1.6rem", fontWeight: 700, margin: "0 0 1rem 0" }}>💻 Stacklenzz CLI Reference</h2>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
               <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
                 <h4 style={{ margin: "0 0 0.4rem 0", color: "#38bdf8", fontSize: "0.95rem" }}>1. dashboard</h4>
@@ -746,10 +746,10 @@ export default function AdminObservabilityPage() {
                   Auto-detects framework and generates an admin dashboard route.
                 </p>
                 <code style={{ display: "block", padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.75rem", wordBreak: "break-all" }}>
-                  obs-cli dashboard -y
+                  stacklenzz dashboard
                 </code>
                 <span style={{ fontSize: "0.7rem", color: "#64748b", marginTop: "0.3rem", display: "block" }}>
-                  Or with npx: <code>npx obs-cli dashboard -y</code>
+                  Or with npx: <code>npx stacklenzz dashboard</code>
                 </span>
               </div>
 
@@ -759,10 +759,10 @@ export default function AdminObservabilityPage() {
                   Validates dependencies and tests live telemetry reachability.
                 </p>
                 <code style={{ display: "block", padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.75rem", wordBreak: "break-all" }}>
-                  obs-cli doctor
+                  stacklenzz doctor
                 </code>
                 <span style={{ fontSize: "0.7rem", color: "#64748b", marginTop: "0.3rem", display: "block" }}>
-                  Or with npx: <code>npx obs-cli doctor</code>
+                  Or with npx: <code>npx stacklenzz doctor</code>
                 </span>
               </div>
 
@@ -772,10 +772,10 @@ export default function AdminObservabilityPage() {
                   Creates an interactive <code>observability.config.ts</code> configuration.
                 </p>
                 <code style={{ display: "block", padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.75rem", wordBreak: "break-all" }}>
-                  obs-cli init
+                  stacklenzz init
                 </code>
                 <span style={{ fontSize: "0.7rem", color: "#64748b", marginTop: "0.3rem", display: "block" }}>
-                  Or with npx: <code>npx obs-cli init</code>
+                  Or with npx: <code>npx stacklenzz init</code>
                 </span>
               </div>
             </div>
@@ -789,8 +789,7 @@ export default function AdminObservabilityPage() {
             </p>
             <pre style={{ margin: 0, padding: "1rem", backgroundColor: "#020617", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", color: "#f8fafc", fontFamily: "monospace", fontSize: "0.82rem", lineHeight: "1.5" }}>
 {`import express from "express";
-import { setupObservability } from "@ideategudy/express-nestjs-observability/express";
-import { addBreadcrumb } from "@ideategudy/express-nestjs-observability";
+import { setupObservability, addBreadcrumb } from "@stacklenzz/server";
 
 const app = express();
 
@@ -822,7 +821,7 @@ app.listen(5000, () => console.log("Server listening on port 5000"));`}
             </p>
             <pre style={{ margin: 0, padding: "1rem", backgroundColor: "#020617", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", color: "#f8fafc", fontFamily: "monospace", fontSize: "0.82rem", lineHeight: "1.5" }}>
 {`import { Module } from "@nestjs/common";
-import { ObservabilityModule } from "@ideategudy/express-nestjs-observability/nestjs";
+import { ObservabilityModule } from "@stacklenzz/server/nestjs";
 
 @Module({
   imports: [

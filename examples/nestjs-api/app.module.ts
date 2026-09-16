@@ -8,7 +8,7 @@ import {
   Param,
   NotFoundException,
 } from "@nestjs/common";
-import { ObservabilityModule } from "@ideategudy/express-nestjs-observability/nestjs";
+import { ObservabilityModule } from "@stacklenzz/server/nestjs";
 
 @Controller("api")
 export class AppController {

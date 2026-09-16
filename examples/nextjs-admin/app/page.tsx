@@ -77,11 +77,11 @@ export default function LandingPage() {
             <Activity size={20} color="#ffffff" />
           </div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: "1.05rem", letterSpacing: "-0.02em", color: "#ffffff" }}>
-              Observability Kit
+            <div style={{ fontWeight: 800, fontSize: "1.1rem", letterSpacing: "-0.02em", color: "#ffffff" }}>
+              Stacklenzz
             </div>
             <div style={{ fontSize: "0.7rem", color: "#818cf8", fontWeight: 600 }}>
-              {CURRENT_PROJECT_VERSION} Production Ready
+              {CURRENT_PROJECT_VERSION}
             </div>
           </div>
         </div>
@@ -323,11 +323,11 @@ export default function LandingPage() {
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", overflow: "hidden" }}>
             <Terminal size={16} color="#818cf8" />
             <span style={{ fontFamily: "monospace", fontSize: "0.85rem", color: "#e2e8f0", whiteSpace: "nowrap" }}>
-              npx obs-cli dashboard -y
+              npx stacklenzz dashboard -y
             </span>
           </div>
           <button
-            onClick={() => copyCommand("npx obs-cli dashboard -y", "cli-hero")}
+            onClick={() => copyCommand("npx stacklenzz dashboard -y", "cli-hero")}
             style={{
               display: "flex",
               alignItems: "center",
@@ -368,7 +368,7 @@ export default function LandingPage() {
       >
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
           <h2 style={{ fontSize: "2rem", fontWeight: 800, margin: "0 0 0.5rem 0" }}>
-            The 3 Pillars of Observability Kit
+            The 3 Pillars of Stacklenzz
           </h2>
           <p style={{ color: "#94a3b8", fontSize: "0.95rem", margin: 0 }}>
             Everything you need for backend instrumentation, dashboard rendering, and tooling.
@@ -411,10 +411,10 @@ export default function LandingPage() {
               <Server size={22} />
             </div>
             <h3 style={{ fontSize: "1.25rem", fontWeight: 700, margin: "0 0 0.6rem 0" }}>
-              Express & NestJS SDK
+              @stacklenzz/server
             </h3>
             <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: 1.6, margin: "0 0 1.25rem 0", flex: 1 }}>
-              Plug-and-play middleware. Exposes <code>/metrics</code> for Prometheus scrapers, Winston JSON logging, and error tracking with automatic request-response latency percentiles (p50, p95, p99).
+              Plug-and-play middleware for Express and NestJS. Exposes <code>/metrics</code> for Prometheus scrapers, Winston JSON logging, and error tracking with automatic request-response latency percentiles (p50, p95, p99).
             </p>
             <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem 0", display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.82rem", color: "#cbd5e1" }}>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -472,7 +472,7 @@ export default function LandingPage() {
               <BarChart3 size={22} />
             </div>
             <h3 style={{ fontSize: "1.25rem", fontWeight: 700, margin: "0 0 0.6rem 0" }}>
-              React & Next.js UI
+              @stacklenzz/ui
             </h3>
             <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: 1.6, margin: "0 0 1.25rem 0", flex: 1 }}>
               Embeddable observability dashboard package with 6 pre-built layout views, 6 runtime color themes (Tokyo Night, Nord, Dracula, etc.), and deep stack-trace inspection.
@@ -533,20 +533,20 @@ export default function LandingPage() {
               <Terminal size={22} />
             </div>
             <h3 style={{ fontSize: "1.25rem", fontWeight: 700, margin: "0 0 0.6rem 0" }}>
-              Observability CLI
+              stacklenzz-cli
             </h3>
             <p style={{ color: "#94a3b8", fontSize: "0.88rem", lineHeight: 1.6, margin: "0 0 1.25rem 0", flex: 1 }}>
-              Command-line companion for developer happiness. Auto-detects Next.js App or Pages router, scaffolds dashboard routes, and validates server health with <code>obs-cli doctor</code>.
+              Command-line companion for developer happiness. Auto-detects Next.js App or Pages router, scaffolds dashboard routes, and validates server health with <code>stacklenzz doctor</code>.
             </p>
             <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem 0", display: "flex", flexDirection: "column", gap: "0.45rem", fontSize: "0.82rem", color: "#cbd5e1" }}>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#34d399" /> <code>obs-cli dashboard</code> - Auto-scaffold
+                <CheckCircle2 size={14} color="#34d399" /> <code>stacklenzz dashboard</code> - Auto-scaffold
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#34d399" /> <code>obs-cli doctor</code> - Health validation
+                <CheckCircle2 size={14} color="#34d399" /> <code>stacklenzz doctor</code> - Health validation
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <CheckCircle2 size={14} color="#34d399" /> <code>obs-cli init</code> - Configuration generator
+                <CheckCircle2 size={14} color="#34d399" /> <code>stacklenzz init</code> - Configuration generator
               </li>
             </ul>
             <Link
@@ -632,7 +632,7 @@ export default function LandingPage() {
             }}
           >
 {`import express from "express";
-import { setupObservability, addBreadcrumb } from "@ideategudy/express-nestjs-observability";
+import { setupObservability, addBreadcrumb } from "@stacklenzz/server";
 
 const app = express();
 
@@ -711,7 +711,7 @@ app.listen(5000, () => console.log("🚀 Server running on port 5000"));`}
             </Link>
           </div>
           <div style={{ marginTop: "3rem", fontSize: "0.78rem", color: "#64748b" }}>
-            Observability Kit • MIT Licensed • Goodnews Azonubi
+            Stacklenzz • MIT Licensed • Built with Node.js & React
           </div>
         </div>
       </section>

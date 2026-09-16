@@ -35,7 +35,7 @@ export function ObservabilityProvider({
   initialSnapshot,
 }: ObservabilityProviderProps) {
   const existingContext = useContext(ObservabilityContext);
-  if (existingContext && !config.theme && !config.endpoint) {
+  if (existingContext) {
     return <>{children}</>;
   }
 

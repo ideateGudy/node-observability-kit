@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Activity,
@@ -22,7 +22,12 @@ import {
   ChevronDown,
   CheckCircle2,
   Menu,
-  X
+  X,
+  Search,
+  PanelLeftClose,
+  PanelLeft,
+  ArrowRight,
+  CornerDownLeft,
 } from "lucide-react";
 import { CURRENT_PROJECT_VERSION, AVAILABLE_VERSIONS } from "./version";
 
@@ -30,9 +35,26 @@ export default function DocumentationPage() {
   const [selectedVersion, setSelectedVersion] = useState<string>(CURRENT_PROJECT_VERSION);
   const [isVersionDropdownOpen, setIsVersionDropdownOpen] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false);
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeSection, setActiveSection] = useState<string>("quickstart");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [installPm, setInstallPm] = useState<"cli" | "npm" | "pnpm" | "bun" | "yarn">("cli");
+
+  // Keyboard shortcut listener for Ctrl+K / Cmd+K and Esc
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      } else if (e.key === "Escape" && isSearchOpen) {
+        setIsSearchOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isSearchOpen]);
 
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -89,25 +111,60 @@ export default function DocumentationPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", width: "100%", maxWidth: "100vw", overflowX: "hidden", backgroundColor: "#090d16", color: "#f1f5f9" }}>
-      {/* Top Navbar */}
+    <div
+      style={{
+        height: "100vh",
+        maxHeight: "100vh",
+        width: "100vw",
+        maxWidth: "100vw",
+        overflow: "hidden",
+        backgroundColor: "#090d16",
+        color: "#f1f5f9",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* Top Navbar: Fixed / Static */}
       <header
         style={{
-          position: "sticky",
-          top: 0,
+          position: "relative",
           zIndex: 50,
+          flexShrink: 0,
+          height: "60px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0.85rem 1.25rem",
-          backgroundColor: "rgba(9, 13, 22, 0.92)",
+          padding: "0 1.25rem",
+          backgroundColor: "rgba(9, 13, 22, 0.96)",
           backdropFilter: "blur(12px)",
           borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
           width: "100%",
           boxSizing: "border-box",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          {/* Desktop Sidebar Expand/Collapse Toggle */}
+          <button
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "rgba(255, 255, 255, 0.05)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              borderRadius: "0.4rem",
+              padding: "0.45rem",
+              color: sidebarCollapsed ? "#818cf8" : "#94a3b8",
+              cursor: "pointer",
+              transition: "all 0.15s ease",
+            }}
+            className="desktop-sidebar-toggle"
+            title={sidebarCollapsed ? "Expand Sidebar" : "Collapse to Icons Only"}
+            aria-label="Toggle Sidebar Width"
+          >
+            {sidebarCollapsed ? <PanelLeft size={18} /> : <PanelLeftClose size={18} />}
+          </button>
+
           {/* Mobile menu hamburger toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -221,6 +278,49 @@ export default function DocumentationPage() {
           </div>
         </div>
 
+        {/* Center: Search Button (trigger for modal or direct search) */}
+        <div style={{ flex: 1, maxWidth: "420px", margin: "0 1rem" }} className="docs-search-wrapper">
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              background: "rgba(255, 255, 255, 0.04)",
+              border: "1px solid rgba(255, 255, 255, 0.09)",
+              borderRadius: "0.5rem",
+              padding: "0.45rem 0.75rem",
+              color: "#94a3b8",
+              fontSize: "0.82rem",
+              cursor: "pointer",
+              transition: "all 0.15s ease",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <Search size={15} color="#818cf8" />
+              <span>Search docs...</span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.2rem",
+                background: "rgba(255, 255, 255, 0.08)",
+                border: "1px solid rgba(255, 255, 255, 0.12)",
+                borderRadius: "0.25rem",
+                padding: "0.15rem 0.4rem",
+                fontSize: "0.68rem",
+                fontWeight: 600,
+                color: "#cbd5e1",
+              }}
+            >
+              <span>Ctrl</span>
+              <span>K</span>
+            </div>
+          </button>
+        </div>
+
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <Link
             href="/docs/observability-dashboard"
@@ -263,59 +363,76 @@ export default function DocumentationPage() {
         </div>
       </header>
 
-      {/* Main Documentation Layout: Fixed Viewport Height with independent Main Scroll */}
+      {/* Main Documentation Layout: Takes remaining viewport height with independent Main Scroll */}
       <div
         style={{
           display: "flex",
           width: "100%",
           maxWidth: "1600px",
           margin: "0 auto",
-          height: "calc(100vh - 61px)",
+          flex: 1,
+          height: "calc(100vh - 60px)",
+          maxHeight: "calc(100vh - 60px)",
           overflow: "hidden",
           position: "relative",
         }}
       >
-        {/* Sidebar Navigation: Static / Non-scrolling with the page */}
+        {/* Sidebar Navigation: Static / Non-scrolling with the page - Expandable / Collapsible */}
         <aside
           style={{
-            width: "280px",
+            width: sidebarCollapsed ? "68px" : "260px",
             flexShrink: 0,
             height: "100%",
             overflowY: "auto",
-            padding: "1.5rem 1rem",
+            overflowX: "hidden",
+            padding: sidebarCollapsed ? "1.25rem 0.5rem" : "1.5rem 1rem",
             borderRight: "1px solid rgba(255, 255, 255, 0.06)",
             boxSizing: "border-box",
+            transition: "width 0.2s cubic-bezier(0.4, 0, 0.2, 1), padding 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
-          className={`docs-sidebar ${mobileMenuOpen ? "open" : ""}`}
+          className={`docs-sidebar ${sidebarCollapsed ? "collapsed" : ""} ${mobileMenuOpen ? "open" : ""}`}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: sidebarCollapsed ? "1rem" : "1.5rem" }}>
             {navItems.map((group, idx) => (
               <div key={idx}>
-                <div
-                  style={{
-                    fontSize: "0.72rem",
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.08em",
-                    color: "#64748b",
-                    marginBottom: "0.5rem",
-                    paddingLeft: "0.5rem",
-                  }}
-                >
-                  {group.group}
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
+                {!sidebarCollapsed ? (
+                  <div
+                    style={{
+                      fontSize: "0.72rem",
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      color: "#64748b",
+                      marginBottom: "0.5rem",
+                      paddingLeft: "0.5rem",
+                    }}
+                  >
+                    {group.group}
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      height: "1px",
+                      background: "rgba(255, 255, 255, 0.06)",
+                      margin: "0.4rem 0.2rem 0.6rem",
+                    }}
+                    title={group.group}
+                  />
+                )}
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
                   {group.items.map((item) => {
                     const isActive = activeSection === item.id;
                     return (
                       <button
                         key={item.id}
                         onClick={() => handleNavClick(item.id)}
+                        title={sidebarCollapsed ? item.label : undefined}
                         style={{
                           display: "flex",
                           alignItems: "center",
+                          justifyContent: sidebarCollapsed ? "center" : "flex-start",
                           gap: "0.6rem",
-                          padding: "0.5rem 0.75rem",
+                          padding: sidebarCollapsed ? "0.6rem" : "0.5rem 0.75rem",
                           borderRadius: "0.5rem",
                           border: "none",
                           fontSize: "0.83rem",
@@ -328,8 +445,14 @@ export default function DocumentationPage() {
                           width: "100%",
                         }}
                       >
-                        <span style={{ color: isActive ? "#818cf8" : "#64748b" }}>{item.icon}</span>
-                        {item.label}
+                        <span style={{ color: isActive ? "#818cf8" : "#64748b", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                          {item.icon}
+                        </span>
+                        {!sidebarCollapsed && (
+                          <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                            {item.label}
+                          </span>
+                        )}
                       </button>
                     );
                   })}
@@ -722,20 +845,238 @@ export function middleware(req: NextRequest) {
         </main>
       </div>
 
-      {/* Global CSS for Mobile Responsiveness & Drawer */}
+      {/* Search Dialog Modal (Triggered by Ctrl+K / Cmd+K or clicking search in nav) */}
+      {isSearchOpen && (
+        <div
+          onClick={() => setIsSearchOpen(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            backgroundColor: "rgba(3, 7, 18, 0.75)",
+            backdropFilter: "blur(8px)",
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            paddingTop: "12vh",
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
+            animation: "fadeIn 0.15s ease-out",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: "100%",
+              maxWidth: "580px",
+              backgroundColor: "#0f172a",
+              border: "1px solid rgba(255, 255, 255, 0.12)",
+              borderRadius: "0.85rem",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 35px rgba(99, 102, 241, 0.15)",
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {/* Search Input Bar */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                padding: "0.85rem 1.1rem",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                backgroundColor: "rgba(255, 255, 255, 0.02)",
+              }}
+            >
+              <Search size={18} color="#818cf8" />
+              <input
+                type="text"
+                autoFocus
+                placeholder="Search documentation, topics, SDK setup..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  flex: 1,
+                  background: "transparent",
+                  border: "none",
+                  outline: "none",
+                  color: "#f8fafc",
+                  fontSize: "0.95rem",
+                }}
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    color: "#64748b",
+                    cursor: "pointer",
+                    padding: "0.2rem",
+                  }}
+                >
+                  <X size={15} />
+                </button>
+              )}
+              <div
+                style={{
+                  fontSize: "0.68rem",
+                  padding: "0.2rem 0.45rem",
+                  background: "rgba(255, 255, 255, 0.06)",
+                  borderRadius: "0.25rem",
+                  color: "#94a3b8",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                }}
+              >
+                ESC
+              </div>
+            </div>
+
+            {/* Search Results List */}
+            <div
+              style={{
+                maxHeight: "380px",
+                overflowY: "auto",
+                padding: "0.5rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.25rem",
+              }}
+            >
+              {(() => {
+                const query = searchQuery.trim().toLowerCase();
+                const allItems = navItems.flatMap((g) =>
+                  g.items.map((it) => ({ ...it, groupName: g.group }))
+                );
+                const filtered = query
+                  ? allItems.filter(
+                      (item) =>
+                        item.label.toLowerCase().includes(query) ||
+                        item.groupName.toLowerCase().includes(query) ||
+                        item.id.toLowerCase().includes(query)
+                    )
+                  : allItems;
+
+                if (filtered.length === 0) {
+                  return (
+                    <div style={{ padding: "2rem 1rem", textAlign: "center", color: "#64748b", fontSize: "0.85rem" }}>
+                      No documentation matching &ldquo;<span style={{ color: "#f1f5f9" }}>{searchQuery}</span>&rdquo;
+                    </div>
+                  );
+                }
+
+                return filtered.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setIsSearchOpen(false);
+                      setSearchQuery("");
+                      handleNavClick(item.id);
+                    }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "0.65rem 0.85rem",
+                      borderRadius: "0.5rem",
+                      border: "none",
+                      backgroundColor: "transparent",
+                      color: "#e2e8f0",
+                      cursor: "pointer",
+                      textAlign: "left",
+                      transition: "background-color 0.15s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "rgba(99, 102, 241, 0.15)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                      <div
+                        style={{
+                          width: "30px",
+                          height: "30px",
+                          borderRadius: "6px",
+                          background: "rgba(99, 102, 241, 0.12)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#818cf8",
+                        }}
+                      >
+                        {item.icon}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: "0.85rem", fontWeight: 500, color: "#f8fafc" }}>
+                          {item.label}
+                        </div>
+                        <div style={{ fontSize: "0.72rem", color: "#64748b" }}>
+                          {item.groupName}
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.3rem", color: "#64748b", fontSize: "0.75rem" }}>
+                      <span>Jump</span>
+                      <CornerDownLeft size={13} />
+                    </div>
+                  </button>
+                ));
+              })()}
+            </div>
+
+            {/* Modal Footer */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "0.6rem 1.1rem",
+                borderTop: "1px solid rgba(255, 255, 255, 0.06)",
+                fontSize: "0.7rem",
+                color: "#64748b",
+                backgroundColor: "rgba(2, 6, 23, 0.5)",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+                <span><kbd style={{ background: "rgba(255,255,255,0.08)", padding: "0.1rem 0.3rem", borderRadius: "3px" }}>↵</kbd> to select</span>
+                <span><kbd style={{ background: "rgba(255,255,255,0.08)", padding: "0.1rem 0.3rem", borderRadius: "3px" }}>ESC</kbd> to close</span>
+              </div>
+              <span style={{ color: "#818cf8" }}>Observability Docs</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Global CSS for Responsiveness, Search Bar & Drawer */}
       <style jsx global>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.98);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
         @media (max-width: 900px) {
+          .desktop-sidebar-toggle {
+            display: none !important;
+          }
           .mobile-nav-toggle {
             display: flex !important;
           }
           .docs-sidebar {
             position: fixed !important;
-            top: 57px !important;
+            top: 60px !important;
             left: -300px !important;
             z-index: 40 !important;
             background: rgba(9, 13, 22, 0.98) !important;
             width: 280px !important;
-            height: calc(100vh - 57px) !important;
+            height: calc(100vh - 60px) !important;
             transition: left 0.25s ease-in-out !important;
             box-shadow: 10px 0 25px rgba(0, 0, 0, 0.8) !important;
           }
@@ -745,9 +1086,20 @@ export function middleware(req: NextRequest) {
           .docs-main-content {
             padding: 1.5rem 1rem 4rem !important;
           }
+          .docs-search-wrapper {
+            max-width: 180px !important;
+          }
         }
         @media (min-width: 901px) {
           .mobile-nav-toggle {
+            display: none !important;
+          }
+          .desktop-sidebar-toggle {
+            display: flex !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .docs-search-wrapper {
             display: none !important;
           }
         }

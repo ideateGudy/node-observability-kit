@@ -78,6 +78,7 @@ export function DashboardSwitcher({
 }: DashboardSwitcherProps) {
   const { theme, setTheme, themeColors } = useObservability();
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
+  const [menuPlacement, setMenuPlacement] = useState<"left" | "right">("right");
   const themeMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -89,6 +90,18 @@ export function DashboardSwitcher({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (isThemeMenuOpen && themeMenuRef.current) {
+      const rect = themeMenuRef.current.getBoundingClientRect();
+      // If the theme switcher button is near the left edge (< 260px), align left with left offset
+      if (rect.left < 260) {
+        setMenuPlacement("left");
+      } else {
+        setMenuPlacement("right");
+      }
+    }
+  }, [isThemeMenuOpen]);
 
   const activeTheme = RUNTIME_THEMES[theme] || RUNTIME_THEMES["tokyo-night"];
 
@@ -206,7 +219,8 @@ export function DashboardSwitcher({
               style={{
                 position: "absolute",
                 top: "calc(100% + 8px)",
-                right: 0,
+                left: menuPlacement === "left" ? 0 : "auto",
+                right: menuPlacement === "right" ? 0 : "auto",
                 zIndex: 9999,
                 width: "250px",
                 maxWidth: "calc(100vw - 2.5rem)",

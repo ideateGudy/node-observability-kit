@@ -22,6 +22,7 @@ import {
   Terminal,
   Zap,
 } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { StacklenzzLogo } from "./components/StacklenzzLogo";
 import { CURRENT_PROJECT_VERSION } from "./docs/version";
 
@@ -159,8 +160,17 @@ export default function LandingPage() {
           alignItems: "center",
         }}
       >
-        {/* Glow backdrop decoration */}
-        <div
+        {/* Glow backdrop decoration with subtle pulse */}
+        <motion.div
+          animate={{
+            scale: [1, 1.08, 1],
+            opacity: [0.7, 1, 0.7],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
           style={{
             position: "absolute",
             top: "20%",
@@ -168,14 +178,18 @@ export default function LandingPage() {
             transform: "translate(-50%, -50%)",
             width: "550px",
             height: "280px",
-            background: "radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 80%)",
+            background: "radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, rgba(59, 130, 246, 0.08) 50%, transparent 80%)",
             filter: "blur(60px)",
             pointerEvents: "none",
             zIndex: 0,
           }}
         />
 
-        <div
+        {/* Hero Top Pill Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -194,9 +208,13 @@ export default function LandingPage() {
         >
           <Sparkles size={14} color="#818cf8" />
           <span>Full-Stack Telemetry for Node.js Backends & React UIs</span>
-        </div>
+        </motion.div>
 
-        <h1
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
           style={{
             fontSize: "clamp(2.4rem, 5vw, 4rem)",
             fontWeight: 900,
@@ -218,9 +236,13 @@ export default function LandingPage() {
           >
             Zero Boilerplate.
           </span>
-        </h1>
+        </motion.h1>
 
-        <p
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.2, ease: "easeOut" }}
           style={{
             fontSize: "clamp(1rem, 2vw, 1.2rem)",
             color: "#94a3b8",
@@ -232,10 +254,13 @@ export default function LandingPage() {
           }}
         >
           A production-grade instrumentation toolkit providing Express and NestJS telemetry, Prometheus metrics, structured Winston JSON logs, and mountable React & Next.js admin dashboards.
-        </p>
+        </motion.p>
 
         {/* CTA Button Group */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
           style={{
             display: "flex",
             flexWrap: "wrap",
@@ -247,52 +272,57 @@ export default function LandingPage() {
             marginBottom: "2.5rem",
           }}
         >
-          <Link
-            href="/docs"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.6rem",
-              padding: "0.8rem 1.6rem",
-              borderRadius: "0.6rem",
-              background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
-              color: "#ffffff",
-              fontSize: "0.95rem",
-              fontWeight: 600,
-              textDecoration: "none",
-              boxShadow: "0 10px 25px -5px rgba(79, 70, 229, 0.5)",
-              transition: "transform 0.15s ease",
-            }}
-          >
-            Explore Documentation <ArrowRight size={16} />
-          </Link>
+          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }}>
+            <Link
+              href="/docs"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.6rem",
+                padding: "0.8rem 1.6rem",
+                borderRadius: "0.6rem",
+                background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
+                color: "#ffffff",
+                fontSize: "0.95rem",
+                fontWeight: 600,
+                textDecoration: "none",
+                boxShadow: "0 10px 25px -5px rgba(79, 70, 229, 0.5)",
+              }}
+            >
+              Explore Documentation <ArrowRight size={16} />
+            </Link>
+          </motion.div>
 
-          <Link
-            href="/docs/observability-dashboard"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.6rem",
-              padding: "0.8rem 1.6rem",
-              borderRadius: "0.6rem",
-              background: "rgba(255, 255, 255, 0.05)",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
-              color: "#f8fafc",
-              fontSize: "0.95rem",
-              fontWeight: 600,
-              textDecoration: "none",
-              backdropFilter: "blur(10px)",
-              transition: "background 0.15s ease",
-            }}
-          >
-            <Play size={15} color="#38bdf8" /> Launch Demo Console
-          </Link>
-        </div>
+          <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.98 }}>
+            <Link
+              href="/docs/observability-dashboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.6rem",
+                padding: "0.8rem 1.6rem",
+                borderRadius: "0.6rem",
+                background: "rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(255, 255, 255, 0.12)",
+                color: "#f8fafc",
+                fontSize: "0.95rem",
+                fontWeight: 600,
+                textDecoration: "none",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              <Play size={15} color="#38bdf8" /> Launch Demo Console
+            </Link>
+          </motion.div>
+        </motion.div>
 
-        {/* Quick Install Banner */}
-        <div
+        {/* Quick Install Banner with interactive copy */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.38, ease: "easeOut" }}
           style={{
             display: "flex",
             alignItems: "center",
@@ -314,7 +344,9 @@ export default function LandingPage() {
               npx stacklenzz dashboard -y
             </span>
           </div>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
             onClick={() => copyCommand("npx stacklenzz dashboard -y", "cli-hero")}
             style={{
               display: "flex",
@@ -340,8 +372,8 @@ export default function LandingPage() {
                 <span>Copy</span>
               </>
             )}
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </section>
 
       {/* 3 Core Architecture Pillars */}
@@ -354,14 +386,20 @@ export default function LandingPage() {
           boxSizing: "border-box",
         }}
       >
-        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+          style={{ textAlign: "center", marginBottom: "3rem" }}
+        >
           <h2 style={{ fontSize: "2rem", fontWeight: 800, margin: "0 0 0.5rem 0" }}>
             The 3 Pillars of Stacklenzz
           </h2>
           <p style={{ color: "#94a3b8", fontSize: "0.95rem", margin: 0 }}>
             Everything you need for backend instrumentation, dashboard rendering, and tooling.
           </p>
-        </div>
+        </motion.div>
 
         <div
           style={{
@@ -371,7 +409,12 @@ export default function LandingPage() {
           }}
         >
           {/* Pillar 1 */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.45, delay: 0.05 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
             style={{
               backgroundColor: "rgba(15, 23, 42, 0.5)",
               border: "1px solid rgba(255, 255, 255, 0.07)",
@@ -429,10 +472,15 @@ export default function LandingPage() {
             >
               SDK Documentation <ArrowRight size={14} />
             </Link>
-          </div>
+          </motion.div>
 
           {/* Pillar 2 */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.45, delay: 0.15 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
             style={{
               backgroundColor: "rgba(15, 23, 42, 0.5)",
               border: "1px solid rgba(255, 255, 255, 0.07)",
@@ -490,10 +538,15 @@ export default function LandingPage() {
             >
               UI Component Docs <ArrowRight size={14} />
             </Link>
-          </div>
+          </motion.div>
 
           {/* Pillar 3 */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.45, delay: 0.25 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
             style={{
               backgroundColor: "rgba(15, 23, 42, 0.5)",
               border: "1px solid rgba(255, 255, 255, 0.07)",
@@ -551,7 +604,7 @@ export default function LandingPage() {
             >
               CLI Reference <ArrowRight size={14} />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -565,7 +618,11 @@ export default function LandingPage() {
           boxSizing: "border-box",
         }}
       >
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.55 }}
           style={{
             backgroundColor: "#030712",
             border: "1px solid rgba(255, 255, 255, 0.1)",
@@ -638,7 +695,7 @@ app.post("/api/checkout", async (req, res) => {
 
 app.listen(5000, () => console.log("🚀 Server running on port 5000"));`}
           </pre>
-        </div>
+        </motion.div>
       </section>
 
       {/* Call to Action Footer Banner */}
@@ -651,7 +708,13 @@ app.listen(5000, () => console.log("🚀 Server running on port 5000"));`}
           textAlign: "center",
         }}
       >
-        <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          style={{ maxWidth: "800px", margin: "0 auto" }}
+        >
           <h2 style={{ fontSize: "2rem", fontWeight: 800, margin: "0 0 1rem 0" }}>
             Ready to monitor your application?
           </h2>
@@ -659,49 +722,53 @@ app.listen(5000, () => console.log("🚀 Server running on port 5000"));`}
             Browse the interactive documentation for copy-paste examples, CLI commands, and complete SDK reference.
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link
-              href="/docs"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.8rem 1.75rem",
-                borderRadius: "0.5rem",
-                background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
-                color: "#ffffff",
-                fontSize: "0.95rem",
-                fontWeight: 600,
-                textDecoration: "none",
-                boxShadow: "0 0 20px rgba(79, 70, 229, 0.4)",
-              }}
-            >
-              Go to Documentation <ArrowRight size={16} />
-            </Link>
-            <Link
-              href="/docs/observability-dashboard"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                padding: "0.8rem 1.75rem",
-                borderRadius: "0.5rem",
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.12)",
-                color: "#ffffff",
-                fontSize: "0.95rem",
-                fontWeight: 600,
-                textDecoration: "none",
-              }}
-            >
-              View Live Demo <ExternalLink size={14} />
-            </Link>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/docs"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  padding: "0.8rem 1.75rem",
+                  borderRadius: "0.5rem",
+                  background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
+                  color: "#ffffff",
+                  fontSize: "0.95rem",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  boxShadow: "0 0 20px rgba(79, 70, 229, 0.4)",
+                }}
+              >
+                Go to Documentation <ArrowRight size={16} />
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/docs/observability-dashboard"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  padding: "0.8rem 1.75rem",
+                  borderRadius: "0.5rem",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: "1px solid rgba(255, 255, 255, 0.12)",
+                  color: "#ffffff",
+                  fontSize: "0.95rem",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                }}
+              >
+                View Live Demo <ExternalLink size={14} />
+              </Link>
+            </motion.div>
           </div>
           <div style={{ marginTop: "3rem", fontSize: "0.78rem", color: "#64748b" }}>
             Stacklenzz • MIT Licensed • Built with Node.js & React
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Global CSS for Landing page */}

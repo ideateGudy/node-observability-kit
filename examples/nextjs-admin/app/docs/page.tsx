@@ -29,6 +29,7 @@ import {
   ArrowRight,
   CornerDownLeft,
 } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { StacklenzzLogo } from "../components/StacklenzzLogo";
 import { CURRENT_PROJECT_VERSION, AVAILABLE_VERSIONS } from "./version";
 
@@ -848,209 +849,218 @@ export function middleware(req: NextRequest) {
       </div>
 
       {/* Search Dialog Modal (Triggered by Ctrl+K / Cmd+K or clicking search in nav) */}
-      {isSearchOpen && (
-        <div
-          onClick={() => setIsSearchOpen(false)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9999,
-            backgroundColor: "rgba(3, 7, 18, 0.75)",
-            backdropFilter: "blur(8px)",
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "center",
-            paddingTop: "12vh",
-            paddingLeft: "1rem",
-            paddingRight: "1rem",
-            animation: "fadeIn 0.15s ease-out",
-          }}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
+      <AnimatePresence>
+        {isSearchOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            onClick={() => setIsSearchOpen(false)}
             style={{
-              width: "100%",
-              maxWidth: "580px",
-              backgroundColor: "#0f172a",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
-              borderRadius: "0.85rem",
-              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 35px rgba(99, 102, 241, 0.15)",
-              overflow: "hidden",
+              position: "fixed",
+              inset: 0,
+              zIndex: 9999,
+              backgroundColor: "rgba(3, 7, 18, 0.75)",
+              backdropFilter: "blur(8px)",
               display: "flex",
-              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "center",
+              paddingTop: "12vh",
+              paddingLeft: "1rem",
+              paddingRight: "1rem",
             }}
           >
-            {/* Search Input Bar */}
-            <div
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: -8 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.75rem",
-                padding: "0.85rem 1.1rem",
-                borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-                backgroundColor: "rgba(255, 255, 255, 0.02)",
-              }}
-            >
-              <Search size={18} color="#818cf8" />
-              <input
-                type="text"
-                autoFocus
-                placeholder="Search documentation, topics, SDK setup..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                style={{
-                  flex: 1,
-                  background: "transparent",
-                  border: "none",
-                  outline: "none",
-                  color: "#f8fafc",
-                  fontSize: "0.95rem",
-                }}
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  style={{
-                    background: "transparent",
-                    border: "none",
-                    color: "#64748b",
-                    cursor: "pointer",
-                    padding: "0.2rem",
-                  }}
-                >
-                  <X size={15} />
-                </button>
-              )}
-              <div
-                style={{
-                  fontSize: "0.68rem",
-                  padding: "0.2rem 0.45rem",
-                  background: "rgba(255, 255, 255, 0.06)",
-                  borderRadius: "0.25rem",
-                  color: "#94a3b8",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                }}
-              >
-                ESC
-              </div>
-            </div>
-
-            {/* Search Results List */}
-            <div
-              style={{
-                maxHeight: "380px",
-                overflowY: "auto",
-                padding: "0.5rem",
+                width: "100%",
+                maxWidth: "580px",
+                backgroundColor: "#0f172a",
+                border: "1px solid rgba(255, 255, 255, 0.12)",
+                borderRadius: "0.85rem",
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 35px rgba(99, 102, 241, 0.15)",
+                overflow: "hidden",
                 display: "flex",
                 flexDirection: "column",
-                gap: "0.25rem",
               }}
             >
-              {(() => {
-                const query = searchQuery.trim().toLowerCase();
-                const allItems = navItems.flatMap((g) =>
-                  g.items.map((it) => ({ ...it, groupName: g.group }))
-                );
-                const filtered = query
-                  ? allItems.filter(
-                      (item) =>
-                        item.label.toLowerCase().includes(query) ||
-                        item.groupName.toLowerCase().includes(query) ||
-                        item.id.toLowerCase().includes(query)
-                    )
-                  : allItems;
-
-                if (filtered.length === 0) {
-                  return (
-                    <div style={{ padding: "2rem 1rem", textAlign: "center", color: "#64748b", fontSize: "0.85rem" }}>
-                      No documentation matching &ldquo;<span style={{ color: "#f1f5f9" }}>{searchQuery}</span>&rdquo;
-                    </div>
-                  );
-                }
-
-                return filtered.map((item) => (
+              {/* Search Input Bar */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.75rem",
+                  padding: "0.85rem 1.1rem",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                  backgroundColor: "rgba(255, 255, 255, 0.02)",
+                }}
+              >
+                <Search size={18} color="#818cf8" />
+                <input
+                  type="text"
+                  autoFocus
+                  placeholder="Search documentation, topics, SDK setup..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{
+                    flex: 1,
+                    background: "transparent",
+                    border: "none",
+                    outline: "none",
+                    color: "#f8fafc",
+                    fontSize: "0.95rem",
+                  }}
+                />
+                {searchQuery && (
                   <button
-                    key={item.id}
-                    onClick={() => {
-                      setIsSearchOpen(false);
-                      setSearchQuery("");
-                      handleNavClick(item.id);
-                    }}
+                    onClick={() => setSearchQuery("")}
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: "0.65rem 0.85rem",
-                      borderRadius: "0.5rem",
+                      background: "transparent",
                       border: "none",
-                      backgroundColor: "transparent",
-                      color: "#e2e8f0",
+                      color: "#64748b",
                       cursor: "pointer",
-                      textAlign: "left",
-                      transition: "background-color 0.15s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = "rgba(99, 102, 241, 0.15)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "transparent";
+                      padding: "0.2rem",
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                      <div
-                        style={{
-                          width: "30px",
-                          height: "30px",
-                          borderRadius: "6px",
-                          background: "rgba(99, 102, 241, 0.12)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: "#818cf8",
-                        }}
-                      >
-                        {item.icon}
-                      </div>
-                      <div>
-                        <div style={{ fontSize: "0.85rem", fontWeight: 500, color: "#f8fafc" }}>
-                          {item.label}
-                        </div>
-                        <div style={{ fontSize: "0.72rem", color: "#64748b" }}>
-                          {item.groupName}
-                        </div>
-                      </div>
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.3rem", color: "#64748b", fontSize: "0.75rem" }}>
-                      <span>Jump</span>
-                      <CornerDownLeft size={13} />
-                    </div>
+                    <X size={15} />
                   </button>
-                ));
-              })()}
-            </div>
-
-            {/* Modal Footer */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "0.6rem 1.1rem",
-                borderTop: "1px solid rgba(255, 255, 255, 0.06)",
-                fontSize: "0.7rem",
-                color: "#64748b",
-                backgroundColor: "rgba(2, 6, 23, 0.5)",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
-                <span><kbd style={{ background: "rgba(255,255,255,0.08)", padding: "0.1rem 0.3rem", borderRadius: "3px" }}>↵</kbd> to select</span>
-                <span><kbd style={{ background: "rgba(255,255,255,0.08)", padding: "0.1rem 0.3rem", borderRadius: "3px" }}>ESC</kbd> to close</span>
+                )}
+                <div
+                  style={{
+                    fontSize: "0.68rem",
+                    padding: "0.2rem 0.45rem",
+                    background: "rgba(255, 255, 255, 0.06)",
+                    borderRadius: "0.25rem",
+                    color: "#94a3b8",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                  }}
+                >
+                  ESC
+                </div>
               </div>
-              <span style={{ color: "#818cf8" }}>Observability Docs</span>
-            </div>
-          </div>
-        </div>
-      )}
+
+              {/* Search Results List */}
+              <div
+                style={{
+                  maxHeight: "380px",
+                  overflowY: "auto",
+                  padding: "0.5rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.25rem",
+                }}
+              >
+                {(() => {
+                  const query = searchQuery.trim().toLowerCase();
+                  const allItems = navItems.flatMap((g) =>
+                    g.items.map((it) => ({ ...it, groupName: g.group }))
+                  );
+                  const filtered = query
+                    ? allItems.filter(
+                        (item) =>
+                          item.label.toLowerCase().includes(query) ||
+                          item.groupName.toLowerCase().includes(query) ||
+                          item.id.toLowerCase().includes(query)
+                      )
+                    : allItems;
+
+                  if (filtered.length === 0) {
+                    return (
+                      <div style={{ padding: "2rem 1rem", textAlign: "center", color: "#64748b", fontSize: "0.85rem" }}>
+                        No documentation matching &ldquo;<span style={{ color: "#f1f5f9" }}>{searchQuery}</span>&rdquo;
+                      </div>
+                    );
+                  }
+
+                  return filtered.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        setIsSearchOpen(false);
+                        setSearchQuery("");
+                        handleNavClick(item.id);
+                      }}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "0.65rem 0.85rem",
+                        borderRadius: "0.5rem",
+                        border: "none",
+                        backgroundColor: "transparent",
+                        color: "#e2e8f0",
+                        cursor: "pointer",
+                        textAlign: "left",
+                        transition: "background-color 0.15s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = "rgba(99, 102, 241, 0.15)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                        <div
+                          style={{
+                            width: "30px",
+                            height: "30px",
+                            borderRadius: "6px",
+                            background: "rgba(99, 102, 241, 0.12)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            color: "#818cf8",
+                          }}
+                        >
+                          {item.icon}
+                        </div>
+                        <div>
+                          <div style={{ fontSize: "0.85rem", fontWeight: 500, color: "#f8fafc" }}>
+                            {item.label}
+                          </div>
+                          <div style={{ fontSize: "0.72rem", color: "#64748b" }}>
+                            {item.groupName}
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.3rem", color: "#64748b", fontSize: "0.75rem" }}>
+                        <span>Jump</span>
+                        <CornerDownLeft size={13} />
+                      </div>
+                    </button>
+                  ));
+                })()}
+              </div>
+
+              {/* Modal Footer */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "0.6rem 1.1rem",
+                  borderTop: "1px solid rgba(255, 255, 255, 0.06)",
+                  fontSize: "0.7rem",
+                  color: "#64748b",
+                  backgroundColor: "rgba(2, 6, 23, 0.5)",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+                  <span><kbd style={{ background: "rgba(255,255,255,0.08)", padding: "0.1rem 0.3rem", borderRadius: "3px" }}>↵</kbd> to select</span>
+                  <span><kbd style={{ background: "rgba(255,255,255,0.08)", padding: "0.1rem 0.3rem", borderRadius: "3px" }}>ESC</kbd> to close</span>
+                </div>
+                <span style={{ color: "#818cf8" }}>Observability Docs</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Global CSS for Responsiveness, Search Bar & Drawer */}
       <style jsx global>{`

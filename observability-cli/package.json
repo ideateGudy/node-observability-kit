@@ -1,0 +1,48 @@
+{
+  "name": "@ideategudy/observability-cli",
+  "version": "0.1.0",
+  "description": "Zero-configuration CLI to install and validate @ideategudy backend observability dashboards in React and Next.js applications",
+  "author": "Goodnews Azonubi <azonubigoodnews@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "observability",
+    "cli",
+    "dashboard",
+    "monitoring",
+    "nextjs",
+    "react",
+    "express",
+    "nestjs"
+  ],
+  "bin": {
+    "observability": "./bin/observability.js",
+    "ideategudy-observability": "./bin/observability.js"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "commander": "^13.1.0",
+    "picocolors": "^1.1.1",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

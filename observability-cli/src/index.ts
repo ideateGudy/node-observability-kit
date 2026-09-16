@@ -8,7 +8,7 @@ const program = new Command();
 program
   .name("@ideategudy/observability-cli")
   .description("Developer-first backend observability dashboard installer for React & Next.js")
-  .version("1.0.0");
+  .version("0.1.0");
 
 program
   .command("dashboard")

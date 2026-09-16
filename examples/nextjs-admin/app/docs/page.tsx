@@ -13,20 +13,21 @@ import {
   Copy,
   Check,
   ExternalLink,
-  ChevronRight,
-  BookOpen,
-  Search,
   Sparkles,
   Zap,
   Gauge,
   AlertTriangle,
   Play,
-  GitBranch
+  GitBranch,
+  Palette,
+  Box
 } from "lucide-react";
 
 export default function DocumentationPage() {
   const [activeSection, setActiveSection] = useState<string>("quickstart");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [installPm, setInstallPm] = useState<"cli" | "npm" | "pnpm" | "bun" | "yarn">("cli");
+  const [stylingTab, setStylingTab] = useState<"tailwind" | "shadcn" | "aceternity" | "standalone">("standalone");
 
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -40,7 +41,16 @@ export default function DocumentationPage() {
       items: [
         { id: "overview", label: "Overview & Architecture", icon: <Layers size={16} /> },
         { id: "quickstart", label: "Quick Start Guide", icon: <Zap size={16} /> },
-        { id: "installation", label: "Installation & Setup", icon: <Terminal size={16} /> },
+        { id: "installation", label: "Installation & CLI Options", icon: <Terminal size={16} /> },
+      ],
+    },
+    {
+      group: "Frontend & UI Styling",
+      items: [
+        { id: "ui-dashboard", label: "React & Next.js UI", icon: <Activity size={16} /> },
+        { id: "tailwind-shadcn", label: "Tailwind / Shadcn / Aceternity", icon: <Palette size={16} /> },
+        { id: "dashboard-themes", label: "6 Runtime Themes", icon: <Sparkles size={16} /> },
+        { id: "cli-commands", label: "CLI Commands Reference", icon: <Code size={16} /> },
       ],
     },
     {
@@ -53,18 +63,10 @@ export default function DocumentationPage() {
       ],
     },
     {
-      group: "Frontend & Dashboards",
+      group: "Production & Deploy",
       items: [
-        { id: "ui-dashboard", label: "React & Next.js UI", icon: <Activity size={16} /> },
-        { id: "dashboard-themes", label: "Themes & Layouts", icon: <Sparkles size={16} /> },
-        { id: "cli-tool", label: "Observability CLI", icon: <Code size={16} /> },
-      ],
-    },
-    {
-      group: "Production Readiness",
-      items: [
-        { id: "security", label: "Auth & Security", icon: <Shield size={16} /> },
-        { id: "deployment", label: "NPM & Live Hosting", icon: <ExternalLink size={16} /> },
+        { id: "security", label: "Auth & Middleware Security", icon: <Shield size={16} /> },
+        { id: "deployment", label: "Hosting Live on Vercel / Cloud", icon: <ExternalLink size={16} /> },
       ],
     },
   ];
@@ -120,7 +122,7 @@ export default function DocumentationPage() {
               fontWeight: 600,
             }}
           >
-            Developer-First
+            Developer-First Ecosystem
           </span>
         </div>
 
@@ -139,10 +141,9 @@ export default function DocumentationPage() {
               fontWeight: 600,
               textDecoration: "none",
               boxShadow: "0 2px 10px rgba(79, 70, 229, 0.3)",
-              transition: "all 0.2s",
             }}
           >
-            <Play size={14} /> Live Demo Dashboard
+            <Play size={14} /> Live Demo Console
           </Link>
           <a
             href="https://github.com/ideateGudy/ideategudy-observability-toolkit"
@@ -172,7 +173,7 @@ export default function DocumentationPage() {
         {/* Left Sticky Sidebar */}
         <aside
           style={{
-            width: "280px",
+            width: "290px",
             flexShrink: 0,
             height: "calc(100vh - 65px)",
             position: "sticky",
@@ -254,24 +255,17 @@ export default function DocumentationPage() {
                 border: "1px solid rgba(59, 130, 246, 0.25)",
               }}
             >
-              <Sparkles size={14} /> Full-Stack Telemetry System
+              <Sparkles size={14} /> Complete Developer Toolkit
             </div>
             <h1 style={{ fontSize: "2.75rem", fontWeight: 800, margin: "0 0 1rem 0", letterSpacing: "-0.03em" }}>
-              Modern Observability & Live Dashboards
+              Full-Stack Observability & Dashboards
             </h1>
             <p style={{ fontSize: "1.15rem", color: "#94a3b8", maxWidth: "800px", margin: "0 0 2rem 0" }}>
-              A developer-first monitoring system for Express and NestJS backends, paired with ready-to-mount React & Next.js admin dashboards. Collect Prometheus metrics, OpenTelemetry distributed traces, and intelligent error fingerprints with zero configuration.
+              A developer-first monitoring system for Express and NestJS backends, paired with ready-to-mount React & Next.js admin dashboards. Collect Prometheus metrics, OpenTelemetry traces, and intelligent error fingerprints with zero configuration.
             </p>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", margin: "2rem 0" }}>
-              <div
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                  borderRadius: "0.75rem",
-                  padding: "1.5rem",
-                }}
-              >
+              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.5rem" }}>
                 <div style={{ color: "#818cf8", marginBottom: "0.75rem" }}><Server size={24} /></div>
                 <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>Backend Core SDK</h3>
                 <p style={{ margin: 0, fontSize: "0.875rem", color: "#94a3b8" }}>
@@ -279,129 +273,212 @@ export default function DocumentationPage() {
                 </p>
               </div>
 
-              <div
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                  borderRadius: "0.75rem",
-                  padding: "1.5rem",
-                }}
-              >
+              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.5rem" }}>
                 <div style={{ color: "#38bdf8", marginBottom: "0.75rem" }}><Activity size={24} /></div>
                 <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>React Dashboard UI</h3>
                 <p style={{ margin: 0, fontSize: "0.875rem", color: "#94a3b8" }}>
-                  6 pre-built dashboard layouts, 6 runtime color themes, deep error inspector with stack traces and breadcrumb timelines.
+                  6 pre-built dashboard layouts, 6 runtime themes, deep error inspector with stack traces, breadcrumb timelines, and Tailwind compatibility.
                 </p>
               </div>
 
-              <div
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                  borderRadius: "0.75rem",
-                  padding: "1.5rem",
-                }}
-              >
+              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.5rem" }}>
                 <div style={{ color: "#34d399", marginBottom: "0.75rem" }}><Terminal size={24} /></div>
                 <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.1rem" }}>Zero-Config CLI</h3>
                 <p style={{ margin: 0, fontSize: "0.875rem", color: "#94a3b8" }}>
-                  Detects Next.js App/Pages Router and Vite. Installs UI routes and validates backend connectivity with <code>observability doctor</code>.
+                  Detects Next.js App/Pages Router and Vite. Installs UI routes, initializes configs, and validates connectivity with <code>doctor</code>.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Section: Quick Start */}
-          <section id="quickstart" style={{ marginBottom: "4rem" }}>
-            <h2 style={{ fontSize: "1.8rem", fontWeight: 700, margin: "0 0 1rem 0" }}>⚡️ Quick Start in 3 Steps</h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-              {/* Step 1 */}
-              <div
-                style={{
-                  background: "rgba(15, 23, 42, 0.6)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                  borderRadius: "0.75rem",
-                  padding: "1.5rem",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: 700, fontSize: "1rem" }}>
-                    <span style={{ width: "24px", height: "24px", borderRadius: "50%", background: "#4f46e5", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem" }}>1</span>
-                    Instrument Your Backend
-                  </div>
-                  <button
-                    onClick={() => copyToClipboard("npm install @ideategudy/express-nestjs-observability", "code-step1")}
-                    style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.75rem" }}
-                  >
-                    {copiedCode === "code-step1" ? <Check size={14} color="#10b981" /> : <Copy size={14} />} Copy
-                  </button>
-                </div>
-                <pre style={{ margin: 0, padding: "0.85rem 1rem", backgroundColor: "#020617", borderRadius: "0.5rem", color: "#e2e8f0", fontFamily: "monospace", fontSize: "0.85rem", overflowX: "auto" }}>
-                  npm install @ideategudy/express-nestjs-observability
-                </pre>
+          {/* Section: Installation & CLI Options */}
+          <section id="installation" style={{ marginBottom: "4rem" }}>
+            <h2 style={{ fontSize: "1.8rem", fontWeight: 700, margin: "0 0 1rem 0" }}>📦 Installation Options</h2>
+            <p style={{ color: "#94a3b8", margin: "0 0 1.25rem 0" }}>
+              Choose your preferred installation method. You can use the automated CLI or install packages manually via your favorite package manager:
+            </p>
+
+            {/* PM Switcher Tabs */}
+            <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
+              {(["cli", "npm", "pnpm", "bun", "yarn"] as const).map((pm) => (
+                <button
+                  key={pm}
+                  onClick={() => setInstallPm(pm)}
+                  style={{
+                    padding: "0.4rem 0.85rem",
+                    borderRadius: "0.375rem",
+                    border: "1px solid",
+                    borderColor: installPm === pm ? "#6366f1" : "rgba(255, 255, 255, 0.1)",
+                    backgroundColor: installPm === pm ? "rgba(99, 102, 241, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: installPm === pm ? "#ffffff" : "#94a3b8",
+                    fontSize: "0.8rem",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {pm === "cli" ? "CLI Auto (Recommended)" : pm}
+                </button>
+              ))}
+            </div>
+
+            {/* Code Box */}
+            <div style={{ position: "relative", background: "#020617", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+                <span style={{ fontSize: "0.75rem", color: "#64748b", fontFamily: "monospace" }}>Terminal</span>
+                <button
+                  onClick={() => {
+                    const cmd =
+                      installPm === "cli"
+                        ? "npx @ideategudy/observability-cli dashboard"
+                        : installPm === "pnpm"
+                        ? "pnpm add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react"
+                        : installPm === "bun"
+                        ? "bun add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react"
+                        : installPm === "yarn"
+                        ? "yarn add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react"
+                        : "npm install @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react";
+                    copyToClipboard(cmd, "install-cmd");
+                  }}
+                  style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.75rem" }}
+                >
+                  {copiedCode === "install-cmd" ? <Check size={14} color="#10b981" /> : <Copy size={14} />} Copy
+                </button>
               </div>
 
-              {/* Step 2 */}
-              <div
-                style={{
-                  background: "rgba(15, 23, 42, 0.6)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                  borderRadius: "0.75rem",
-                  padding: "1.5rem",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: 700, fontSize: "1rem" }}>
-                    <span style={{ width: "24px", height: "24px", borderRadius: "50%", background: "#0284c7", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem" }}>2</span>
-                    Scaffold Frontend Dashboard
-                  </div>
-                  <button
-                    onClick={() => copyToClipboard("npx @ideategudy/observability-cli dashboard", "code-step2")}
-                    style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.75rem" }}
-                  >
-                    {copiedCode === "code-step2" ? <Check size={14} color="#10b981" /> : <Copy size={14} />} Copy
-                  </button>
-                </div>
-                <pre style={{ margin: 0, padding: "0.85rem 1rem", backgroundColor: "#020617", borderRadius: "0.5rem", color: "#e2e8f0", fontFamily: "monospace", fontSize: "0.85rem", overflowX: "auto" }}>
-                  npx @ideategudy/observability-cli dashboard
-                </pre>
+              <pre style={{ margin: 0, color: "#f8fafc", fontFamily: "monospace", fontSize: "0.9rem", overflowX: "auto" }}>
+                {installPm === "cli" && `# 1. Scaffold Dashboard Route\nnpx @ideategudy/observability-cli dashboard\n\n# 2. Run Doctor to Validate Connection\nnpx @ideategudy/observability-cli doctor`}
+                {installPm === "npm" && `npm install @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react`}
+                {installPm === "pnpm" && `pnpm add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react`}
+                {installPm === "bun" && `bun add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react`}
+                {installPm === "yarn" && `yarn add @ideategudy/express-nestjs-observability @ideategudy/observability-ui lucide-react`}
+              </pre>
+            </div>
+          </section>
+
+          {/* Section: Tailwind / Shadcn / Aceternity UI */}
+          <section id="tailwind-shadcn" style={{ marginBottom: "4rem" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "0.3rem 0.75rem",
+                borderRadius: "9999px",
+                background: "rgba(168, 85, 247, 0.12)",
+                color: "#c084fc",
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                marginBottom: "1rem",
+                border: "1px solid rgba(168, 85, 247, 0.25)",
+              }}
+            >
+              <Palette size={14} /> UI Framework Adaptability
+            </div>
+            <h2 style={{ fontSize: "1.8rem", fontWeight: 700, margin: "0 0 1rem 0" }}>
+              Using with Tailwind CSS, Shadcn/UI & Aceternity UI
+            </h2>
+            <p style={{ color: "#94a3b8", margin: "0 0 1.5rem 0" }}>
+              The <code>@ideategudy/observability-ui</code> dashboard is fully encapsulated with zero stylesheet collisions. You can embed it directly inside modern design systems, wrapper cards, or page shells built with Tailwind, Shadcn/UI, or Aceternity UI.
+            </p>
+
+            {/* Framework Switcher Tabs */}
+            <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
+              {[
+                { id: "standalone", label: "Zero-Config Standalone" },
+                { id: "tailwind", label: "Tailwind CSS Shell" },
+                { id: "shadcn", label: "Shadcn Card / Tabs Shell" },
+                { id: "aceternity", label: "Aceternity Lamp & Background" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setStylingTab(tab.id as any)}
+                  style={{
+                    padding: "0.45rem 0.9rem",
+                    borderRadius: "0.375rem",
+                    border: "1px solid",
+                    borderColor: stylingTab === tab.id ? "#a855f7" : "rgba(255, 255, 255, 0.1)",
+                    backgroundColor: stylingTab === tab.id ? "rgba(168, 85, 247, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                    color: stylingTab === tab.id ? "#ffffff" : "#94a3b8",
+                    fontSize: "0.8rem",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                  }}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Framework Code Box */}
+            <div style={{ background: "#020617", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+                <span style={{ fontSize: "0.75rem", color: "#64748b", fontFamily: "monospace" }}>app/admin/observability/page.tsx</span>
+                <button
+                  onClick={() => {
+                    let code = "";
+                    if (stylingTab === "standalone") {
+                      code = `import { ObservabilityDashboard } from "@ideategudy/observability-ui";\n\nexport default function Page() {\n  return <ObservabilityDashboard defaultDashboard="full" showSwitcher={true} />;\n}`;
+                    } else if (stylingTab === "tailwind") {
+                      code = `"use client";\nimport { ObservabilityDashboard } from "@ideategudy/observability-ui";\n\nexport default function TailwindObservabilityPage() {\n  return (\n    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-10">\n      <header className="mb-8 border-b border-slate-800/80 pb-4">\n        <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">\n          System Operations Console\n        </h1>\n        <p className="text-sm text-slate-400 mt-1">Live distributed tracing and cluster metrics</p>\n      </header>\n      <div className="rounded-2xl border border-slate-800/60 bg-slate-900/40 p-1 backdrop-blur-xl shadow-2xl shadow-indigo-950/20">\n        <ObservabilityDashboard defaultDashboard="full" showSwitcher={true} />\n      </div>\n    </div>\n  );\n}`;
+                    } else if (stylingTab === "shadcn") {
+                      code = `"use client";\nimport { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";\nimport { ObservabilityDashboard, ApiOverviewDashboard, ErrorMonitoringDashboard } from "@ideategudy/observability-ui";\n\nexport default function ShadcnObservabilityPage() {\n  return (\n    <div className="space-y-6 p-8">\n      <Tabs defaultValue="overview" className="w-full space-y-6">\n        <TabsList className="bg-muted/50 p-1">\n          <TabsTrigger value="overview">All Systems</TabsTrigger>\n          <TabsTrigger value="api">API Traffic</TabsTrigger>\n          <TabsTrigger value="errors">Error Inspector</TabsTrigger>\n        </TabsList>\n        <TabsContent value="overview">\n          <ObservabilityDashboard defaultDashboard="full" showSwitcher={false} />\n        </TabsContent>\n        <TabsContent value="api">\n          <ApiOverviewDashboard />\n        </TabsContent>\n        <TabsContent value="errors">\n          <ErrorMonitoringDashboard />\n        </TabsContent>\n      </Tabs>\n    </div>\n  );\n}`;
+                    } else if (stylingTab === "aceternity") {
+                      code = `"use client";\nimport { LampContainer } from "@/components/ui/lamp";\nimport { ObservabilityDashboard } from "@ideategudy/observability-ui";\n\nexport default function AceternityObservability() {\n  return (\n    <main className="relative min-h-screen bg-black overflow-hidden">\n      <LampContainer>\n        <h1 className="bg-gradient-to-br from-slate-100 to-slate-400 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-6xl">\n          Real-Time Observability\n        </h1>\n      </LampContainer>\n      <div className="relative -mt-40 z-20 max-w-7xl mx-auto px-4 pb-20">\n        <div className="rounded-3xl border border-white/10 bg-black/60 p-2 backdrop-blur-2xl">\n          <ObservabilityDashboard defaultDashboard="full" showSwitcher={true} />\n        </div>\n      </div>\n    </main>\n  );\n}`;
+                    }
+                    copyToClipboard(code, "styling-code");
+                  }}
+                  style={{ background: "transparent", border: "none", color: "#94a3b8", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.75rem" }}
+                >
+                  {copiedCode === "styling-code" ? <Check size={14} color="#10b981" /> : <Copy size={14} />} Copy Code
+                </button>
               </div>
 
-              {/* Step 3 */}
-              <div
-                style={{
-                  background: "rgba(15, 23, 42, 0.6)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
-                  borderRadius: "0.75rem",
-                  padding: "1.5rem",
-                }}
-              >
-                <div style={{ fontWeight: 700, fontSize: "1rem", marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <span style={{ width: "24px", height: "24px", borderRadius: "50%", background: "#059669", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem" }}>3</span>
-                  View Live Protected Route
-                </div>
-                <p style={{ margin: "0 0 0.75rem 0", color: "#94a3b8", fontSize: "0.9rem" }}>
-                  Navigate to your frontend application to inspect live traffic, latencies, and errors in real-time:
+              <pre style={{ margin: 0, color: "#f8fafc", fontFamily: "monospace", fontSize: "0.85rem", lineHeight: "1.6", overflowX: "auto" }}>
+                {stylingTab === "standalone" && `// 1. Zero external CSS required - plug directly into any React / Next.js app\nimport { ObservabilityDashboard } from "@ideategudy/observability-ui";\n\nexport default function AdminPage() {\n  return (\n    <ObservabilityDashboard\n      config={{\n        endpoint: "http://localhost:5000/api/observability/stats",\n        refreshIntervalMs: 5000,\n      }}\n      defaultDashboard="full"\n      showSwitcher={true}\n    />\n  );\n}`}
+                {stylingTab === "tailwind" && `"use client";\nimport { ObservabilityDashboard } from "@ideategudy/observability-ui";\n\nexport default function TailwindObservabilityPage() {\n  return (\n    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-10">\n      <header className="mb-8 border-b border-slate-800/80 pb-4">\n        <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">\n          System Operations Console\n        </h1>\n        <p className="text-sm text-slate-400 mt-1">Live distributed tracing and cluster metrics</p>\n      </header>\n      <div className="rounded-2xl border border-slate-800/60 bg-slate-900/40 p-1 backdrop-blur-xl shadow-2xl shadow-indigo-950/20">\n        <ObservabilityDashboard defaultDashboard="full" showSwitcher={true} />\n      </div>\n    </div>\n  );\n}`}
+                {stylingTab === "shadcn" && `"use client";\nimport { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";\nimport { ObservabilityDashboard, ApiOverviewDashboard, ErrorMonitoringDashboard } from "@ideategudy/observability-ui";\n\nexport default function ShadcnObservabilityPage() {\n  return (\n    <div className="space-y-6 p-8">\n      <Tabs defaultValue="overview" className="w-full space-y-6">\n        <TabsList className="bg-muted/50 p-1">\n          <TabsTrigger value="overview">All Systems</TabsTrigger>\n          <TabsTrigger value="api">API Traffic</TabsTrigger>\n          <TabsTrigger value="errors">Error Inspector</TabsTrigger>\n        </TabsList>\n        <TabsContent value="overview">\n          <ObservabilityDashboard defaultDashboard="full" showSwitcher={false} />\n        </TabsContent>\n        <TabsContent value="api">\n          <ApiOverviewDashboard />\n        </TabsContent>\n        <TabsContent value="errors">\n          <ErrorMonitoringDashboard />\n        </TabsContent>\n      </Tabs>\n    </div>\n  );\n}`}
+                {stylingTab === "aceternity" && `"use client";\nimport { LampContainer } from "@/components/ui/lamp";\nimport { ObservabilityDashboard } from "@ideategudy/observability-ui";\n\nexport default function AceternityObservability() {\n  return (\n    <main className="relative min-h-screen bg-black overflow-hidden">\n      <LampContainer>\n        <h1 className="bg-gradient-to-br from-slate-100 to-slate-400 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-6xl">\n          Real-Time Observability\n        </h1>\n      </LampContainer>\n      <div className="relative -mt-40 z-20 max-w-7xl mx-auto px-4 pb-20">\n        <div className="rounded-3xl border border-white/10 bg-black/60 p-2 backdrop-blur-2xl">\n          <ObservabilityDashboard defaultDashboard="full" showSwitcher={true} />\n        </div>\n      </div>\n    </main>\n  );\n}`}
+              </pre>
+            </div>
+          </section>
+
+          {/* Section: CLI Commands */}
+          <section id="cli-commands" style={{ marginBottom: "4rem" }}>
+            <h2 style={{ fontSize: "1.8rem", fontWeight: 700, margin: "0 0 1rem 0" }}>💻 Observability CLI Reference</h2>
+            <p style={{ color: "#94a3b8", margin: "0 0 1.25rem 0" }}>
+              The <code>@ideategudy/observability-cli</code> provides commands to scaffold, inspect, and maintain your telemetry pipeline:
+            </p>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
+              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
+                <h4 style={{ margin: "0 0 0.5rem 0", color: "#38bdf8" }}>1. dashboard</h4>
+                <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.85rem", color: "#94a3b8" }}>
+                  Detects framework (Next.js App/Pages or Vite) and generates an admin dashboard route.
                 </p>
-                <div style={{ display: "flex", gap: "1rem" }}>
-                  <Link
-                    href="/admin/observability"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      padding: "0.6rem 1.2rem",
-                      borderRadius: "0.5rem",
-                      backgroundColor: "#4f46e5",
-                      color: "#ffffff",
-                      fontSize: "0.85rem",
-                      fontWeight: 600,
-                      textDecoration: "none",
-                    }}
-                  >
-                    Open Live /admin/observability <ExternalLink size={14} />
-                  </Link>
-                </div>
+                <pre style={{ margin: 0, padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.8rem", overflowX: "auto" }}>
+npx @ideategudy/observability-cli dashboard -y
+                </pre>
+              </div>
+
+              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
+                <h4 style={{ margin: "0 0 0.5rem 0", color: "#34d399" }}>2. doctor / validate</h4>
+                <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.85rem", color: "#94a3b8" }}>
+                  Validates dependencies, Node.js version, and live reachability of your backend endpoint.
+                </p>
+                <pre style={{ margin: 0, padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.8rem", overflowX: "auto" }}>
+npx @ideategudy/observability-cli doctor
+                </pre>
+              </div>
+
+              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
+                <h4 style={{ margin: "0 0 0.5rem 0", color: "#fbbf24" }}>3. init</h4>
+                <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.85rem", color: "#94a3b8" }}>
+                  Creates an interactive <code>observability.config.ts</code> configuration file.
+                </p>
+                <pre style={{ margin: 0, padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.8rem", overflowX: "auto" }}>
+npx @ideategudy/observability-cli init
+                </pre>
               </div>
             </div>
           </section>
@@ -412,8 +489,7 @@ export default function DocumentationPage() {
             <p style={{ color: "#94a3b8", margin: "0 0 1.25rem 0" }}>
               Call <code>setupObservability(app)</code> before declaring your routes. This hooks incoming requests, tracks response status codes, formats JSON logs via Winston, and registers endpoints:
             </p>
-            <div style={{ position: "relative" }}>
-              <pre style={{ margin: 0, padding: "1.25rem", backgroundColor: "#020617", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", color: "#f8fafc", fontFamily: "monospace", fontSize: "0.875rem", lineHeight: "1.6", overflowX: "auto" }}>
+            <pre style={{ margin: 0, padding: "1.25rem", backgroundColor: "#020617", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", color: "#f8fafc", fontFamily: "monospace", fontSize: "0.875rem", lineHeight: "1.6", overflowX: "auto" }}>
 {`import express from "express";
 import { setupObservability } from "@ideategudy/express-nestjs-observability/express";
 import { addBreadcrumb } from "@ideategudy/express-nestjs-observability";
@@ -437,8 +513,7 @@ app.use((req, res) => {
 });
 
 app.listen(5000, () => console.log("Server listening on port 5000"));`}
-              </pre>
-            </div>
+            </pre>
           </section>
 
           {/* Section: NestJS */}
@@ -461,60 +536,6 @@ import { ObservabilityModule } from "@ideategudy/express-nestjs-observability/ne
 })
 export class AppModule {}`}
             </pre>
-          </section>
-
-          {/* Section: UI Dashboard */}
-          <section id="ui-dashboard" style={{ marginBottom: "4rem" }}>
-            <h2 style={{ fontSize: "1.8rem", fontWeight: 700, margin: "0 0 1rem 0" }}>React & Next.js UI Dashboard</h2>
-            <p style={{ color: "#94a3b8", margin: "0 0 1.25rem 0" }}>
-              Render the unified <code>&lt;ObservabilityDashboard /&gt;</code> inside any client component:
-            </p>
-            <pre style={{ margin: 0, padding: "1.25rem", backgroundColor: "#020617", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", color: "#f8fafc", fontFamily: "monospace", fontSize: "0.875rem", lineHeight: "1.6", overflowX: "auto" }}>
-{`"use client";
-
-import { ObservabilityDashboard } from "@ideategudy/observability-ui";
-
-export default function AdminObservabilityPage() {
-  return (
-    <main style={{ minHeight: "100vh", backgroundColor: "#090d16" }}>
-      <ObservabilityDashboard
-        config={{
-          endpoint: "http://localhost:5000/api/observability/stats",
-          refreshIntervalMs: 5000,
-        }}
-        defaultDashboard="full"
-        showSwitcher={true}
-      />
-    </main>
-  );
-}`}
-            </pre>
-          </section>
-
-          {/* Section: CLI Tool */}
-          <section id="cli-tool" style={{ marginBottom: "4rem" }}>
-            <h2 style={{ fontSize: "1.8rem", fontWeight: 700, margin: "0 0 1rem 0" }}>Observability CLI Commands</h2>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
-              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
-                <h4 style={{ margin: "0 0 0.5rem 0", color: "#38bdf8" }}>Scaffold Dashboard</h4>
-                <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.85rem", color: "#94a3b8" }}>
-                  Detects project framework and creates an admin observability page.
-                </p>
-                <code style={{ display: "block", padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.8rem" }}>
-                  npx @ideategudy/observability-cli dashboard
-                </code>
-              </div>
-
-              <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
-                <h4 style={{ margin: "0 0 0.5rem 0", color: "#34d399" }}>Environment Doctor</h4>
-                <p style={{ margin: "0 0 0.75rem 0", fontSize: "0.85rem", color: "#94a3b8" }}>
-                  Verifies dependencies and validates live telemetry endpoint connectivity.
-                </p>
-                <code style={{ display: "block", padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.8rem" }}>
-                  npx @ideategudy/observability-cli doctor
-                </code>
-              </div>
-            </div>
           </section>
 
           {/* Section: Security */}

@@ -204,11 +204,19 @@ export function middleware(req: NextRequest) {
 
 ---
 
-## 🛠 Building & Contributing
+## 🛠 Building, Testing & Contributing
 
 ```bash
 # Install root dependencies
 npm install
+
+# Run automated tests across all 3 packages
+npm test
+
+# Or run tests per package:
+npm run test:sdk   # express-nestjs-observability (12 unit tests)
+npm run test:ui    # observability-ui (4 unit tests)
+npm run test:cli   # observability-cli (5 unit tests)
 
 # Build all packages simultaneously
 npm run build
@@ -217,6 +225,11 @@ npm run build
 npm run build:sdk   # express-nestjs-observability
 npm run build:ui    # observability-ui
 npm run build:cli   # observability-cli
+
+# Version management:
+npm run version:sdk patch   # Bump backend SDK
+npm run version:ui patch    # Bump UI package
+npm run version:cli patch   # Bump CLI package
 ```
 
 ---

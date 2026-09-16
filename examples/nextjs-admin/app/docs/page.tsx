@@ -58,6 +58,44 @@ export default function DocumentationPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isSearchOpen]);
 
+  // Auto-highlight sidebar section as user scrolls through docs-main-scroll-container
+  useEffect(() => {
+    const container = document.getElementById("docs-main-scroll-container");
+    if (!container) return;
+
+    const allSectionIds = navItems.flatMap((g) => g.items.map((item) => item.id));
+
+    const handleScroll = () => {
+      const containerTop = container.scrollTop;
+      const containerHeight = container.clientHeight;
+
+      // If scrolled near bottom of container, highlight the last section
+      if (container.scrollHeight - (containerTop + containerHeight) < 80) {
+        setActiveSection(allSectionIds[allSectionIds.length - 1]);
+        return;
+      }
+
+      let currentSection = allSectionIds[0];
+      for (const id of allSectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const relativeTop = el.offsetTop - container.offsetTop;
+          if (containerTop >= relativeTop - 120) {
+            currentSection = id;
+          }
+        }
+      }
+      setActiveSection(currentSection);
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopiedCode(id);

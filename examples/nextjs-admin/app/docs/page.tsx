@@ -78,7 +78,14 @@ export default function DocumentationPage() {
   const handleNavClick = (id: string) => {
     setActiveSection(id);
     setMobileMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById(id);
+    const container = document.getElementById("docs-main-scroll-container");
+    if (target && container) {
+      const topPos = target.offsetTop - container.offsetTop;
+      container.scrollTo({ top: topPos - 20, behavior: "smooth" });
+    } else if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -216,7 +223,7 @@ export default function DocumentationPage() {
 
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <Link
-            href="/admin/observability"
+            href="/docs/observability-dashboard"
             style={{
               display: "flex",
               alignItems: "center",
@@ -256,16 +263,24 @@ export default function DocumentationPage() {
         </div>
       </header>
 
-      {/* Main Documentation Layout */}
-      <div style={{ display: "flex", width: "100%", maxWidth: "1500px", margin: "0 auto", position: "relative" }}>
-        {/* Sidebar Navigation */}
+      {/* Main Documentation Layout: Fixed Viewport Height with independent Main Scroll */}
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          maxWidth: "1600px",
+          margin: "0 auto",
+          height: "calc(100vh - 61px)",
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        {/* Sidebar Navigation: Static / Non-scrolling with the page */}
         <aside
           style={{
             width: "280px",
             flexShrink: 0,
-            height: "calc(100vh - 60px)",
-            position: "sticky",
-            top: "60px",
+            height: "100%",
             overflowY: "auto",
             padding: "1.5rem 1rem",
             borderRight: "1px solid rgba(255, 255, 255, 0.06)",
@@ -324,14 +339,18 @@ export default function DocumentationPage() {
           </div>
         </aside>
 
-        {/* Center Content Area */}
+        {/* Center Content Area: The ONLY area that scrolls down */}
         <main
+          id="docs-main-scroll-container"
           style={{
             flex: 1,
             minWidth: 0,
             width: "100%",
             maxWidth: "100%",
-            padding: "2rem 1.5rem 4rem",
+            height: "100%",
+            overflowY: "auto",
+            overflowX: "hidden",
+            padding: "2.5rem 2.5rem 6rem",
             boxSizing: "border-box",
             lineHeight: "1.6",
           }}
@@ -440,7 +459,7 @@ export default function DocumentationPage() {
                 </p>
                 <div>
                   <Link
-                    href="/admin/observability"
+                    href="/docs/observability-dashboard"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -454,7 +473,7 @@ export default function DocumentationPage() {
                       textDecoration: "none",
                     }}
                   >
-                    Open Live /admin/observability <ExternalLink size={13} />
+                    Open Live Demo Console <ExternalLink size={13} />
                   </Link>
                 </div>
               </div>
@@ -716,6 +735,7 @@ export function middleware(req: NextRequest) {
             z-index: 40 !important;
             background: rgba(9, 13, 22, 0.98) !important;
             width: 280px !important;
+            height: calc(100vh - 57px) !important;
             transition: left 0.25s ease-in-out !important;
             box-shadow: 10px 0 25px rgba(0, 0, 0, 0.8) !important;
           }
@@ -723,7 +743,7 @@ export function middleware(req: NextRequest) {
             left: 0 !important;
           }
           .docs-main-content {
-            padding: 1.5rem 1rem 3rem !important;
+            padding: 1.5rem 1rem 4rem !important;
           }
         }
         @media (min-width: 901px) {

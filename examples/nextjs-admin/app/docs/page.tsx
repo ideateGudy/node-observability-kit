@@ -24,15 +24,10 @@ import {
   Menu,
   X
 } from "lucide-react";
-
-const AVAILABLE_VERSIONS = [
-  { version: "v0.1.0", label: "v0.1.0 (Latest)", tag: "latest", isCurrent: true },
-  { version: "v0.1.0-beta.2", label: "v0.1.0-beta.2", tag: "pre-release", isCurrent: false },
-  { version: "v0.1.0-beta.1", label: "v0.1.0-beta.1", tag: "pre-release", isCurrent: false },
-];
+import { CURRENT_PROJECT_VERSION, AVAILABLE_VERSIONS } from "./version";
 
 export default function DocumentationPage() {
-  const [selectedVersion, setSelectedVersion] = useState<string>("v0.1.0");
+  const [selectedVersion, setSelectedVersion] = useState<string>(CURRENT_PROJECT_VERSION);
   const [isVersionDropdownOpen, setIsVersionDropdownOpen] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("quickstart");

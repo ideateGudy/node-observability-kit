@@ -324,6 +324,8 @@ export default function DocumentationPage() {
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <Link
             href="/docs/observability-dashboard"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: "flex",
               alignItems: "center",
@@ -341,7 +343,7 @@ export default function DocumentationPage() {
             <Play size={13} /> Demo Console
           </Link>
           <a
-            href="https://github.com/ideateGudy/ideategudy-observability-toolkit"
+            href="https://github.com/ideateGudy/node-observability-kit"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -583,6 +585,8 @@ export default function DocumentationPage() {
                 <div>
                   <Link
                     href="/docs/observability-dashboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",

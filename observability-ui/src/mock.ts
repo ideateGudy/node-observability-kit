@@ -1,0 +1,168 @@
+import { ObservabilitySnapshot } from "./types.js";
+
+/**
+ * Generates realistic mock telemetry snapshot for local UI development and testing.
+ */
+export function generateMockSnapshot(serviceName = "bookme-api"): ObservabilitySnapshot {
+  const now = Date.now();
+  return {
+    service: {
+      name: serviceName,
+      environment: "production",
+      version: "1.2.4",
+      uptimeSeconds: 345600, // 4 days
+      timestamp: now,
+    },
+    summary: {
+      totalRequests: 42421,
+      activeRequests: 14,
+      errorRate: 0.31,
+      p50LatencyMs: 71,
+      p95LatencyMs: 183,
+      p99LatencyMs: 421,
+      avgLatencyMs: 84.5,
+    },
+    windows: {
+      last1m: { totalRequests: 10, errorRequests: 1, errorRate: 0.10, avgDurationMs: 52.0 },
+      last5m: { totalRequests: 320, errorRequests: 1, errorRate: 0.31, avgDurationMs: 81.2 },
+      last15m: { totalRequests: 950, errorRequests: 4, errorRate: 0.42, avgDurationMs: 82.5 },
+      last30m: { totalRequests: 1980, errorRequests: 7, errorRate: 0.35, avgDurationMs: 84.0 },
+      last1h: { totalRequests: 4120, errorRequests: 15, errorRate: 0.36, avgDurationMs: 84.5 },
+      last2h: { totalRequests: 8200, errorRequests: 28, errorRate: 0.34, avgDurationMs: 85.1 },
+      last24h: { totalRequests: 42421, errorRequests: 132, errorRate: 0.31, avgDurationMs: 84.5 },
+      last7d: { totalRequests: 42421, errorRequests: 132, errorRate: 0.31, avgDurationMs: 78.0 },
+      last30d: { totalRequests: 42421, errorRequests: 132, errorRate: 0.31, avgDurationMs: 80.0 },
+    },
+    http: {
+      statusBreakdown: {
+        status2xx: 40724,
+        status3xx: 1272,
+        status4xx: 382,
+        status5xx: 43,
+      },
+      topEndpoints: [
+        {
+          method: "GET",
+          route: "/api/users",
+          requests: 14210,
+          avgDurationMs: 62.4,
+          p95DurationMs: 120.5,
+          errorCount: 12,
+        },
+        {
+          method: "POST",
+          route: "/api/login",
+          requests: 9840,
+          avgDurationMs: 114.2,
+          p95DurationMs: 240.0,
+          errorCount: 65,
+        },
+        {
+          method: "GET",
+          route: "/api/products",
+          requests: 7420,
+          avgDurationMs: 78.1,
+          p95DurationMs: 155.0,
+          errorCount: 8,
+        },
+        {
+          method: "POST",
+          route: "/api/orders",
+          requests: 4310,
+          avgDurationMs: 189.5,
+          p95DurationMs: 380.2,
+          errorCount: 24,
+        },
+        {
+          method: "GET",
+          route: "/api/notifications",
+          requests: 3920,
+          avgDurationMs: 45.0,
+          p95DurationMs: 82.0,
+          errorCount: 4,
+        },
+        {
+          method: "DELETE",
+          route: "/api/sessions",
+          requests: 2721,
+          avgDurationMs: 51.3,
+          p95DurationMs: 95.0,
+          errorCount: 2,
+        },
+      ],
+    },
+    runtime: {
+      cpuPercent: 32.4,
+      memoryRssMb: 412.5,
+      heapUsedMb: 183.2,
+      heapTotalMb: 245.0,
+      eventLoopLagMs: 1.4,
+      nodeVersion: "v20.12.0",
+    },
+    recentErrors: [
+      {
+        id: "err-mock-1",
+        timestamp: Date.now() - 1000 * 60 * 2,
+        message: "PaymentGatewayTimeoutException: Stripe upstream gateway timed out after 5000ms",
+        stack: "Error: Stripe upstream gateway timed out\n    at PaymentClient.processCharge (/app/services/payment.js:42:15)\n    at async /app/routes/orders.js:88:9",
+        route: "/api/orders",
+        method: "POST",
+        statusCode: 504,
+        service: serviceName,
+        fingerprint: "504-/api/orders-PaymentGatewayTimeoutException",
+        occurrences: 8,
+        firstSeen: Date.now() - 1000 * 60 * 45,
+        lastSeen: Date.now() - 1000 * 60 * 2,
+        breadcrumbs: [
+          { timestamp: Date.now() - 1000 * 120, category: "http", message: "POST /api/orders received from client", level: "info" },
+          { timestamp: Date.now() - 1000 * 118, category: "auth", message: "JWT token verified for user_id: usr_9942", level: "info" },
+          { timestamp: Date.now() - 1000 * 115, category: "db", message: "SELECT * FROM inventory WHERE item_id = $1 (took 3.2ms)", level: "info" },
+          { timestamp: Date.now() - 1000 * 110, category: "http", message: "POST https://api.stripe.com/v1/charges -> pending", level: "info" },
+          { timestamp: Date.now() - 1000 * 105, category: "log", message: "Gateway socket did not reply within timeout threshold", level: "warn" },
+        ],
+        context: {
+          os: "linux (x64)",
+          nodeVersion: "v20.12.0",
+          memoryMb: 183,
+          headers: {
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+            "host": "api.myapp.com",
+            "content-type": "application/json",
+          },
+          query: {},
+          ip: "192.168.1.104",
+        },
+      },
+      {
+        id: "err-mock-2",
+        timestamp: Date.now() - 1000 * 60 * 8,
+        message: "DatabaseConnectionPoolExhausted: Pool max connections (20) reached",
+        stack: "Error: Pool max connections (20) reached\n    at Pool.acquire (/app/db/pool.js:105:22)\n    at async getUserProfile (/app/models/user.js:31:18)",
+        route: "/api/users",
+        method: "GET",
+        statusCode: 500,
+        service: serviceName,
+        fingerprint: "500-/api/users-DatabaseConnectionPoolExhausted",
+        occurrences: 34,
+        firstSeen: Date.now() - 1000 * 60 * 120,
+        lastSeen: Date.now() - 1000 * 60 * 8,
+        breadcrumbs: [
+          { timestamp: Date.now() - 1000 * 490, category: "http", message: "GET /api/users received", level: "info" },
+          { timestamp: Date.now() - 1000 * 485, category: "db", message: "Acquiring client from Postgres connection pool...", level: "info" },
+          { timestamp: Date.now() - 1000 * 480, category: "log", message: "Pool connection timeout: all 20 connections in use", level: "error" },
+        ],
+        context: {
+          os: "linux (x64)",
+          nodeVersion: "v20.12.0",
+          memoryMb: 195,
+        },
+      },
+    ],
+    breadcrumbs: [
+      { timestamp: Date.now() - 1000 * 30, category: "http", message: "GET /api/users -> 200 (14.2ms)", level: "info" },
+      { timestamp: Date.now() - 1000 * 20, category: "auth", message: "JWT token verified for user_id: usr_9942", level: "info" },
+      { timestamp: Date.now() - 1000 * 15, category: "db", message: "SELECT * FROM products WHERE active = true (took 2.4ms)", level: "info" },
+      { timestamp: Date.now() - 1000 * 5, category: "http", message: "POST /api/orders -> 504 (48.1ms)", level: "error" },
+    ],
+  };
+}

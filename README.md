@@ -26,7 +26,7 @@ This repository contains three standalone, production-ready packages and concret
 | Package | Directory | Description | Documentation |
 |---|---|---|---|
 | [`@stacklenzz/server`](./express-nestjs-observability) | `express-nestjs-observability/` | Backend SDK for Express & NestJS (OpenTelemetry tracing, Prometheus `/metrics`, Winston logger, rolling error rate windows, and intelligent error fingerprinting) | [Read SDK Guide →](./express-nestjs-observability/README.md) |
-| [`@stacklenzz/ui`](./observability-ui) | `observability-ui/` | Modern React/Next.js dashboard suite (6 templates, interactive template switcher, rich error inspector with breadcrumbs, latency gauges, and dark mode aesthetics) | [Read UI Guide →](./observability-ui/README.md) |
+| [`@stacklenzz/ui`](./observability-ui) | `observability-ui/` | Modern React/Next.js dashboard suite powered by Redux Toolkit (`@reduxjs/toolkit`), 6 built-in themes with automatic `localStorage` persistence, interactive template switcher, error inspector with breadcrumbs, and latency gauges | [Read UI Guide →](./observability-ui/README.md) |
 | [`stacklenzz-cli`](./observability-cli) | `observability-cli/` | Zero-configuration CLI detecting frameworks and package managers to scaffold dashboards and run `doctor` connectivity diagnostics | [Read CLI Guide →](./observability-cli/README.md) |
 
 ---

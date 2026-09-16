@@ -700,11 +700,11 @@ export default function AdminObservabilityPage() {
 
           {/* Section: Dashboard Themes */}
           <section id="dashboard-themes" style={{ marginBottom: "3.5rem" }}>
-            <h2 style={{ fontSize: "1.6rem", fontWeight: 700, margin: "0 0 0.75rem 0" }}>6 Built-in Runtime Themes</h2>
+            <h2 style={{ fontSize: "1.6rem", fontWeight: 700, margin: "0 0 0.75rem 0" }}>6 Built-in Runtime Themes & State Management</h2>
             <p style={{ color: "#94a3b8", margin: "0 0 1rem 0", fontSize: "0.9rem" }}>
-              Switch themes live on the UI or configure your preferred default aesthetic:
+              Switch themes live on the UI or configure your preferred default aesthetic. Powered by <strong>Redux Toolkit</strong> (<code>@reduxjs/toolkit</code> &amp; <code>react-redux</code>) with automatic <code>localStorage</code> persistence (<code>stacklenzz_theme</code>):
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "0.75rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "0.75rem", marginBottom: "1rem" }}>
               {[
                 { name: "Tokyo Night", id: "tokyo-night", color: "#7aa2f7", desc: "Deep indigo & neon cyan" },
                 { name: "Nord", id: "nord", color: "#88c0d0", desc: "Arctic cool frost blues" },
@@ -721,6 +721,15 @@ export default function AdminObservabilityPage() {
                   <div style={{ fontSize: "0.75rem", color: "#94a3b8" }}>{t.desc}</div>
                 </div>
               ))}
+            </div>
+
+            <div style={{ background: "#020617", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1rem" }}>
+              <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#818cf8", textTransform: "uppercase", marginBottom: "0.4rem" }}>
+                ⚡️ Redux Toolkit &amp; LocalStorage Persistence
+              </div>
+              <p style={{ margin: 0, fontSize: "0.83rem", color: "#cbd5e1", lineHeight: "1.5" }}>
+                Theme selections automatically trigger <code>setTheme</code> actions via Redux Toolkit slices and persist immediately to <code>localStorage</code> (key: <code>stacklenzz_theme</code>). Upon page reloads or navigating between administrative views, the theme is instantly restored without visual flickering.
+              </p>
             </div>
           </section>
 

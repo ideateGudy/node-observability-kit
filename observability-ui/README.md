@@ -2,20 +2,26 @@
 
 A stunning, developer-first React & Next.js dashboard UI ecosystem for backend observability, monitoring, and error tracking.
 
-Built with Vanilla CSS & zero heavy UI framework lock-in, featuring glassmorphism, curated dark mode aesthetics, and micro-interactions.
+Built with Vanilla CSS & zero heavy UI framework lock-in, featuring glassmorphism, curated dark mode aesthetics, dynamic Redux Toolkit state management, and micro-interactions.
 
 ---
 
 ## Features
 
+- **Redux Toolkit State Architecture**:
+  - Powered by `@reduxjs/toolkit` (`createSlice`, `configureStore`) and `react-redux` (`Provider`, `useSelector`, `useDispatch`).
+  - Automatic `localStorage` persistence under key `stacklenzz_theme` — theme selection persists seamlessly across reloads and navigation.
+  - Dynamic full-page theme color propagation affecting card backgrounds, text typography, borders, badges, and charts.
 - **6 Pre-Composed Dashboard Templates**:
-  - `<ObservabilityDashboard />`: All-in-one suite with a built-in interactive template switcher.
+  - `<ObservabilityDashboard />`: All-in-one suite with a built-in interactive template switcher and theme dropdown picker.
   - `<FullBackendDashboard />`: Complete view with overview cards, HTTP breakdown charts, latency gauge, runtime health, and live error inspector.
   - `<ApiOverviewDashboard />`: High-level traffic, status codes, top endpoints overview.
   - `<BackendPerformanceDashboard />`: Latencies (P50, P95, P99), response time breakdown, and endpoint timings.
   - `<ErrorMonitoringDashboard />`: Live error tracker, 4xx/5xx streams, occurrences counter, and breadcrumbs.
   - `<NodeRuntimeDashboard />`: Node.js process health (CPU, RSS, Heap memory, Event loop lag).
   - `<MinimalDashboard />`: Compact status widget suitable for embedding in existing admin sidebars or headers.
+- **6 Built-in Runtime Themes**:
+  - Tokyo Night (`tokyo-night`), Nord (`nord`), Dracula (`dracula`), Catppuccin Mocha (`catppuccin`), Emerald Terminal (`emerald-terminal`), Cyberpunk (`cyberpunk`).
 - **Deep Error Inspector**:
   - Detailed modal inspector with stack traces, context tags (OS, Node version, memory, IP, user-agent), and request payload responses.
   - Dynamic occurrence recalculation based on sliding time windows (`x4` ➔ `x2`).
@@ -27,9 +33,9 @@ Built with Vanilla CSS & zero heavy UI framework lock-in, featuring glassmorphis
 ## Installation
 
 ```bash
-npm install @stacklenzz/ui lucide-react
+npm install @stacklenzz/ui lucide-react @reduxjs/toolkit react-redux
 # or
-pnpm add @stacklenzz/ui lucide-react
+pnpm add @stacklenzz/ui lucide-react @reduxjs/toolkit react-redux
 ```
 
 ### Peer Dependencies:
@@ -41,7 +47,7 @@ pnpm add @stacklenzz/ui lucide-react
 
 ## Usage
 
-### 1. Unified Dashboard with Template Switcher (Recommended)
+### 1. Unified Dashboard with Template & Theme Switcher (Recommended)
 
 ```tsx
 "use client";
@@ -50,7 +56,7 @@ import { ObservabilityDashboard } from "@stacklenzz/ui";
 
 export default function AdminObservabilityPage() {
   return (
-    <main style={{ minHeight: "100vh", backgroundColor: "#090d16" }}>
+    <main style={{ minHeight: "100vh", backgroundColor: "transparent" }}>
       <ObservabilityDashboard
         config={{
           endpoint: process.env.NEXT_PUBLIC_OBSERVABILITY_URL || "http://localhost:5000/api/observability/stats",
@@ -76,15 +82,15 @@ import {
   ErrorMonitoringDashboard,
   NodeRuntimeDashboard,
   MinimalDashboard,
-} from "@ideategudy/observability-ui";
+} from "@stacklenzz/ui";
 
 // Example: Embedding just Error Monitoring
 <ErrorMonitoringDashboard config={{ endpoint: "http://localhost:5000/api/observability/stats" }} />
 ```
 
-### 3. Custom Composability with Low-Level Components
+### 3. Custom Composability with Low-Level Components & Redux Store
 
-You can build your own custom dashboard layout using the atomic components:
+You can build your own custom dashboard layout using atomic components and access the underlying Redux Toolkit state via `useObservability()`:
 
 ```tsx
 import {
@@ -97,14 +103,15 @@ import {
   EndpointTable,
   RuntimeMetrics,
   ErrorInspector,
-} from "@ideategudy/observability-ui";
+} from "@stacklenzz/ui";
 
 function MyCustomView() {
-  const { snapshot, isLoading, refresh } = useObservability();
+  const { snapshot, theme, themeColors, setTheme } = useObservability();
   if (!snapshot) return null;
 
   return (
-    <div>
+    <div style={{ background: themeColors.background, color: themeColors.text }}>
+      <button onClick={() => setTheme("emerald-terminal")}>Switch to Emerald Theme</button>
       <HttpStatusChart breakdown={snapshot.http.statusBreakdown} />
       <ErrorInspector errors={snapshot.recentErrors} globalBreadcrumbs={snapshot.breadcrumbs} />
     </div>
@@ -124,12 +131,12 @@ export function CustomDashboard() {
 
 ## Next.js Configuration (`next.config.mjs`)
 
-When importing `@ideategudy/observability-ui` in Next.js:
+When importing `@stacklenzz/ui` in Next.js:
 
 ```javascript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@ideategudy/observability-ui"],
+  transpilePackages: ["@stacklenzz/ui"],
 };
 
 export default nextConfig;

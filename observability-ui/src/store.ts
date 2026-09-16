@@ -1,27 +1,10 @@
+import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RuntimeTheme, RUNTIME_THEMES } from "./themes.js";
 
 export const LOCAL_STORAGE_THEME_KEY = "stacklenzz_theme";
 
 export interface ObservabilityState {
   theme: RuntimeTheme;
-}
-
-// Action Types
-export const SET_THEME = "stacklenzz/SET_THEME" as const;
-
-export interface SetThemeAction {
-  type: typeof SET_THEME;
-  payload: RuntimeTheme;
-}
-
-export type ObservabilityAction = SetThemeAction;
-
-// Action Creators
-export function setThemeAction(theme: RuntimeTheme): SetThemeAction {
-  return {
-    type: SET_THEME,
-    payload: theme,
-  };
 }
 
 /**
@@ -56,88 +39,72 @@ export function persistTheme(theme: RuntimeTheme): void {
   }
 }
 
+const initialState: ObservabilityState = {
+  theme: getSavedTheme("tokyo-night"),
+};
+
 /**
- * Reducer for Observability state.
+ * Redux Toolkit Slice for Observability Theme State
  */
+export const themeSlice = createSlice({
+  name: "observability",
+  initialState,
+  reducers: {
+    setTheme: (state, action: PayloadAction<RuntimeTheme>) => {
+      if (action.payload in RUNTIME_THEMES) {
+        state.theme = action.payload;
+        persistTheme(action.payload);
+      }
+    },
+  },
+});
+
+export const { setTheme } = themeSlice.actions;
+
+// Compatibility aliases
+export const setThemeAction = (theme: RuntimeTheme) => setTheme(theme);
+export const SET_THEME = themeSlice.actions.setTheme.type;
+
 export function observabilityReducer(
-  state: ObservabilityState = { theme: "tokyo-night" },
-  action: ObservabilityAction
+  state: ObservabilityState | undefined,
+  action: any
 ): ObservabilityState {
-  switch (action.type) {
-    case SET_THEME:
-      return {
-        ...state,
-        theme: action.payload,
-      };
-    default:
-      return state;
-  }
-}
-
-export type Listener = () => void;
-export type Unsubscribe = () => void;
-
-export interface ObservabilityStore {
-  getState: () => ObservabilityState;
-  dispatch: (action: ObservabilityAction) => ObservabilityAction;
-  subscribe: (listener: Listener) => Unsubscribe;
+  return themeSlice.reducer(state, action);
 }
 
 /**
- * Create a Redux-compliant store for Stacklenzz UI state
- * with automatic localStorage persistence.
+ * Create a Redux Toolkit Store configured with observability slice and localStorage persistence
  */
-export function createObservabilityStore(
-  initialTheme?: RuntimeTheme
-): ObservabilityStore {
-  const initialResolvedTheme =
+export function createObservabilityStore(initialTheme?: RuntimeTheme) {
+  const resolvedInitialTheme =
     initialTheme && initialTheme in RUNTIME_THEMES
       ? initialTheme
       : getSavedTheme("tokyo-night");
 
-  let currentState: ObservabilityState = {
-    theme: initialResolvedTheme,
-  };
+  const store = configureStore({
+    reducer: {
+      observability: themeSlice.reducer,
+    },
+    preloadedState: {
+      observability: {
+        theme: resolvedInitialTheme,
+      },
+    },
+  });
 
-  const listeners = new Set<Listener>();
+  store.subscribe(() => {
+    const state = store.getState();
+    persistTheme(state.observability.theme);
+  });
 
-  function getState(): ObservabilityState {
-    return currentState;
-  }
-
-  function dispatch(action: ObservabilityAction): ObservabilityAction {
-    const nextState = observabilityReducer(currentState, action);
-    if (nextState !== currentState) {
-      currentState = nextState;
-      if (action.type === SET_THEME) {
-        persistTheme(nextState.theme);
-      }
-      listeners.forEach((listener) => {
-        try {
-          listener();
-        } catch (err) {
-          console.error("Error in Redux store subscriber:", err);
-        }
-      });
-    }
-    return action;
-  }
-
-  function subscribe(listener: Listener): Unsubscribe {
-    listeners.add(listener);
-    return () => {
-      listeners.delete(listener);
-    };
-  }
-
-  return {
-    getState,
-    dispatch,
-    subscribe,
-  };
+  return store;
 }
 
-// Global default singleton store
+export type ObservabilityStore = ReturnType<typeof createObservabilityStore>;
+export type RootState = ReturnType<ObservabilityStore["getState"]>;
+export type AppDispatch = ObservabilityStore["dispatch"];
+
+// Singleton default store
 let defaultStore: ObservabilityStore | null = null;
 
 export function getDefaultObservabilityStore(initialTheme?: RuntimeTheme): ObservabilityStore {

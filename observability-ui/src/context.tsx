@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { Provider as ReduxProvider, useSelector, useDispatch } from "react-redux";
 import { ObservabilitySnapshot, ObservabilityConfig } from "./types.js";
 import { generateMockSnapshot } from "./mock.js";
 import { RuntimeTheme, ThemeColors, RUNTIME_THEMES } from "./themes.js";
 import {
   ObservabilityStore,
   createObservabilityStore,
-  setThemeAction,
+  setTheme,
+  RootState,
 } from "./store.js";
 
 export interface ObservabilityContextValue {
@@ -39,21 +41,38 @@ export function ObservabilityProvider({
     return <>{children}</>;
   }
 
-  return (
-    <ObservabilityProviderInner
-      config={config}
-      initialSnapshot={initialSnapshot}
-    >
-      {children}
-    </ObservabilityProviderInner>
+  const initialConfigTheme: RuntimeTheme | undefined =
+    config.theme && config.theme in RUNTIME_THEMES
+      ? (config.theme as RuntimeTheme)
+      : undefined;
+
+  const [store] = useState<ObservabilityStore>(() =>
+    createObservabilityStore(initialConfigTheme)
   );
+
+  return (
+    <ReduxProvider store={store}>
+      <ObservabilityProviderInner
+        config={config}
+        initialSnapshot={initialSnapshot}
+        store={store}
+      >
+        {children}
+      </ObservabilityProviderInner>
+    </ReduxProvider>
+  );
+}
+
+interface InnerProps extends ObservabilityProviderProps {
+  store: ObservabilityStore;
 }
 
 function ObservabilityProviderInner({
   children,
   config = {},
   initialSnapshot,
-}: ObservabilityProviderProps) {
+  store,
+}: InnerProps) {
   const [snapshot, setSnapshot] = useState<ObservabilitySnapshot | null>(
     initialSnapshot || null
   );
@@ -66,6 +85,9 @@ function ObservabilityProviderInner({
   const endpoint = config.endpoint || "/api/observability/stats";
   const refreshIntervalMs = config.refreshIntervalMs ?? 5000;
   const isMock = config.mockMode ?? false;
+
+  const dispatch = useDispatch();
+  const theme = useSelector((state: RootState) => state.observability.theme);
 
   const fetchTelemetry = useCallback(async () => {
     if (isMock) {
@@ -109,36 +131,17 @@ function ObservabilityProviderInner({
     }
   }, [fetchTelemetry, refreshIntervalMs]);
 
-  const initialConfigTheme: RuntimeTheme | undefined =
-    config.theme && config.theme in RUNTIME_THEMES
-      ? (config.theme as RuntimeTheme)
-      : undefined;
-
-  const [store] = useState<ObservabilityStore>(() =>
-    createObservabilityStore(initialConfigTheme)
-  );
-
-  const [theme, setThemeState] = useState<RuntimeTheme>(() => store.getState().theme);
-
   useEffect(() => {
-    // If config.theme prop changed externally, dispatch to Redux store
-    if (config.theme && config.theme in RUNTIME_THEMES && config.theme !== store.getState().theme) {
-      store.dispatch(setThemeAction(config.theme as RuntimeTheme));
+    if (config.theme && config.theme in RUNTIME_THEMES && config.theme !== theme) {
+      dispatch(setTheme(config.theme as RuntimeTheme));
     }
+  }, [config.theme, theme, dispatch]);
 
-    // Subscribe to Redux store updates
-    const unsubscribe = store.subscribe(() => {
-      setThemeState(store.getState().theme);
-    });
-
-    return unsubscribe;
-  }, [config.theme, store]);
-
-  const setTheme = useCallback(
+  const handleSetTheme = useCallback(
     (newTheme: RuntimeTheme) => {
-      store.dispatch(setThemeAction(newTheme));
+      dispatch(setTheme(newTheme));
     },
-    [store]
+    [dispatch]
   );
 
   const themeColors = RUNTIME_THEMES[theme] || RUNTIME_THEMES["tokyo-night"];
@@ -153,7 +156,7 @@ function ObservabilityProviderInner({
         refresh: fetchTelemetry,
         isMock,
         theme,
-        setTheme,
+        setTheme: handleSetTheme,
         themeColors,
         store,
       }}

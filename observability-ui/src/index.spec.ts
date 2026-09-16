@@ -133,45 +133,46 @@ describe("Observability UI Components & Templates Test Suite", () => {
     });
   });
 
-  describe("Redux State Management & LocalStorage Persistence", () => {
-    it("should export Redux store primitives and action creators", () => {
+  describe("Redux Toolkit State Management & LocalStorage Persistence", () => {
+    it("should export Redux Toolkit store primitives, slices, and action creators", () => {
       expect(UI.createObservabilityStore).toBeDefined();
-      expect(UI.observabilityReducer).toBeDefined();
+      expect(UI.themeSlice).toBeDefined();
+      expect(UI.setTheme).toBeDefined();
       expect(UI.setThemeAction).toBeDefined();
       expect(UI.LOCAL_STORAGE_THEME_KEY).toBe("stacklenzz_theme");
-      expect(UI.SET_THEME).toBe("stacklenzz/SET_THEME");
+      expect(UI.SET_THEME).toBe("observability/setTheme");
     });
 
-    it("should create store with initial theme and process SET_THEME actions correctly", () => {
+    it("should create store with initial theme and process setTheme actions correctly", () => {
       const store = UI.createObservabilityStore("nord");
-      expect(store.getState().theme).toBe("nord");
+      expect(store.getState().observability.theme).toBe("nord");
 
-      const action = UI.setThemeAction("dracula");
+      const action = UI.setTheme("dracula");
       expect(action).toEqual({
-        type: "stacklenzz/SET_THEME",
+        type: "observability/setTheme",
         payload: "dracula",
       });
 
       store.dispatch(action);
-      expect(store.getState().theme).toBe("dracula");
+      expect(store.getState().observability.theme).toBe("dracula");
     });
 
-    it("should notify subscribers when Redux state changes", () => {
+    it("should notify subscribers when Redux Toolkit state changes", () => {
       const store = UI.createObservabilityStore("tokyo-night");
       let notifiedTheme = "";
 
       const unsubscribe = store.subscribe(() => {
-        notifiedTheme = store.getState().theme;
+        notifiedTheme = store.getState().observability.theme;
       });
 
-      store.dispatch(UI.setThemeAction("cyberpunk"));
+      store.dispatch(UI.setTheme("cyberpunk"));
       expect(notifiedTheme).toBe("cyberpunk");
 
       unsubscribe();
-      store.dispatch(UI.setThemeAction("emerald-terminal"));
+      store.dispatch(UI.setTheme("emerald-terminal"));
       // Should not notify after unsubscribing
       expect(notifiedTheme).toBe("cyberpunk");
-      expect(store.getState().theme).toBe("emerald-terminal");
+      expect(store.getState().observability.theme).toBe("emerald-terminal");
     });
 
     it("should persist selected theme to localStorage and retrieve it", () => {
@@ -200,7 +201,7 @@ describe("Observability UI Components & Templates Test Suite", () => {
       try {
         // Initial store dispatch
         const store = UI.createObservabilityStore("tokyo-night");
-        store.dispatch(UI.setThemeAction("catppuccin"));
+        store.dispatch(UI.setTheme("catppuccin"));
 
         // Verify it was stored in localStorage under stacklenzz_theme
         expect(fakeLocalStorage.getItem("stacklenzz_theme")).toBe("catppuccin");
@@ -211,7 +212,7 @@ describe("Observability UI Components & Templates Test Suite", () => {
 
         // New store initialized without explicit theme should load from localStorage
         const newStore = UI.createObservabilityStore();
-        expect(newStore.getState().theme).toBe("catppuccin");
+        expect(newStore.getState().observability.theme).toBe("catppuccin");
       } finally {
         (globalThis as any).window = originalWindow;
       }
@@ -246,9 +247,9 @@ describe("Observability UI Components & Templates Test Suite", () => {
 
       themeKeys.forEach((themeKey) => {
         const store = UI.createObservabilityStore("tokyo-night");
-        store.dispatch(UI.setThemeAction(themeKey));
+        store.dispatch(UI.setTheme(themeKey));
 
-        const activeTheme = store.getState().theme;
+        const activeTheme = store.getState().observability.theme;
         expect(activeTheme).toBe(themeKey);
 
         const colors = UI.RUNTIME_THEMES[activeTheme];
@@ -263,5 +264,6 @@ describe("Observability UI Components & Templates Test Suite", () => {
     });
   });
 });
+
 
 

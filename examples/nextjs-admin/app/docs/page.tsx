@@ -588,8 +588,11 @@ export default function AdminObservabilityPage() {
                   Auto-detects framework and generates an admin dashboard route.
                 </p>
                 <code style={{ display: "block", padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.75rem", wordBreak: "break-all" }}>
-                  npx @ideategudy/observability-cli dashboard -y
+                  obs-cli dashboard -y
                 </code>
+                <span style={{ fontSize: "0.7rem", color: "#64748b", marginTop: "0.3rem", display: "block" }}>
+                  Or with npx: <code>npx obs-cli dashboard -y</code>
+                </span>
               </div>
 
               <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
@@ -598,8 +601,11 @@ export default function AdminObservabilityPage() {
                   Validates dependencies and tests live telemetry reachability.
                 </p>
                 <code style={{ display: "block", padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.75rem", wordBreak: "break-all" }}>
-                  npx @ideategudy/observability-cli doctor
+                  obs-cli doctor
                 </code>
+                <span style={{ fontSize: "0.7rem", color: "#64748b", marginTop: "0.3rem", display: "block" }}>
+                  Or with npx: <code>npx obs-cli doctor</code>
+                </span>
               </div>
 
               <div style={{ background: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "0.75rem", padding: "1.25rem" }}>
@@ -608,8 +614,11 @@ export default function AdminObservabilityPage() {
                   Creates an interactive <code>observability.config.ts</code> configuration.
                 </p>
                 <code style={{ display: "block", padding: "0.5rem", background: "#020617", borderRadius: "0.375rem", color: "#a5b4fc", fontSize: "0.75rem", wordBreak: "break-all" }}>
-                  npx @ideategudy/observability-cli init
+                  obs-cli init
                 </code>
+                <span style={{ fontSize: "0.7rem", color: "#64748b", marginTop: "0.3rem", display: "block" }}>
+                  Or with npx: <code>npx obs-cli init</code>
+                </span>
               </div>
             </div>
           </section>

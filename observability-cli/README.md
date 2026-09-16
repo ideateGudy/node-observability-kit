@@ -35,16 +35,22 @@ Or install globally:
 ```bash
 npm install -g @ideategudy/observability-cli
 ```
+Once installed globally, you can invoke all commands directly using the **`obs-cli`** shorthand:
+```bash
+obs-cli doctor
+obs-cli dashboard
+obs-cli init
+```
 
 ---
 
 ## Commands & Usage
 
-### 1. `observability doctor`
+### 1. `obs-cli doctor` (or `npx @ideategudy/observability-cli doctor`)
 Diagnoses your environment, checks for installed dependencies, and verifies that your backend telemetry endpoint (`/api/observability/stats`) is online:
 
 ```bash
-npx @ideategudy/observability-cli doctor
+obs-cli doctor
 ```
 
 **Options:**

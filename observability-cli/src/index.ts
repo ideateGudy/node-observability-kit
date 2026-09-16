@@ -6,7 +6,7 @@ import { runInitCommand } from "./commands/init.js";
 const program = new Command();
 
 program
-  .name("@ideategudy/observability-cli")
+  .name("obs-cli")
   .description("Developer-first backend observability dashboard installer for React & Next.js")
   .version("0.1.0");
 

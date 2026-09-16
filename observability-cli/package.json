@@ -24,6 +24,7 @@
     "nestjs"
   ],
   "bin": {
+    "obs-cli": "./bin/observability.js",
     "observability": "./bin/observability.js",
     "ideategudy-observability": "./bin/observability.js"
   },

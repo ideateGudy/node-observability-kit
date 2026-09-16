@@ -9,12 +9,12 @@ export interface MinimalDashboardProps {
 }
 
 function MinimalContent() {
-  const { snapshot } = useObservability();
+  const { snapshot, themeColors } = useObservability();
   if (!snapshot) return null;
   const s = snapshot;
 
   return (
-    <div style={{ padding: "0.5rem", background: "transparent", color: "#f8fafc", fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ padding: "0.5rem", background: "transparent", color: themeColors ? themeColors.text : "#f8fafc", fontFamily: "Inter, system-ui, -apple-system, sans-serif" }}>
       <MetricGrid>
         <MetricCard title="Requests" value={s.summary.totalRequests.toLocaleString()} subtitle={`${s.summary.activeRequests} in-flight`} icon={<Activity size={16} color="#38bdf8" />} statusColor="blue" />
         <MetricCard title="Error Rate" value={`${s.summary.errorRate}%`} subtitle="Failures" icon={<AlertTriangle size={16} color={s.summary.errorRate > 1 ? "#ef4444" : "#10b981"} />} statusColor={s.summary.errorRate > 1 ? "rose" : "emerald"} />

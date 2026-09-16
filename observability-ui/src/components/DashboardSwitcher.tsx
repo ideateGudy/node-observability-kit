@@ -205,15 +205,16 @@ export function DashboardSwitcher({
             <div
               style={{
                 position: "absolute",
-                top: "calc(100% + 6px)",
+                top: "calc(100% + 8px)",
                 right: 0,
-                zIndex: 100,
-                minWidth: "220px",
+                zIndex: 1000,
+                width: "260px",
+                maxWidth: "calc(100vw - 3rem)",
                 backgroundColor: activeTheme.background,
                 border: `1px solid ${activeTheme.cardBorder}`,
                 borderRadius: "0.6rem",
                 padding: "0.4rem",
-                boxShadow: "0 15px 30px -5px rgba(0, 0, 0, 0.8)",
+                boxShadow: "0 15px 35px -5px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.5)",
               }}
             >
               <div

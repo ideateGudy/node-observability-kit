@@ -85,12 +85,10 @@ function DashboardContent() {
   return (
     <div
       style={{
-        padding: "1.5rem",
-        minHeight: "100vh",
-        background: themeColors ? themeColors.background : "#090d16",
+        padding: "0 1.5rem 2rem 1.5rem",
+        background: "transparent",
         color: themeColors ? themeColors.text : "#f8fafc",
         fontFamily: "Inter, system-ui, -apple-system, sans-serif",
-        transition: "background-color 0.25s ease, color 0.25s ease",
       }}
     >
       <ServiceHeader

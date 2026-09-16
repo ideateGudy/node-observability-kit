@@ -13,14 +13,21 @@ export interface ErrorMonitoringDashboardProps {
 }
 
 function ErrorMonitoringContent() {
-  const { snapshot, isLoading, refresh, isMock } = useObservability();
+  const { snapshot, isLoading, refresh, isMock, themeColors } = useObservability();
   if (!snapshot) return null;
   const s = snapshot;
 
   const errorEndpoints = s.http.topEndpoints.filter((e) => e.errorCount > 0);
 
   return (
-    <div style={{ padding: "1.5rem", minHeight: "100vh", background: "#090d16", color: "#f8fafc", fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div
+      style={{
+        padding: "0 1.5rem 2rem 1.5rem",
+        background: "transparent",
+        color: themeColors ? themeColors.text : "#f8fafc",
+        fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+      }}
+    >
       <ServiceHeader snapshot={s} onRefresh={refresh} isRefreshing={isLoading} isMock={isMock} />
       <MetricGrid>
         <MetricCard title="Overall Error Rate" value={`${s.summary.errorRate}%`} subtitle="Percentage of all requests" icon={<AlertTriangle size={18} color={s.summary.errorRate > 1 ? "#ef4444" : "#10b981"} />} statusColor={s.summary.errorRate > 1 ? "rose" : "emerald"} />

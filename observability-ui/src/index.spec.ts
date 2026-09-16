@@ -73,14 +73,65 @@ describe("Observability UI Components & Templates Test Suite", () => {
 
     themeKeys.forEach((key) => {
       const theme = UI.RUNTIME_THEMES[key as UI.RuntimeTheme];
+      expect(theme.id).toBe(key);
       expect(theme.name).toBeTruthy();
       expect(theme.description).toBeTruthy();
       expect(theme.accent).toBeTruthy();
+      expect(theme.accentSecondary).toBeTruthy();
       expect(theme.background).toBeTruthy();
       expect(theme.cardBg).toBeTruthy();
       expect(theme.cardBorder).toBeTruthy();
+      expect(theme.headerBg).toBeTruthy();
       expect(theme.text).toBeTruthy();
+      expect(theme.textMuted).toBeTruthy();
+      expect(theme.switcherBg).toBeTruthy();
+      expect(theme.badgeBg).toBeTruthy();
+      expect(theme.badgeBorder).toBeTruthy();
+      expect(theme.glow).toBeTruthy();
+    });
+  });
+
+  it("should have correct curated aesthetics for each of the 6 themes", () => {
+    // Tokyo Night
+    expect(UI.RUNTIME_THEMES["tokyo-night"].name).toBe("Tokyo Night");
+    expect(UI.RUNTIME_THEMES["tokyo-night"].accent).toBe("#7aa2f7");
+    expect(UI.RUNTIME_THEMES["tokyo-night"].background).toBe("#1a1b26");
+
+    // Nord
+    expect(UI.RUNTIME_THEMES["nord"].name).toBe("Nord");
+    expect(UI.RUNTIME_THEMES["nord"].accent).toBe("#88c0d0");
+    expect(UI.RUNTIME_THEMES["nord"].background).toBe("#2e3440");
+
+    // Dracula
+    expect(UI.RUNTIME_THEMES["dracula"].name).toBe("Dracula");
+    expect(UI.RUNTIME_THEMES["dracula"].accent).toBe("#bd93f9");
+    expect(UI.RUNTIME_THEMES["dracula"].background).toBe("#282a36");
+
+    // Catppuccin Mocha
+    expect(UI.RUNTIME_THEMES["catppuccin"].name).toBe("Catppuccin Mocha");
+    expect(UI.RUNTIME_THEMES["catppuccin"].accent).toBe("#cba6f7");
+    expect(UI.RUNTIME_THEMES["catppuccin"].background).toBe("#1e1e2e");
+
+    // Emerald Terminal
+    expect(UI.RUNTIME_THEMES["emerald-terminal"].name).toBe("Emerald Terminal");
+    expect(UI.RUNTIME_THEMES["emerald-terminal"].accent).toBe("#10b981");
+    expect(UI.RUNTIME_THEMES["emerald-terminal"].background).toBe("#021d12");
+
+    // Cyberpunk
+    expect(UI.RUNTIME_THEMES["cyberpunk"].name).toBe("Cyberpunk");
+    expect(UI.RUNTIME_THEMES["cyberpunk"].accent).toBe("#ff007f");
+    expect(UI.RUNTIME_THEMES["cyberpunk"].background).toBe("#0d0221");
+  });
+
+  it("should provide consistent contrast: background and cardBg are distinct from text", () => {
+    Object.values(UI.RUNTIME_THEMES).forEach((t) => {
+      // background and text must not be identical
+      expect(t.background).not.toBe(t.text);
+      expect(t.cardBg).not.toBe(t.text);
+      // textMuted must be defined
+      expect(t.textMuted).toBeTruthy();
     });
   });
 });
+
 

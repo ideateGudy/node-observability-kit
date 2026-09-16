@@ -37,7 +37,7 @@ export default function DocsObservabilityDashboardPage() {
   };
 
   return (
-    <main style={{ minHeight: "100vh", backgroundColor: "#090d16" }}>
+    <main style={{ minHeight: "100vh", backgroundColor: "transparent" }}>
       {/* Top Demo Banner */}
       <div
         style={{

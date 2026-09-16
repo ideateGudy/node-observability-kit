@@ -39,7 +39,7 @@ export default function AdminObservabilityPage() {
   };
 
   return (
-    <main style={{ minHeight: "100vh", backgroundColor: "#090d16" }}>
+    <main style={{ minHeight: "100vh", backgroundColor: "transparent" }}>
       <div
         style={{
           display: "flex",

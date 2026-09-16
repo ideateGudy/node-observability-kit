@@ -28,6 +28,26 @@ export function ObservabilityProvider({
   config = {},
   initialSnapshot,
 }: ObservabilityProviderProps) {
+  const existingContext = useContext(ObservabilityContext);
+  if (existingContext && !config.theme && !config.endpoint) {
+    return <>{children}</>;
+  }
+
+  return (
+    <ObservabilityProviderInner
+      config={config}
+      initialSnapshot={initialSnapshot}
+    >
+      {children}
+    </ObservabilityProviderInner>
+  );
+}
+
+function ObservabilityProviderInner({
+  children,
+  config = {},
+  initialSnapshot,
+}: ObservabilityProviderProps) {
   const [snapshot, setSnapshot] = useState<ObservabilitySnapshot | null>(
     initialSnapshot || null
   );

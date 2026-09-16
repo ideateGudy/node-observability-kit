@@ -12,12 +12,12 @@ export interface ApiOverviewDashboardProps {
 }
 
 function ApiOverviewContent() {
-  const { snapshot, isLoading, refresh, isMock } = useObservability();
+  const { snapshot, isLoading, refresh, isMock, themeColors } = useObservability();
   if (!snapshot) return null;
   const s = snapshot;
 
   return (
-    <div style={{ padding: "1.5rem", minHeight: "100vh", background: "#090d16", color: "#f8fafc", fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ padding: "0 1.5rem 2rem 1.5rem", background: "transparent", color: themeColors ? themeColors.text : "#f8fafc", fontFamily: "Inter, system-ui, -apple-system, sans-serif" }}>
       <ServiceHeader snapshot={s} onRefresh={refresh} isRefreshing={isLoading} isMock={isMock} />
       <MetricGrid>
         <MetricCard title="Total HTTP Requests" value={s.summary.totalRequests.toLocaleString()} subtitle="All tracked routes" icon={<Globe size={18} color="#38bdf8" />} statusColor="blue" />

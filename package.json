@@ -1,0 +1,33 @@
+{
+  "name": "ideategudy-observability-toolkit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Developer-first backend observability system and UI ecosystem under @ideategudy namespace",
+  "workspaces": [
+    "express-nestjs-observability",
+    "observability-ui",
+    "observability-cli",
+    "examples/*"
+  ],
+  "scripts": {
+    "build:sdk": "npm --prefix express-nestjs-observability run build",
+    "build:ui": "npm --prefix observability-ui run build",
+    "build:cli": "npm --prefix observability-cli run build",
+    "build": "npm run build:sdk && npm run build:ui && npm run build:cli",
+    "test:sdk": "npm --prefix express-nestjs-observability run test",
+    "test:ui": "npm --prefix observability-ui run test",
+    "test:cli": "npm --prefix observability-cli run test",
+    "test": "npm run test:sdk && npm run test:ui && npm run test:cli",
+    "version:sdk": "npm --prefix express-nestjs-observability version",
+    "version:ui": "npm --prefix observability-ui version",
+    "version:cli": "npm --prefix observability-cli version",
+    "publish:all": "npm run build && npm run test && npm --prefix express-nestjs-observability publish --access public && npm --prefix observability-ui publish --access public && npm --prefix observability-cli publish --access public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vitest": "^5.0.1"
+  }
+}

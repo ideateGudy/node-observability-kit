@@ -76,6 +76,49 @@ export default function LandingPage() {
         </div>
 
         <nav style={{ display: "flex", alignItems: "center", gap: "1.5rem" }} className="landing-nav">
+          {/* Live Monitoring Pulse Status Indicator */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.25rem 0.65rem",
+              borderRadius: "9999px",
+              background: "rgba(16, 185, 129, 0.08)",
+              border: "1px solid rgba(16, 185, 129, 0.25)",
+              fontSize: "0.74rem",
+              color: "#6ee7b7",
+              fontWeight: 500,
+            }}
+            title="Telemetry Engine Active & Polling"
+          >
+            <span style={{ position: "relative", display: "flex", width: "8px", height: "8px" }}>
+              <span
+                style={{
+                  position: "absolute",
+                  display: "inline-flex",
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "50%",
+                  backgroundColor: "#10b981",
+                  opacity: 0.75,
+                  animation: "livePulseRing 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+                }}
+              />
+              <span
+                style={{
+                  position: "relative",
+                  display: "inline-flex",
+                  borderRadius: "50%",
+                  width: "8px",
+                  height: "8px",
+                  backgroundColor: "#10b981",
+                }}
+              />
+            </span>
+            <span>Live Telemetry</span>
+          </div>
+
           <Link
             href="/docs"
             style={{
@@ -185,7 +228,7 @@ export default function LandingPage() {
           }}
         />
 
-        {/* Hero Top Pill Badge */}
+        {/* Hero Top Pill Badge with Real-time Pulse Heartbeat */}
         <motion.div
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -193,21 +236,48 @@ export default function LandingPage() {
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.5rem",
-            padding: "0.35rem 0.85rem",
+            gap: "0.6rem",
+            padding: "0.4rem 0.95rem",
             borderRadius: "9999px",
-            background: "rgba(99, 102, 241, 0.12)",
-            border: "1px solid rgba(99, 102, 241, 0.3)",
-            color: "#a5b4fc",
+            background: "rgba(15, 23, 42, 0.8)",
+            border: "1px solid rgba(99, 102, 241, 0.35)",
+            backdropFilter: "blur(12px)",
+            color: "#c7d2fe",
             fontSize: "0.82rem",
             fontWeight: 600,
             marginBottom: "1.5rem",
             position: "relative",
             zIndex: 1,
+            boxShadow: "0 0 20px -5px rgba(99, 102, 241, 0.25)",
           }}
         >
-          <Sparkles size={14} color="#818cf8" />
+          {/* Animated radar/sonar ping dot */}
+          <span style={{ position: "relative", display: "flex", width: "9px", height: "9px" }}>
+            <span
+              style={{
+                position: "absolute",
+                display: "inline-flex",
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                backgroundColor: "#38bdf8",
+                opacity: 0.75,
+                animation: "livePulseRing 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+              }}
+            />
+            <span
+              style={{
+                position: "relative",
+                display: "inline-flex",
+                borderRadius: "50%",
+                width: "9px",
+                height: "9px",
+                backgroundColor: "#38bdf8",
+              }}
+            />
+          </span>
           <span>Full-Stack Telemetry for Node.js Backends & React UIs</span>
+          
         </motion.div>
 
         {/* Headline */}
@@ -316,6 +386,141 @@ export default function LandingPage() {
               <Play size={15} color="#38bdf8" /> Launch Demo Console
             </Link>
           </motion.div>
+        </motion.div>
+
+        {/* Live Observability Telemetry Radar Pulse Strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1.5rem",
+            padding: "0.65rem 1.25rem",
+            marginBottom: "2rem",
+            borderRadius: "0.75rem",
+            background: "rgba(15, 23, 42, 0.65)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            backdropFilter: "blur(10px)",
+            boxShadow: "0 10px 30px -10px rgba(0, 0, 0, 0.5)",
+            position: "relative",
+            zIndex: 1,
+          }}
+        >
+          {/* Pulse Metric 1: Ingestion Heartbeat */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
+            <span style={{ position: "relative", display: "flex", width: "10px", height: "10px" }}>
+              <span
+                style={{
+                  position: "absolute",
+                  display: "inline-flex",
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "50%",
+                  backgroundColor: "#10b981",
+                  opacity: 0.8,
+                  animation: "livePulseRing 1.6s cubic-bezier(0, 0, 0.2, 1) infinite",
+                }}
+              />
+              <span
+                style={{
+                  position: "relative",
+                  display: "inline-flex",
+                  borderRadius: "50%",
+                  width: "10px",
+                  height: "10px",
+                  backgroundColor: "#10b981",
+                }}
+              />
+            </span>
+            <div style={{ textAlign: "left" }}>
+              <div style={{ fontSize: "0.68rem", color: "#64748b", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>
+                Heartbeat
+              </div>
+              <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", fontFamily: "monospace" }}>
+                Healthy • 99.99%
+              </div>
+            </div>
+          </div>
+
+          <div style={{ width: "1px", height: "24px", background: "rgba(255, 255, 255, 0.08)" }} className="metric-divider" />
+
+          {/* Pulse Metric 2: Real-time Latency (p99) */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
+            <span style={{ position: "relative", display: "flex", width: "10px", height: "10px" }}>
+              <span
+                style={{
+                  position: "absolute",
+                  display: "inline-flex",
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "50%",
+                  backgroundColor: "#38bdf8",
+                  opacity: 0.8,
+                  animation: "livePulseRing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite",
+                }}
+              />
+              <span
+                style={{
+                  position: "relative",
+                  display: "inline-flex",
+                  borderRadius: "50%",
+                  width: "10px",
+                  height: "10px",
+                  backgroundColor: "#38bdf8",
+                }}
+              />
+            </span>
+            <div style={{ textAlign: "left" }}>
+              <div style={{ fontSize: "0.68rem", color: "#64748b", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>
+                Latency (p99)
+              </div>
+              <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#38bdf8", fontFamily: "monospace" }}>
+                14.2 ms
+              </div>
+            </div>
+          </div>
+
+          <div style={{ width: "1px", height: "24px", background: "rgba(255, 255, 255, 0.08)" }} className="metric-divider" />
+
+          {/* Pulse Metric 3: Active Stream Throughput */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
+            <span style={{ position: "relative", display: "flex", width: "10px", height: "10px" }}>
+              <span
+                style={{
+                  position: "absolute",
+                  display: "inline-flex",
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: "50%",
+                  backgroundColor: "#a855f7",
+                  opacity: 0.8,
+                  animation: "livePulseRing 1.9s cubic-bezier(0, 0, 0.2, 1) infinite",
+                }}
+              />
+              <span
+                style={{
+                  position: "relative",
+                  display: "inline-flex",
+                  borderRadius: "50%",
+                  width: "10px",
+                  height: "10px",
+                  backgroundColor: "#a855f7",
+                }}
+              />
+            </span>
+            <div style={{ textAlign: "left" }}>
+              <div style={{ fontSize: "0.68rem", color: "#64748b", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>
+                Throughput
+              </div>
+              <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#c084fc", fontFamily: "monospace" }}>
+                1,420 req/s
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* Quick Install Banner with interactive copy */}
@@ -648,6 +853,46 @@ export default function LandingPage() {
               <span style={{ marginLeft: "0.5rem", fontSize: "0.78rem", color: "#64748b", fontFamily: "monospace" }}>
                 server.ts (Backend Instrumentation)
               </span>
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.35rem",
+                  marginLeft: "0.75rem",
+                  padding: "0.15rem 0.5rem",
+                  borderRadius: "9999px",
+                  background: "rgba(16, 185, 129, 0.1)",
+                  border: "1px solid rgba(16, 185, 129, 0.25)",
+                  fontSize: "0.7rem",
+                  color: "#34d399",
+                }}
+              >
+                <span style={{ position: "relative", display: "flex", width: "6px", height: "6px" }}>
+                  <span
+                    style={{
+                      position: "absolute",
+                      display: "inline-flex",
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "50%",
+                      backgroundColor: "#10b981",
+                      opacity: 0.75,
+                      animation: "livePulseRing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite",
+                    }}
+                  />
+                  <span
+                    style={{
+                      position: "relative",
+                      display: "inline-flex",
+                      borderRadius: "50%",
+                      width: "6px",
+                      height: "6px",
+                      backgroundColor: "#10b981",
+                    }}
+                  />
+                </span>
+                <span>listening :5000</span>
+              </div>
             </div>
             <Link
               href="/docs"
@@ -773,6 +1018,28 @@ app.listen(5000, () => console.log("🚀 Server running on port 5000"));`}
 
       {/* Global CSS for Landing page */}
       <style jsx global>{`
+        @keyframes livePulseRing {
+          0% {
+            transform: scale(0.95);
+            opacity: 0.85;
+          }
+          70% {
+            transform: scale(2.4);
+            opacity: 0;
+          }
+          100% {
+            transform: scale(2.4);
+            opacity: 0;
+          }
+        }
+        @keyframes telemetryGlow {
+          0%, 100% {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+          }
+          50% {
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
+          }
+        }
         @media (max-width: 768px) {
           .landing-nav {
             gap: 0.75rem !important;

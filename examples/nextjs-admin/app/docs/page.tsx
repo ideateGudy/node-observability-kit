@@ -20,10 +20,20 @@ import {
   Play,
   GitBranch,
   Palette,
-  Box
+  Box,
+  ChevronDown,
+  CheckCircle2
 } from "lucide-react";
 
+const AVAILABLE_VERSIONS = [
+  { version: "v0.1.0", label: "v0.1.0 (Latest)", tag: "latest", isCurrent: true },
+  { version: "v0.1.0-beta.2", label: "v0.1.0-beta.2", tag: "pre-release", isCurrent: false },
+  { version: "v0.1.0-beta.1", label: "v0.1.0-beta.1", tag: "pre-release", isCurrent: false },
+];
+
 export default function DocumentationPage() {
+  const [selectedVersion, setSelectedVersion] = useState<string>("v0.1.0");
+  const [isVersionDropdownOpen, setIsVersionDropdownOpen] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>("quickstart");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [installPm, setInstallPm] = useState<"cli" | "npm" | "pnpm" | "bun" | "yarn">("cli");
@@ -108,7 +118,79 @@ export default function DocumentationPage() {
               <div style={{ fontWeight: 800, fontSize: "1.1rem", letterSpacing: "-0.02em", color: "#ffffff" }}>
                 Observability Kit
               </div>
-              <div style={{ fontSize: "0.75rem", color: "#818cf8", fontWeight: 600 }}>v0.1.0 Documentation</div>
+              <div style={{ position: "relative", display: "inline-block", marginTop: "0.1rem" }}>
+                <button
+                  onClick={() => setIsVersionDropdownOpen(!isVersionDropdownOpen)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.25rem",
+                    background: "rgba(99, 102, 241, 0.12)",
+                    border: "1px solid rgba(99, 102, 241, 0.25)",
+                    borderRadius: "0.375rem",
+                    padding: "0.15rem 0.45rem",
+                    color: "#818cf8",
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "all 0.15s ease",
+                  }}
+                >
+                  <span>{selectedVersion} Documentation</span>
+                  <ChevronDown size={12} style={{ transform: isVersionDropdownOpen ? "rotate(180deg)" : "none", transition: "transform 0.15s ease" }} />
+                </button>
+
+                {/* Dropdown Menu */}
+                {isVersionDropdownOpen && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "calc(100% + 6px)",
+                      left: 0,
+                      zIndex: 100,
+                      minWidth: "170px",
+                      background: "#0f172a",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      borderRadius: "0.5rem",
+                      padding: "0.35rem",
+                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05)",
+                    }}
+                  >
+                    <div style={{ fontSize: "0.65rem", fontWeight: 700, textTransform: "uppercase", color: "#64748b", padding: "0.35rem 0.5rem 0.2rem" }}>
+                      Select Version
+                    </div>
+                    {AVAILABLE_VERSIONS.map((item) => (
+                      <button
+                        key={item.version}
+                        onClick={() => {
+                          setSelectedVersion(item.version);
+                          setIsVersionDropdownOpen(false);
+                        }}
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          padding: "0.4rem 0.5rem",
+                          borderRadius: "0.375rem",
+                          border: "none",
+                          background: selectedVersion === item.version ? "rgba(99, 102, 241, 0.2)" : "transparent",
+                          color: selectedVersion === item.version ? "#ffffff" : "#94a3b8",
+                          fontSize: "0.75rem",
+                          fontWeight: selectedVersion === item.version ? 600 : 400,
+                          cursor: "pointer",
+                          textAlign: "left",
+                        }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                          <span>{item.label}</span>
+                        </div>
+                        {selectedVersion === item.version && <CheckCircle2 size={12} color="#818cf8" />}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           <span

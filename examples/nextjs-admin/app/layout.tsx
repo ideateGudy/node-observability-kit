@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Stacklenzz Admin Dashboard",
-  description: "Express & NestJS Telemetry",
+  title: "Stacklenzz - Developer-First Node.js & React Observability",
+  description: "Production-ready backend telemetry, Prometheus metrics, Winston logs, and React admin dashboards for Express and NestJS",
 };
 
 export default function RootLayout({

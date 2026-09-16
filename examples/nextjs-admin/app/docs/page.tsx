@@ -29,6 +29,7 @@ import {
   ArrowRight,
   CornerDownLeft,
 } from "lucide-react";
+import { StacklenzzLogo } from "../components/StacklenzzLogo";
 import { CURRENT_PROJECT_VERSION, AVAILABLE_VERSIONS } from "./version";
 
 export default function DocumentationPage() {
@@ -197,21 +198,7 @@ export default function DocumentationPage() {
               }}
               title="Return to Home"
             >
-              <div
-                style={{
-                  width: "34px",
-                  height: "34px",
-                  borderRadius: "10px",
-                  background: "linear-gradient(135deg, #6366f1, #3b82f6)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  boxShadow: "0 0 16px rgba(99, 102, 241, 0.4)",
-                  flexShrink: 0,
-                }}
-              >
-                <Activity size={18} color="#ffffff" />
-              </div>
+              <StacklenzzLogo size={34} />
               <div style={{ fontWeight: 800, fontSize: "1rem", letterSpacing: "-0.02em", color: "#ffffff" }}>
                 Stacklenzz
               </div>
@@ -355,7 +342,7 @@ export default function DocumentationPage() {
             <Play size={13} /> Demo Console
           </Link>
           <a
-            href="https://github.com/ideateGudy/node-observability-kit"
+            href="https://github.com/ideateGudy/stacklenzz"
             target="_blank"
             rel="noopener noreferrer"
             style={{

@@ -22,6 +22,7 @@ import {
   Terminal,
   Zap,
 } from "lucide-react";
+import { StacklenzzLogo } from "./components/StacklenzzLogo";
 import { CURRENT_PROJECT_VERSION } from "./docs/version";
 
 export default function LandingPage() {
@@ -62,20 +63,7 @@ export default function LandingPage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <div
-            style={{
-              width: "36px",
-              height: "36px",
-              borderRadius: "10px",
-              background: "linear-gradient(135deg, #6366f1, #3b82f6)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: "0 0 20px rgba(99, 102, 241, 0.4)",
-            }}
-          >
-            <Activity size={20} color="#ffffff" />
-          </div>
+          <StacklenzzLogo size={36} />
           <div>
             <div style={{ fontWeight: 800, fontSize: "1.1rem", letterSpacing: "-0.02em", color: "#ffffff" }}>
               Stacklenzz
@@ -118,7 +106,7 @@ export default function LandingPage() {
             Live Demo
           </Link>
           <a
-            href="https://github.com/ideateGudy/node-observability-kit"
+            href="https://github.com/ideateGudy/stacklenzz"
             target="_blank"
             rel="noopener noreferrer"
             style={{

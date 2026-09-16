@@ -1,6 +1,7 @@
 export * from "./types.js";
 export * from "./themes.js";
 export * from "./mock.js";
+export * from "./store.js";
 export * from "./context.js";
 
 // Components

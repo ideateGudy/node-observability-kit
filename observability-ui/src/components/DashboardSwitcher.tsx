@@ -207,14 +207,17 @@ export function DashboardSwitcher({
                 position: "absolute",
                 top: "calc(100% + 8px)",
                 right: 0,
-                zIndex: 1000,
-                width: "260px",
-                maxWidth: "calc(100vw - 3rem)",
+                zIndex: 9999,
+                width: "250px",
+                maxWidth: "calc(100vw - 2.5rem)",
+                boxSizing: "border-box",
+                maxHeight: "min(420px, calc(100vh - 120px))",
+                overflowY: "auto",
                 backgroundColor: activeTheme.background,
                 border: `1px solid ${activeTheme.cardBorder}`,
-                borderRadius: "0.6rem",
-                padding: "0.4rem",
-                boxShadow: "0 15px 35px -5px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.5)",
+                borderRadius: "0.65rem",
+                padding: "0.45rem",
+                boxShadow: "0 20px 40px -5px rgba(0, 0, 0, 0.85), 0 0 20px rgba(0, 0, 0, 0.6)",
               }}
             >
               <div

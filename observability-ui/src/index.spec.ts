@@ -132,6 +132,108 @@ describe("Observability UI Components & Templates Test Suite", () => {
       expect(t.textMuted).toBeTruthy();
     });
   });
+
+  describe("Redux State Management & LocalStorage Persistence", () => {
+    it("should export Redux store primitives and action creators", () => {
+      expect(UI.createObservabilityStore).toBeDefined();
+      expect(UI.observabilityReducer).toBeDefined();
+      expect(UI.setThemeAction).toBeDefined();
+      expect(UI.LOCAL_STORAGE_THEME_KEY).toBe("stacklenzz_theme");
+      expect(UI.SET_THEME).toBe("stacklenzz/SET_THEME");
+    });
+
+    it("should create store with initial theme and process SET_THEME actions correctly", () => {
+      const store = UI.createObservabilityStore("nord");
+      expect(store.getState().theme).toBe("nord");
+
+      const action = UI.setThemeAction("dracula");
+      expect(action).toEqual({
+        type: "stacklenzz/SET_THEME",
+        payload: "dracula",
+      });
+
+      store.dispatch(action);
+      expect(store.getState().theme).toBe("dracula");
+    });
+
+    it("should notify subscribers when Redux state changes", () => {
+      const store = UI.createObservabilityStore("tokyo-night");
+      let notifiedTheme = "";
+
+      const unsubscribe = store.subscribe(() => {
+        notifiedTheme = store.getState().theme;
+      });
+
+      store.dispatch(UI.setThemeAction("cyberpunk"));
+      expect(notifiedTheme).toBe("cyberpunk");
+
+      unsubscribe();
+      store.dispatch(UI.setThemeAction("emerald-terminal"));
+      // Should not notify after unsubscribing
+      expect(notifiedTheme).toBe("cyberpunk");
+      expect(store.getState().theme).toBe("emerald-terminal");
+    });
+
+    it("should persist selected theme to localStorage and retrieve it", () => {
+      // Mock window.localStorage
+      const mockStorage: Record<string, string> = {};
+      const originalWindow = globalThis.window;
+
+      const fakeLocalStorage = {
+        getItem: (key: string) => mockStorage[key] ?? null,
+        setItem: (key: string, value: string) => {
+          mockStorage[key] = value;
+        },
+        removeItem: (key: string) => {
+          delete mockStorage[key];
+        },
+        clear: () => {
+          Object.keys(mockStorage).forEach((k) => delete mockStorage[k]);
+        },
+      };
+
+      // Assign to global window
+      (globalThis as any).window = {
+        localStorage: fakeLocalStorage,
+      };
+
+      try {
+        // Initial store dispatch
+        const store = UI.createObservabilityStore("tokyo-night");
+        store.dispatch(UI.setThemeAction("catppuccin"));
+
+        // Verify it was stored in localStorage under stacklenzz_theme
+        expect(fakeLocalStorage.getItem("stacklenzz_theme")).toBe("catppuccin");
+
+        // Verify getSavedTheme restores it
+        const saved = UI.getSavedTheme();
+        expect(saved).toBe("catppuccin");
+
+        // New store initialized without explicit theme should load from localStorage
+        const newStore = UI.createObservabilityStore();
+        expect(newStore.getState().theme).toBe("catppuccin");
+      } finally {
+        (globalThis as any).window = originalWindow;
+      }
+    });
+
+    it("should handle unknown or corrupt localStorage theme values gracefully with fallback", () => {
+      const originalWindow = globalThis.window;
+      (globalThis as any).window = {
+        localStorage: {
+          getItem: () => "invalid-corrupted-theme-name",
+          setItem: () => {},
+        },
+      };
+
+      try {
+        const saved = UI.getSavedTheme("tokyo-night");
+        expect(saved).toBe("tokyo-night");
+      } finally {
+        (globalThis as any).window = originalWindow;
+      }
+    });
+  });
 });
 
 

@@ -2,8 +2,13 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
 import { ObservabilitySnapshot, ObservabilityConfig } from "./types.js";
 import { generateMockSnapshot } from "./mock.js";
 import { RuntimeTheme, ThemeColors, RUNTIME_THEMES } from "./themes.js";
+import {
+  ObservabilityStore,
+  createObservabilityStore,
+  setThemeAction,
+} from "./store.js";
 
-interface ObservabilityContextValue {
+export interface ObservabilityContextValue {
   snapshot: ObservabilitySnapshot | null;
   isLoading: boolean;
   error: Error | null;
@@ -13,6 +18,7 @@ interface ObservabilityContextValue {
   theme: RuntimeTheme;
   setTheme: (theme: RuntimeTheme) => void;
   themeColors: ThemeColors;
+  store: ObservabilityStore;
 }
 
 const ObservabilityContext = createContext<ObservabilityContextValue | null>(null);
@@ -103,12 +109,38 @@ function ObservabilityProviderInner({
     }
   }, [fetchTelemetry, refreshIntervalMs]);
 
-  const initialTheme: RuntimeTheme =
-    (config.theme && config.theme in RUNTIME_THEMES
+  const initialConfigTheme: RuntimeTheme | undefined =
+    config.theme && config.theme in RUNTIME_THEMES
       ? (config.theme as RuntimeTheme)
-      : "tokyo-night");
+      : undefined;
 
-  const [theme, setTheme] = useState<RuntimeTheme>(initialTheme);
+  const [store] = useState<ObservabilityStore>(() =>
+    createObservabilityStore(initialConfigTheme)
+  );
+
+  const [theme, setThemeState] = useState<RuntimeTheme>(() => store.getState().theme);
+
+  useEffect(() => {
+    // If config.theme prop changed externally, dispatch to Redux store
+    if (config.theme && config.theme in RUNTIME_THEMES && config.theme !== store.getState().theme) {
+      store.dispatch(setThemeAction(config.theme as RuntimeTheme));
+    }
+
+    // Subscribe to Redux store updates
+    const unsubscribe = store.subscribe(() => {
+      setThemeState(store.getState().theme);
+    });
+
+    return unsubscribe;
+  }, [config.theme, store]);
+
+  const setTheme = useCallback(
+    (newTheme: RuntimeTheme) => {
+      store.dispatch(setThemeAction(newTheme));
+    },
+    [store]
+  );
+
   const themeColors = RUNTIME_THEMES[theme] || RUNTIME_THEMES["tokyo-night"];
 
   return (
@@ -123,6 +155,7 @@ function ObservabilityProviderInner({
         theme,
         setTheme,
         themeColors,
+        store,
       }}
     >
       {children}

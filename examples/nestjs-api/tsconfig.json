@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "declaration": false,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2022",
+    "sourceMap": false,
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "paths": {
+      "@nestjs/common": ["../../express-nestjs-observability/node_modules/@nestjs/common"],
+      "@nestjs/core": ["../../express-nestjs-observability/node_modules/@nestjs/core"]
+    },
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  },
+  "include": ["**/*.ts"]
+}

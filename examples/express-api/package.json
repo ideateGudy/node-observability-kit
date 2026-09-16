@@ -1,0 +1,13 @@
+{
+  "name": "example-express-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@ideategudy/express-nestjs-observability": "file:../../express-nestjs-observability",
+    "express": "^5.0.1"
+  }
+}

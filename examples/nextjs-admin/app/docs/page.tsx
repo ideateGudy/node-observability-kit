@@ -186,25 +186,37 @@ export default function DocumentationPage() {
           </button>
 
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <div
+            <Link
+              href="/"
               style={{
-                width: "34px",
-                height: "34px",
-                borderRadius: "10px",
-                background: "linear-gradient(135deg, #6366f1, #3b82f6)",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 0 16px rgba(99, 102, 241, 0.4)",
-                flexShrink: 0,
+                gap: "0.75rem",
+                textDecoration: "none",
+                color: "inherit",
               }}
+              title="Return to Home"
             >
-              <Activity size={18} color="#ffffff" />
-            </div>
-            <div>
+              <div
+                style={{
+                  width: "34px",
+                  height: "34px",
+                  borderRadius: "10px",
+                  background: "linear-gradient(135deg, #6366f1, #3b82f6)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 0 16px rgba(99, 102, 241, 0.4)",
+                  flexShrink: 0,
+                }}
+              >
+                <Activity size={18} color="#ffffff" />
+              </div>
               <div style={{ fontWeight: 800, fontSize: "1rem", letterSpacing: "-0.02em", color: "#ffffff" }}>
                 Observability Kit
               </div>
+            </Link>
+            <div>
               <div style={{ position: "relative", display: "inline-block" }}>
                 <button
                   onClick={() => setIsVersionDropdownOpen(!isVersionDropdownOpen)}

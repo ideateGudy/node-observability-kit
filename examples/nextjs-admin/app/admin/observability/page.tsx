@@ -40,6 +40,36 @@ export default function AdminObservabilityPage() {
 
   return (
     <main style={{ minHeight: "100vh", backgroundColor: "#090d16" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0.5rem 1.5rem",
+          background: "rgba(15, 23, 42, 0.8)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          fontSize: "0.85rem",
+        }}
+      >
+        <div style={{ color: "#94a3b8", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <span>Live Demo Console</span>
+          <span style={{ color: "#475569" }}>•</span>
+          <span style={{ color: "#10b981", fontWeight: 600 }}>Connected</span>
+        </div>
+        <a
+          href="/docs"
+          style={{
+            color: "#818cf8",
+            textDecoration: "none",
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.25rem",
+          }}
+        >
+          ← Back to Documentation
+        </a>
+      </div>
       <ObservabilityDashboard
         config={config}
         defaultDashboard="full"

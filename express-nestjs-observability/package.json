@@ -5,12 +5,13 @@
   "author": "Goodnews Azonubi <azonubigoodnews@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ideateGudy/express-nestjs-observability.git"
+    "url": "git+https://github.com/ideateGudy/ideategudy-observability-toolkit.git",
+    "directory": "express-nestjs-observability"
   },
   "bugs": {
-    "url": "https://github.com/ideateGudy/express-nestjs-observability/issues"
+    "url": "https://github.com/ideateGudy/ideategudy-observability-toolkit/issues"
   },
-  "homepage": "https://github.com/ideateGudy/express-nestjs-observability#readme",
+  "homepage": "https://github.com/ideateGudy/ideategudy-observability-toolkit/tree/main/express-nestjs-observability#readme",
   "license": "MIT",
   "keywords": [
     "observability",

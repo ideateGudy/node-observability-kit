@@ -3,6 +3,15 @@
   "version": "0.1.0",
   "description": "Zero-configuration CLI to install and validate @ideategudy backend observability dashboards in React and Next.js applications",
   "author": "Goodnews Azonubi <azonubigoodnews@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ideateGudy/ideategudy-observability-toolkit.git",
+    "directory": "observability-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/ideateGudy/ideategudy-observability-toolkit/issues"
+  },
+  "homepage": "https://github.com/ideateGudy/ideategudy-observability-toolkit/tree/main/observability-cli#readme",
   "license": "MIT",
   "keywords": [
     "observability",

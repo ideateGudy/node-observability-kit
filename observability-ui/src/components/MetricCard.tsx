@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowUpRight, ArrowDownRight, Activity } from "lucide-react";
+import { useObservability } from "../context.js";
 
 export interface MetricCardProps {
   title: string;
@@ -23,6 +24,8 @@ export function MetricCard({
   rightElement,
   statusColor = "emerald",
 }: MetricCardProps) {
+  const { themeColors } = useObservability();
+
   const glowColors: Record<string, string> = {
     emerald: "from-emerald-500/10 to-transparent border-emerald-500/20",
     green: "from-green-500/10 to-transparent border-green-500/20",
@@ -37,10 +40,10 @@ export function MetricCard({
   return (
     <div
       style={{
-        background: "rgba(15, 23, 42, 0.75)",
+        background: themeColors?.cardBg || "rgba(15, 23, 42, 0.75)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        border: "1px solid rgba(255, 255, 255, 0.08)",
+        border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.08)"}`,
         borderRadius: "0.875rem",
         padding: "1.25rem",
         display: "flex",
@@ -55,7 +58,7 @@ export function MetricCard({
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
         <div>
-          <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: "#94a3b8", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+          <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: themeColors?.textMuted || "#94a3b8", textTransform: "uppercase", letterSpacing: "0.05em" }}>
             {title}
           </span>
           <div style={{ fontSize: "1.75rem", fontWeight: 700, color: "#f8fafc", marginTop: "0.375rem", letterSpacing: "-0.025em" }}>

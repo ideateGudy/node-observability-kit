@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { ObservabilitySnapshot, ObservabilityConfig } from "./types.js";
 import { generateMockSnapshot } from "./mock.js";
+import { RuntimeTheme, ThemeColors, RUNTIME_THEMES } from "./themes.js";
 
 interface ObservabilityContextValue {
   snapshot: ObservabilitySnapshot | null;
@@ -9,6 +10,9 @@ interface ObservabilityContextValue {
   lastUpdated: Date | null;
   refresh: () => Promise<void>;
   isMock: boolean;
+  theme: RuntimeTheme;
+  setTheme: (theme: RuntimeTheme) => void;
+  themeColors: ThemeColors;
 }
 
 const ObservabilityContext = createContext<ObservabilityContextValue | null>(null);
@@ -79,6 +83,14 @@ export function ObservabilityProvider({
     }
   }, [fetchTelemetry, refreshIntervalMs]);
 
+  const initialTheme: RuntimeTheme =
+    (config.theme && config.theme in RUNTIME_THEMES
+      ? (config.theme as RuntimeTheme)
+      : "tokyo-night");
+
+  const [theme, setTheme] = useState<RuntimeTheme>(initialTheme);
+  const themeColors = RUNTIME_THEMES[theme] || RUNTIME_THEMES["tokyo-night"];
+
   return (
     <ObservabilityContext.Provider
       value={{
@@ -88,6 +100,9 @@ export function ObservabilityProvider({
         lastUpdated,
         refresh: fetchTelemetry,
         isMock,
+        theme,
+        setTheme,
+        themeColors,
       }}
     >
       {children}

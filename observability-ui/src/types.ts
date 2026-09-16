@@ -97,11 +97,13 @@ export interface ObservabilitySnapshot {
   breadcrumbs?: Breadcrumb[];
 }
 
+import { RuntimeTheme } from "./themes.js";
+
 export interface ObservabilityConfig {
   endpoint?: string;
   refreshIntervalMs?: number;
   mockMode?: boolean;
-  theme?: "dark" | "light" | "auto";
+  theme?: RuntimeTheme | "dark" | "light" | "auto";
   token?: string;
 }
 
@@ -112,3 +114,4 @@ export type DashboardTemplate =
   | "errors"
   | "runtime"
   | "minimal";
+

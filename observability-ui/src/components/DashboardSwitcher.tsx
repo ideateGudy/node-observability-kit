@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   LayoutDashboard,
   Globe,
@@ -7,7 +7,11 @@ import {
   Cpu,
   SquareDashedBottom,
   ChevronDown,
+  Palette,
+  Check,
 } from "lucide-react";
+import { useObservability } from "../context.js";
+import { RUNTIME_THEMES, RuntimeTheme } from "../themes.js";
 
 export type DashboardTemplateType =
   | "full"
@@ -72,10 +76,21 @@ export function DashboardSwitcher({
   onChangeDashboard,
   endpoint,
 }: DashboardSwitcherProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const activeTemplate =
-    DASHBOARD_TEMPLATES.find((t) => t.id === currentDashboard) ||
-    DASHBOARD_TEMPLATES[0];
+  const { theme, setTheme, themeColors } = useObservability();
+  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
+  const themeMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (themeMenuRef.current && !themeMenuRef.current.contains(e.target as Node)) {
+        setIsThemeMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const activeTheme = RUNTIME_THEMES[theme] || RUNTIME_THEMES["tokyo-night"];
 
   return (
     <div
@@ -87,8 +102,8 @@ export function DashboardSwitcher({
         gap: "0.85rem",
         padding: "0.75rem 1.25rem",
         marginBottom: "1.25rem",
-        background: "linear-gradient(90deg, #0b1329 0%, #0f172a 100%)",
-        border: "1px solid rgba(99, 102, 241, 0.2)",
+        background: activeTheme.switcherBg,
+        border: `1px solid ${activeTheme.cardBorder}`,
         borderRadius: "0.75rem",
         boxShadow: "0 4px 20px -5px rgba(0, 0, 0, 0.4)",
       }}
@@ -101,7 +116,7 @@ export function DashboardSwitcher({
               fontSize: "0.75rem",
               textTransform: "uppercase",
               fontWeight: 700,
-              color: "#818cf8",
+              color: activeTheme.accent,
               letterSpacing: "0.06em",
             }}
           >
@@ -125,15 +140,15 @@ export function DashboardSwitcher({
                   padding: "0.35rem 0.75rem",
                   fontSize: "0.78rem",
                   fontWeight: isActive ? 600 : 500,
-                  color: isActive ? "#ffffff" : "#94a3b8",
+                  color: isActive ? "#ffffff" : activeTheme.textMuted,
                   background: isActive
-                    ? "linear-gradient(135deg, rgba(99, 102, 241, 0.9) 0%, rgba(79, 70, 229, 0.9) 100%)"
+                    ? `linear-gradient(135deg, ${activeTheme.accent} 0%, ${activeTheme.accentSecondary} 100%)`
                     : "rgba(255, 255, 255, 0.04)",
-                  border: `1px solid ${isActive ? "rgba(129, 140, 248, 0.6)" : "rgba(255, 255, 255, 0.08)"}`,
+                  border: `1px solid ${isActive ? activeTheme.accent : "rgba(255, 255, 255, 0.08)"}`,
                   borderRadius: "0.5rem",
                   cursor: "pointer",
                   transition: "all 0.15s ease-in-out",
-                  boxShadow: isActive ? "0 0 12px rgba(99, 102, 241, 0.35)" : "none",
+                  boxShadow: isActive ? `0 0 12px ${activeTheme.glow}` : "none",
                 }}
               >
                 {tmpl.icon}
@@ -144,34 +159,159 @@ export function DashboardSwitcher({
         </div>
       </div>
 
-      {/* Endpoint Live Indicator */}
-      {endpoint && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontSize: "0.72rem",
-            color: "#64748b",
-            background: "rgba(0, 0, 0, 0.25)",
-            padding: "0.25rem 0.65rem",
-            borderRadius: "0.375rem",
-            border: "1px solid rgba(255, 255, 255, 0.05)",
-          }}
-        >
-          <span
+      {/* Right controls: Theme Switcher & Endpoint Live Indicator */}
+      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
+        {/* 6 Runtime Themes Dropdown Switcher */}
+        <div style={{ position: "relative" }} ref={themeMenuRef}>
+          <button
+            onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
             style={{
-              width: "6px",
-              height: "6px",
-              borderRadius: "50%",
-              backgroundColor: "#10b981",
-              boxShadow: "0 0 8px #10b981",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.45rem",
+              background: "rgba(255, 255, 255, 0.05)",
+              border: `1px solid ${isThemeMenuOpen ? activeTheme.accent : "rgba(255, 255, 255, 0.1)"}`,
+              borderRadius: "0.45rem",
+              padding: "0.3rem 0.65rem",
+              color: activeTheme.text,
+              fontSize: "0.76rem",
+              fontWeight: 500,
+              cursor: "pointer",
+              transition: "all 0.15s ease",
             }}
-          />
-          <span>Telemetry:</span>
-          <code style={{ color: "#38bdf8", fontWeight: 600 }}>{endpoint}</code>
+            title="Switch Dashboard Theme"
+          >
+            <Palette size={13} color={activeTheme.accent} />
+            <span
+              style={{
+                width: "8px",
+                height: "8px",
+                borderRadius: "50%",
+                backgroundColor: activeTheme.accent,
+                boxShadow: `0 0 6px ${activeTheme.accent}`,
+              }}
+            />
+            <span>{activeTheme.name}</span>
+            <ChevronDown
+              size={12}
+              style={{
+                transform: isThemeMenuOpen ? "rotate(180deg)" : "none",
+                transition: "transform 0.15s ease",
+              }}
+            />
+          </button>
+
+          {isThemeMenuOpen && (
+            <div
+              style={{
+                position: "absolute",
+                top: "calc(100% + 6px)",
+                right: 0,
+                zIndex: 100,
+                minWidth: "220px",
+                backgroundColor: activeTheme.background,
+                border: `1px solid ${activeTheme.cardBorder}`,
+                borderRadius: "0.6rem",
+                padding: "0.4rem",
+                boxShadow: "0 15px 30px -5px rgba(0, 0, 0, 0.8)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "0.65rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  color: activeTheme.textMuted,
+                  padding: "0.35rem 0.5rem 0.2rem",
+                }}
+              >
+                Runtime Themes (6 Built-in)
+              </div>
+              {(Object.keys(RUNTIME_THEMES) as RuntimeTheme[]).map((themeKey) => {
+                const t = RUNTIME_THEMES[themeKey];
+                const isSelected = theme === themeKey;
+                return (
+                  <button
+                    key={themeKey}
+                    onClick={() => {
+                      setTheme(themeKey);
+                      setIsThemeMenuOpen(false);
+                    }}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "0.45rem 0.6rem",
+                      borderRadius: "0.375rem",
+                      border: "none",
+                      background: isSelected ? t.badgeBg : "transparent",
+                      color: isSelected ? "#ffffff" : t.text,
+                      cursor: "pointer",
+                      fontSize: "0.78rem",
+                      textAlign: "left",
+                      transition: "all 0.12s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isSelected) e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isSelected) e.currentTarget.style.background = "transparent";
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <span
+                        style={{
+                          width: "9px",
+                          height: "9px",
+                          borderRadius: "50%",
+                          backgroundColor: t.accent,
+                          boxShadow: isSelected ? `0 0 8px ${t.accent}` : "none",
+                        }}
+                      />
+                      <div>
+                        <div style={{ fontWeight: isSelected ? 600 : 400 }}>{t.name}</div>
+                        <div style={{ fontSize: "0.68rem", color: t.textMuted }}>{t.description}</div>
+                      </div>
+                    </div>
+                    {isSelected && <Check size={13} color={t.accent} />}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
-      )}
+
+        {/* Endpoint Live Indicator */}
+        {endpoint && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              fontSize: "0.72rem",
+              color: activeTheme.textMuted,
+              background: "rgba(0, 0, 0, 0.25)",
+              padding: "0.25rem 0.65rem",
+              borderRadius: "0.375rem",
+              border: "1px solid rgba(255, 255, 255, 0.05)",
+            }}
+          >
+            <span
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                backgroundColor: "#10b981",
+                boxShadow: "0 0 8px #10b981",
+              }}
+            />
+            <span>Telemetry:</span>
+            <code style={{ color: activeTheme.accent, fontWeight: 600 }}>{endpoint}</code>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

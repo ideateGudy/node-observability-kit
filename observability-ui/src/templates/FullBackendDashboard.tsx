@@ -15,7 +15,7 @@ export interface FullBackendDashboardProps {
 }
 
 function DashboardContent() {
-  const { snapshot, isLoading, error, refresh, isMock } = useObservability();
+  const { snapshot, isLoading, error, refresh, isMock, themeColors } = useObservability();
   const [errorWindow, setErrorWindow] = React.useState<"all" | "1m" | "5m" | "15m" | "30m" | "1h" | "2h" | "24h" | "7d" | "30d">("all");
 
   if (isLoading && !snapshot) {
@@ -27,11 +27,11 @@ function DashboardContent() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          color: "#94a3b8",
+          color: themeColors?.textMuted || "#94a3b8",
           fontFamily: "Inter, system-ui, sans-serif",
         }}
       >
-        <div style={{ width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "3px solid rgba(255, 255, 255, 0.1)", borderTopColor: "#38bdf8", animation: "spin 1s linear infinite" }} />
+        <div style={{ width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "3px solid rgba(255, 255, 255, 0.1)", borderTopColor: themeColors?.accent || "#38bdf8", animation: "spin 1s linear infinite" }} />
         <p style={{ marginTop: "1rem", fontSize: "0.875rem" }}>Connecting to backend observability telemetry...</p>
       </div>
     );
@@ -87,9 +87,10 @@ function DashboardContent() {
       style={{
         padding: "1.5rem",
         minHeight: "100vh",
-        background: "#090d16",
-        color: "#f8fafc",
+        background: themeColors ? themeColors.background : "#090d16",
+        color: themeColors ? themeColors.text : "#f8fafc",
         fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+        transition: "background-color 0.25s ease, color 0.25s ease",
       }}
     >
       <ServiceHeader

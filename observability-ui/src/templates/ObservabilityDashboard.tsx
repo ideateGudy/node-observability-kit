@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ObservabilityConfig } from "../types.js";
+import { ObservabilityProvider, useObservability } from "../context.js";
 import {
   DashboardSwitcher,
   DashboardTemplateType,
@@ -17,23 +18,14 @@ export interface ObservabilityDashboardProps {
   showSwitcher?: boolean;
 }
 
-/**
- * Universal Observability Dashboard with an interactive Template Switcher.
- * Allows users to toggle seamlessly between:
- * - Full Suite
- * - API Overview
- * - Performance
- * - Errors & Failures
- * - Node Runtime
- * - Minimal Widget
- */
-export function ObservabilityDashboard({
+function ObservabilityDashboardInner({
   config,
   defaultDashboard = "full",
   showSwitcher = true,
 }: ObservabilityDashboardProps) {
   const [currentDashboard, setCurrentDashboard] =
     useState<DashboardTemplateType>(defaultDashboard);
+  const { themeColors } = useObservability();
 
   const endpoint = config?.endpoint || "http://localhost:5000/api/observability/stats";
 
@@ -41,9 +33,10 @@ export function ObservabilityDashboard({
     <div
       style={{
         minHeight: "100vh",
-        background: "#090d16",
-        color: "#f8fafc",
+        background: themeColors.background,
+        color: themeColors.text,
         fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+        transition: "background-color 0.25s ease, color 0.25s ease",
       }}
     >
       {showSwitcher && (
@@ -75,3 +68,16 @@ export function ObservabilityDashboard({
     </div>
   );
 }
+
+/**
+ * Universal Observability Dashboard with an interactive Template Switcher
+ * and dynamic 6 Built-in Runtime Theme Switcher (Tokyo Night, Nord, Dracula, Catppuccin, Emerald, Cyberpunk).
+ */
+export function ObservabilityDashboard(props: ObservabilityDashboardProps) {
+  return (
+    <ObservabilityProvider config={props.config}>
+      <ObservabilityDashboardInner {...props} />
+    </ObservabilityProvider>
+  );
+}
+

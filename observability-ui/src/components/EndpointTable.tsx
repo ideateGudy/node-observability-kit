@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { EndpointMetricSummary } from "../types.js";
 import { Search } from "lucide-react";
+import { useObservability } from "../context.js";
 
 export interface EndpointTableProps {
   endpoints: EndpointMetricSummary[];
 }
 
 export function EndpointTable({ endpoints }: EndpointTableProps) {
+  const { themeColors } = useObservability();
   const [searchTerm, setSearchTerm] = useState("");
 
   const getMethodBadgeStyle = (method: string) => {
@@ -34,9 +36,9 @@ export function EndpointTable({ endpoints }: EndpointTableProps) {
   return (
     <div
       style={{
-        background: "rgba(15, 23, 42, 0.75)",
+        background: themeColors?.cardBg || "rgba(15, 23, 42, 0.75)",
         backdropFilter: "blur(12px)",
-        border: "1px solid rgba(255, 255, 255, 0.08)",
+        border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.08)"}`,
         borderRadius: "0.875rem",
         padding: "1.25rem",
         overflow: "hidden",
@@ -44,10 +46,10 @@ export function EndpointTable({ endpoints }: EndpointTableProps) {
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", flexWrap: "wrap", gap: "0.75rem" }}>
         <div>
-          <h3 style={{ fontSize: "0.9375rem", fontWeight: 600, color: "#f8fafc", margin: 0 }}>
+          <h3 style={{ fontSize: "0.9375rem", fontWeight: 600, color: themeColors?.text || "#f8fafc", margin: 0 }}>
             Top Endpoints & Performance
           </h3>
-          <span style={{ fontSize: "0.8125rem", color: "#94a3b8" }}>
+          <span style={{ fontSize: "0.8125rem", color: themeColors?.textMuted || "#94a3b8" }}>
             {filteredEndpoints.length} of {endpoints.length} routes
           </span>
         </div>

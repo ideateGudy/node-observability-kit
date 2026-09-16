@@ -1,5 +1,6 @@
 import React from "react";
 import { Cpu, HardDrive, Zap, Box } from "lucide-react";
+import { useObservability } from "../context.js";
 
 export interface RuntimeMetricsProps {
   cpuPercent: number;
@@ -18,24 +19,25 @@ export function RuntimeMetrics({
   eventLoopLagMs,
   nodeVersion,
 }: RuntimeMetricsProps) {
+  const { themeColors } = useObservability();
   const heapPercent = heapTotalMb > 0 ? ((heapUsedMb / heapTotalMb) * 100).toFixed(0) : "0";
 
   return (
     <div
       style={{
-        background: "rgba(15, 23, 42, 0.75)",
+        background: themeColors?.cardBg || "rgba(15, 23, 42, 0.75)",
         backdropFilter: "blur(12px)",
-        border: "1px solid rgba(255, 255, 255, 0.08)",
+        border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.08)"}`,
         borderRadius: "0.875rem",
         padding: "1.25rem",
         marginBottom: "1.5rem",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-        <h3 style={{ fontSize: "0.9375rem", fontWeight: 600, color: "#f8fafc", margin: 0 }}>
+        <h3 style={{ fontSize: "0.9375rem", fontWeight: 600, color: themeColors?.text || "#f8fafc", margin: 0 }}>
           Node.js Runtime & Resource Utilization
         </h3>
-        <span style={{ fontSize: "0.8125rem", color: "#94a3b8" }}>
+        <span style={{ fontSize: "0.8125rem", color: themeColors?.textMuted || "#94a3b8" }}>
           Node {nodeVersion}
         </span>
       </div>

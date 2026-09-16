@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { CapturedErrorRecord, Breadcrumb } from "../types.js";
+import { useObservability } from "../context.js";
 import {
   AlertOctagon,
   ChevronDown,
@@ -69,6 +70,7 @@ function getBreadcrumbIcon(category: Breadcrumb["category"]) {
 }
 
 export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow = "all" }: ErrorInspectorProps) {
+  const { themeColors } = useObservability();
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<"all" | "5xx" | "4xx">("all");
@@ -135,8 +137,8 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
   return (
     <div
       style={{
-        background: "rgba(15, 23, 42, 0.75)",
-        border: "1px solid rgba(239, 68, 68, 0.2)",
+        background: themeColors?.cardBg || "rgba(15, 23, 42, 0.75)",
+        border: `1px solid ${themeColors?.cardBorder || "rgba(239, 68, 68, 0.2)"}`,
         borderRadius: "0.75rem",
         padding: "1.25rem",
         marginTop: "1.25rem",

@@ -1,5 +1,6 @@
 import React from "react";
 import { CheckCircle2, AlertTriangle, XCircle, Info } from "lucide-react";
+import { useObservability } from "../context.js";
 
 export interface HttpStatusChartProps {
   breakdown: {
@@ -11,6 +12,7 @@ export interface HttpStatusChartProps {
 }
 
 export function HttpStatusChart({ breakdown }: HttpStatusChartProps) {
+  const { themeColors } = useObservability();
   const total =
     breakdown.status2xx +
     breakdown.status3xx +
@@ -28,18 +30,18 @@ export function HttpStatusChart({ breakdown }: HttpStatusChartProps) {
   return (
     <div
       style={{
-        background: "rgba(15, 23, 42, 0.75)",
+        background: themeColors?.cardBg || "rgba(15, 23, 42, 0.75)",
         backdropFilter: "blur(12px)",
-        border: "1px solid rgba(255, 255, 255, 0.08)",
+        border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.08)"}`,
         borderRadius: "0.875rem",
         padding: "1.25rem",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-        <h3 style={{ fontSize: "0.9375rem", fontWeight: 600, color: "#f8fafc", margin: 0 }}>
+        <h3 style={{ fontSize: "0.9375rem", fontWeight: 600, color: themeColors?.text || "#f8fafc", margin: 0 }}>
           HTTP Status Distribution
         </h3>
-        <span style={{ fontSize: "0.8125rem", color: "#94a3b8" }}>
+        <span style={{ fontSize: "0.8125rem", color: themeColors?.textMuted || "#94a3b8" }}>
           {total.toLocaleString()} total
         </span>
       </div>

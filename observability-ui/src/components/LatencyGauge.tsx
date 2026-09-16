@@ -1,5 +1,6 @@
 import React from "react";
 import { Gauge, Zap, TrendingUp } from "lucide-react";
+import { useObservability } from "../context.js";
 
 export interface LatencyGaugeProps {
   p50: number;
@@ -9,6 +10,8 @@ export interface LatencyGaugeProps {
 }
 
 export function LatencyGauge({ p50, p95, p99, avg }: LatencyGaugeProps) {
+  const { themeColors } = useObservability();
+
   const getLatencyColor = (ms: number) => {
     if (ms < 100) return "#10b981";
     if (ms < 300) return "#f59e0b";
@@ -18,18 +21,18 @@ export function LatencyGauge({ p50, p95, p99, avg }: LatencyGaugeProps) {
   return (
     <div
       style={{
-        background: "rgba(15, 23, 42, 0.75)",
+        background: themeColors?.cardBg || "rgba(15, 23, 42, 0.75)",
         backdropFilter: "blur(12px)",
-        border: "1px solid rgba(255, 255, 255, 0.08)",
+        border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.08)"}`,
         borderRadius: "0.875rem",
         padding: "1.25rem",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-        <h3 style={{ fontSize: "0.9375rem", fontWeight: 600, color: "#f8fafc", margin: 0 }}>
+        <h3 style={{ fontSize: "0.9375rem", fontWeight: 600, color: themeColors?.text || "#f8fafc", margin: 0 }}>
           Response Latency Percentiles
         </h3>
-        <span style={{ fontSize: "0.8125rem", color: "#94a3b8" }}>
+        <span style={{ fontSize: "0.8125rem", color: themeColors?.textMuted || "#94a3b8" }}>
           Avg: <strong style={{ color: getLatencyColor(avg) }}>{avg} ms</strong>
         </span>
       </div>

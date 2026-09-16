@@ -1,6 +1,7 @@
 import React from "react";
 import { RefreshCw, Server, ShieldCheck, Clock } from "lucide-react";
 import { ObservabilitySnapshot } from "../types.js";
+import { useObservability } from "../context.js";
 
 export interface ServiceHeaderProps {
   snapshot: ObservabilitySnapshot | null;
@@ -15,6 +16,7 @@ export function ServiceHeader({
   isRefreshing = false,
   isMock = false,
 }: ServiceHeaderProps) {
+  const { themeColors } = useObservability();
   const serviceName = snapshot?.service.name || "backend-service";
   const env = snapshot?.service.environment || "development";
   const uptime = snapshot?.service.uptimeSeconds
@@ -33,11 +35,12 @@ export function ServiceHeader({
         justifyContent: "space-between",
         gap: "1rem",
         padding: "1.25rem 1.5rem",
-        background: "linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%)",
-        border: "1px solid rgba(255, 255, 255, 0.08)",
+        background: themeColors?.headerBg || "linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%)",
+        border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.08)"}`,
         borderRadius: "1rem",
         marginBottom: "1.5rem",
         backdropFilter: "blur(16px)",
+        boxShadow: `0 4px 20px -5px rgba(0, 0, 0, 0.4)`,
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
@@ -46,12 +49,12 @@ export function ServiceHeader({
             width: "2.75rem",
             height: "2.75rem",
             borderRadius: "0.75rem",
-            background: "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
+            background: `linear-gradient(135deg, ${themeColors?.accent || "#3b82f6"} 0%, ${themeColors?.accentSecondary || "#06b6d4"} 100%)`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             color: "#ffffff",
-            boxShadow: "0 0 20px -4px rgba(59, 130, 246, 0.5)",
+            boxShadow: `0 0 20px -4px ${themeColors?.glow || "rgba(59, 130, 246, 0.5)"}`,
           }}
         >
           <Server size={22} />

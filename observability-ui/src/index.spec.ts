@@ -57,4 +57,30 @@ describe("Observability UI Components & Templates Test Suite", () => {
       expect(tmpl.icon).toBeTruthy();
     });
   });
+
+  it("should export all 6 built-in runtime themes with complete color schemes", () => {
+    expect(UI.RUNTIME_THEMES).toBeDefined();
+    const themeKeys = Object.keys(UI.RUNTIME_THEMES);
+    expect(themeKeys).toHaveLength(6);
+    expect(themeKeys).toEqual([
+      "tokyo-night",
+      "nord",
+      "dracula",
+      "catppuccin",
+      "emerald-terminal",
+      "cyberpunk",
+    ]);
+
+    themeKeys.forEach((key) => {
+      const theme = UI.RUNTIME_THEMES[key as UI.RuntimeTheme];
+      expect(theme.name).toBeTruthy();
+      expect(theme.description).toBeTruthy();
+      expect(theme.accent).toBeTruthy();
+      expect(theme.background).toBeTruthy();
+      expect(theme.cardBg).toBeTruthy();
+      expect(theme.cardBorder).toBeTruthy();
+      expect(theme.text).toBeTruthy();
+    });
+  });
 });
+

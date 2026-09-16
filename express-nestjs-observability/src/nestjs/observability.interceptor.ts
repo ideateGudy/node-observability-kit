@@ -123,7 +123,7 @@ export class ObservabilityInterceptor implements NestInterceptor {
           durationMs,
         });
 
-        // Record Sentry-style HTTP Breadcrumb
+        // Record HTTP request breadcrumb
         addBreadcrumb({
           category: "http",
           message: `${req.method} ${route} -> ${statusCodeNum} (${durationMs}ms)`,

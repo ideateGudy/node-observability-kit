@@ -17,7 +17,7 @@ export class AppController {
     return [
       { id: 1, name: "Alice NestJS", role: "DevOps Engineer" },
       { id: 2, name: "Bob Cloud", role: "Site Reliability Engineer" },
-      { id: 3, name: "Charlie Sentry", role: "Backend Architect" },
+      { id: 3, name: "Charlie Vance", role: "Backend Architect" },
     ];
   }
 

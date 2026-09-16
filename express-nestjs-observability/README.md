@@ -4,7 +4,7 @@ A comprehensive, production-ready observability and monitoring package for **Nod
 
 It provides:
 - **Zero-Config Telemetry Endpoint** (`/api/observability/stats`) feeding real-time operations into frontend dashboards.
-- **Sentry-Style Error Intelligence**:
+- **Built-in Error Intelligence**:
   - Automatic 4xx & 5xx error capture with stack traces and request context (OS, Node version, memory, IP, user-agent, query params).
   - Deterministic fingerprinting to automatically group recurring issues and track occurrences.
   - Event breadcrumbs (`addBreadcrumb`, `getBreadcrumbs`) recording HTTP requests, DB queries, and logs leading up to an error.
@@ -50,7 +50,7 @@ setupObservability(app, {
 });
 
 app.get("/api/users", (req, res) => {
-  // Add Sentry-style breadcrumbs for key operations
+  // Add breadcrumbs for key operations
   addBreadcrumb({ category: "auth", message: "User authenticated", level: "info" });
   res.json([{ id: 1, name: "Alice" }]);
 });
@@ -103,7 +103,7 @@ bootstrap();
 
 ---
 
-## Telemetry & Sentry Features
+## Telemetry & Incident Intelligence Features
 
 ### 1. Adding Breadcrumbs
 Trace operations leading up to unexpected errors:

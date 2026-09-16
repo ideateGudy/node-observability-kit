@@ -152,7 +152,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
             </h3>
           </div>
 
-          {/* Sentry View Toggle: Exceptions vs Live Breadcrumb Trail */}
+          {/* View Toggle: Exceptions vs Live Breadcrumb Trail */}
           <div style={{ display: "flex", background: "rgba(30, 41, 59, 0.6)", borderRadius: "0.375rem", padding: "0.15rem", border: "1px solid rgba(255, 255, 255, 0.08)" }}>
             <button
               onClick={() => setViewMode("errors")}
@@ -297,7 +297,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                     {statusCode}
                   </span>
 
-                  {/* Sentry Occurrences Badge */}
+                  {/* Grouped Occurrences Badge */}
                   {occurrences > 1 && (
                     <span
                       style={{
@@ -495,7 +495,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                     </div>
                   </div>
 
-                  {/* TAB 1: Sentry Breadcrumbs Timeline */}
+                  {/* TAB 1: Breadcrumbs Timeline */}
                   {currentTab === "breadcrumbs" && (() => {
                     const rawCrumbs = err.filteredBreadcrumbs ?? err.breadcrumbs ?? [];
                     const sortedCrumbs = [...rawCrumbs].sort((a, b) => {
@@ -637,7 +637,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                     </div>
                   )}
 
-                  {/* TAB 4: Sentry Context & Tags */}
+                  {/* TAB 4: System Context & Tags */}
                   {currentTab === "context" && (
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                       <div style={{ fontSize: "0.75rem", color: "#94a3b8", fontWeight: 600 }}>

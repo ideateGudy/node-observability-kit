@@ -78,7 +78,7 @@ describe("Core Observability Module", () => {
     expect(window5m.errorRate).toBeGreaterThan(0);
   });
 
-  it("should record Sentry-style breadcrumbs and retrieve them", async () => {
+  it("should record event breadcrumbs and retrieve them", async () => {
     const { addBreadcrumb, getBreadcrumbs } = await import("./core/logger.js");
     addBreadcrumb({ category: "auth", message: "User session valid", level: "info" });
     addBreadcrumb({ category: "db", message: "SELECT * FROM orders", level: "info" });

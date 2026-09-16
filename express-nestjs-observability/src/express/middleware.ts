@@ -96,7 +96,7 @@ export function createObservabilityMiddleware(
         durationMs,
       });
 
-      // Record Sentry-style HTTP Breadcrumb
+      // Record HTTP request breadcrumb
       addBreadcrumb({
         category: "http",
         message: `${req.method} ${route} -> ${res.statusCode} (${durationMs}ms)`,

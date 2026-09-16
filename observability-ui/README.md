@@ -13,10 +13,10 @@ Built with Vanilla CSS & zero heavy UI framework lock-in, featuring glassmorphis
   - `<FullBackendDashboard />`: Complete view with overview cards, HTTP breakdown charts, latency gauge, runtime health, and live error inspector.
   - `<ApiOverviewDashboard />`: High-level traffic, status codes, top endpoints overview.
   - `<BackendPerformanceDashboard />`: Latencies (P50, P95, P99), response time breakdown, and endpoint timings.
-  - `<ErrorMonitoringDashboard />`: Sentry-style error tracker, 4xx/5xx streams, occurrences counter, and breadcrumbs.
+  - `<ErrorMonitoringDashboard />`: Live error tracker, 4xx/5xx streams, occurrences counter, and breadcrumbs.
   - `<NodeRuntimeDashboard />`: Node.js process health (CPU, RSS, Heap memory, Event loop lag).
   - `<MinimalDashboard />`: Compact status widget suitable for embedding in existing admin sidebars or headers.
-- **Sentry-Style Error Inspector**:
+- **Deep Error Inspector**:
   - Detailed modal inspector with stack traces, context tags (OS, Node version, memory, IP, user-agent), and request payload responses.
   - Dynamic occurrence recalculation based on sliding time windows (`x4` ➔ `x2`).
   - Breadcrumbs timeline with newest-first / oldest-first sorting toggles.

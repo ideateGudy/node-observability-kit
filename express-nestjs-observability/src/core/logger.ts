@@ -42,7 +42,7 @@ export interface CapturedErrorRecord {
   statusCode?: number;
   service?: string;
   responseBody?: any;
-  // Sentry-like features
+  // Incident tracking & diagnostics features
   fingerprint?: string;
   occurrences?: number;
   firstSeen?: number;

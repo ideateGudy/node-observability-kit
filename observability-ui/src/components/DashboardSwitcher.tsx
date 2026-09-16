@@ -50,7 +50,7 @@ export const DASHBOARD_TEMPLATES: {
   {
     id: "errors",
     label: "Errors & Failures",
-    shortDesc: "Sentry-style exceptions, breadcrumbs & fingerprints",
+    shortDesc: "Aggregated exceptions, breadcrumbs & fingerprints",
     icon: <AlertTriangle size={15} color="#f43f5e" />,
   },
   {

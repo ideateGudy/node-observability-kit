@@ -25,8 +25,8 @@ This repository contains three standalone, production-ready packages and concret
 
 | Package | Directory | Description | Documentation |
 |---|---|---|---|
-| [`@ideategudy/express-nestjs-observability`](./express-nestjs-observability) | `express-nestjs-observability/` | Backend SDK for Express & NestJS (OpenTelemetry tracing, Prometheus `/metrics`, Winston logger, rolling error rate windows, and Sentry-style error grouping) | [Read SDK Guide →](./express-nestjs-observability/README.md) |
-| [`@ideategudy/observability-ui`](./observability-ui) | `observability-ui/` | Modern React/Next.js dashboard suite (6 templates, interactive template switcher, Sentry-style error inspector with breadcrumbs, latency gauges, and dark mode aesthetics) | [Read UI Guide →](./observability-ui/README.md) |
+| [`@ideategudy/express-nestjs-observability`](./express-nestjs-observability) | `express-nestjs-observability/` | Backend SDK for Express & NestJS (OpenTelemetry tracing, Prometheus `/metrics`, Winston logger, rolling error rate windows, and intelligent error fingerprinting) | [Read SDK Guide →](./express-nestjs-observability/README.md) |
+| [`@ideategudy/observability-ui`](./observability-ui) | `observability-ui/` | Modern React/Next.js dashboard suite (6 templates, interactive template switcher, rich error inspector with breadcrumbs, latency gauges, and dark mode aesthetics) | [Read UI Guide →](./observability-ui/README.md) |
 | [`@ideategudy/observability-cli`](./observability-cli) | `observability-cli/` | Zero-configuration CLI detecting frameworks and package managers to scaffold dashboards and run `doctor` connectivity diagnostics | [Read CLI Guide →](./observability-cli/README.md) |
 
 ---
@@ -165,7 +165,7 @@ npx @ideategudy/observability-cli doctor
 1. **Full Suite** (`<FullBackendDashboard />`): Key metric cards, HTTP status distribution, latency gauges, runtime resources, top endpoints, and live error inspector.
 2. **API Overview** (`<ApiOverviewDashboard />`): High-level traffic rates, status breakdown, and endpoint volume.
 3. **Performance** (`<BackendPerformanceDashboard />`): P50, P95, and P99 latency percentiles and route response times.
-4. **Errors & Failures** (`<ErrorMonitoringDashboard />`): Sentry-style issue tracker with 4xx/5xx filters, fingerprint aggregation, occurrence count (`x4` ➔ `x2` by window), and event breadcrumbs.
+4. **Errors & Failures** (`<ErrorMonitoringDashboard />`): Incident & error tracking with 4xx/5xx filters, fingerprint aggregation, occurrence count (`x4` ➔ `x2` by window), and event breadcrumbs.
 5. **Node Runtime** (`<NodeRuntimeDashboard />`): Process CPU load, RSS/Heap memory usage, and V8 event loop lag.
 6. **Minimal Widget** (`<MinimalDashboard />`): Compact card designed to be embedded in an existing admin layout.
 

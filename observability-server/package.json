@@ -1,6 +1,6 @@
 {
   "name": "@stacklenzz/server",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Stacklenzz Observability SDK for Express and NestJS with OpenTelemetry, Prometheus metrics, and Winston logging",
   "author": "Goodnews Azonubi <azonubigoodnews@gmail.com>",
   "publishConfig": {
@@ -34,25 +34,25 @@
   "type": "module",
   "main": "./dist/core/index.cjs",
   "module": "./dist/core/index.mjs",
-  "types": "./dist/core/index.d.ts",
+  "types": "./dist/core/index.d.mts",
   "exports": {
     ".": {
-      "types": "./dist/core/index.d.ts",
+      "types": "./dist/core/index.d.mts",
       "import": "./dist/core/index.mjs",
       "require": "./dist/core/index.cjs"
     },
     "./core": {
-      "types": "./dist/core/index.d.ts",
+      "types": "./dist/core/index.d.mts",
       "import": "./dist/core/index.mjs",
       "require": "./dist/core/index.cjs"
     },
     "./express": {
-      "types": "./dist/express/index.d.ts",
+      "types": "./dist/express/index.d.mts",
       "import": "./dist/express/index.mjs",
       "require": "./dist/express/index.cjs"
     },
     "./nestjs": {
-      "types": "./dist/nestjs/index.d.ts",
+      "types": "./dist/nestjs/index.d.mts",
       "import": "./dist/nestjs/index.mjs",
       "require": "./dist/nestjs/index.cjs"
     }
@@ -72,7 +72,7 @@
     "@opentelemetry/resources": "^2.11.0",
     "@opentelemetry/sdk-node": "^0.222.0",
     "@opentelemetry/semantic-conventions": "^1.43.0",
-    "prom-client": "^15.1.3",
+    "prom-client": "^15.1.4",
     "winston": "^3.19.0"
   },
   "peerDependencies": {

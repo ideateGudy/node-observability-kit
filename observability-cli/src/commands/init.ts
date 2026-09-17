@@ -35,7 +35,7 @@ export async function runInitCommand() {
     },
   ]);
 
-  const content = `// @ideategudy Observability Configuration
+  const content = `// @stacklenzz Observability Configuration
 export default {
   service: {
     name: "${response.serviceName || "my-backend-service"}",

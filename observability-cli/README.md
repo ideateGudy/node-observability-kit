@@ -55,7 +55,7 @@ stacklenzz doctor
 
 **Example Output:**
 ```
-🩺 @ideategudy/observability-cli - System & Health Doctor
+🩺 stacklenzz-cli - System & Health Doctor
 
 ✓ Node.js runtime: v24.10.0 (compatible >= 18)
 ✓ Package manager: npm

@@ -56,7 +56,7 @@ function DashboardContent() {
           <h3 style={{ fontSize: "1.125rem", fontWeight: 700, margin: 0 }}>Telemetry Endpoint Offline</h3>
         </div>
         <p style={{ fontSize: "0.875rem", lineHeight: 1.5, color: "#fecaca" }}>
-          Could not reach backend telemetry endpoint. Ensure your backend Express or NestJS app is running and instrumented with <code>@ideategudy/express-nestjs-observability</code>.
+          Could not reach backend telemetry endpoint. Ensure your backend Express or NestJS app is running and instrumented with <code>@stacklenzz/server</code>.
         </p>
         <p style={{ fontSize: "0.75rem", fontFamily: "monospace", background: "rgba(0,0,0,0.3)", padding: "0.75rem", borderRadius: "0.5rem" }}>
           Error: {error.message}

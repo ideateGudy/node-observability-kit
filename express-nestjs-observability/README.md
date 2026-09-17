@@ -108,7 +108,7 @@ bootstrap();
 Trace operations leading up to unexpected errors:
 
 ```typescript
-import { addBreadcrumb } from "@ideategudy/express-nestjs-observability";
+import { addBreadcrumb } from "@stacklenzz/server";
 
 addBreadcrumb({
   category: "db",

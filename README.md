@@ -159,7 +159,7 @@ npx stacklenzz doctor
 
 ## 🎨 Available Dashboard Templates
 
-`@ideategudy/observability-ui` includes 6 distinct dashboard views with an interactive switcher:
+`@stacklenzz/ui` includes 6 distinct dashboard views with an interactive switcher:
 
 1. **Full Suite** (`<FullBackendDashboard />`): Key metric cards, HTTP status distribution, latency gauges, runtime resources, top endpoints, and live error inspector.
 2. **API Overview** (`<ApiOverviewDashboard />`): High-level traffic rates, status breakdown, and endpoint volume.

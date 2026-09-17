@@ -7,7 +7,7 @@ import { ObservabilityDashboard } from "@stacklenzz/ui";
  * Next.js Admin Observability Page
  * Location: app/admin/observability/page.tsx
  *
- * Uses the built-in ObservabilityDashboard component from @ideategudy/observability-ui
+ * Uses the built-in ObservabilityDashboard component from @stacklenzz/ui
  * which includes the interactive Template Switcher to toggle between:
  * - Full Suite
  * - API Overview

@@ -5,13 +5,13 @@
   "author": "Goodnews Azonubi <azonubigoodnews@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ideateGudy/node-observability-kit.git",
+    "url": "git+https://github.com/ideateGudy/stacklenzz.git",
     "directory": "observability-cli"
   },
   "bugs": {
-    "url": "https://github.com/ideateGudy/node-observability-kit/issues"
+    "url": "https://github.com/ideateGudy/stacklenzz/issues"
   },
-  "homepage": "https://github.com/ideateGudy/node-observability-kit/tree/main/observability-cli#readme",
+  "homepage": "https://github.com/ideateGudy/stacklenzz/tree/main/observability-cli#readme",
   "license": "MIT",
   "keywords": [
     "stacklenzz",

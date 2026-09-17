@@ -21,7 +21,10 @@
     "version:server": "npm --prefix observability-server version",
     "version:ui": "npm --prefix observability-ui version",
     "version:cli": "npm --prefix observability-cli version",
-    "publish:all": "npm run build && npm run test && npm --prefix observability-server publish --access public && npm --prefix observability-ui publish --access public && npm --prefix observability-cli publish --access public"
+    "publish:server": "npm run build:server && npm run test:server && npm --prefix observability-server publish --access public",
+    "publish:ui": "npm run build:ui && npm run test:ui && npm --prefix observability-ui publish --access public",
+    "publish:cli": "npm run build:cli && npm run test:cli && npm --prefix observability-cli publish --access public",
+    "publish:all": "npm run publish:server && npm run publish:ui && npm run publish:cli"
   },
   "engines": {
     "node": ">=18.0.0"

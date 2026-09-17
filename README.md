@@ -220,15 +220,18 @@ npm run test:cli   # observability-cli (5 unit tests)
 # Build all packages simultaneously
 npm run build
 
-# Or build individual packages:
-npm run build:sdk   # observability-server
-npm run build:ui    # observability-ui
-npm run build:cli   # observability-cli
-
 # Version management:
-npm run version:sdk patch   # Bump backend SDK
-npm run version:ui patch    # Bump UI package
-npm run version:cli patch   # Bump CLI package
+npm run version:server patch  # Bump backend server SDK
+npm run version:ui patch      # Bump UI package
+npm run version:cli patch     # Bump CLI package
+
+# Publish packages individually:
+npm run publish:server       # Build, test, & publish @stacklenzz/server
+npm run publish:ui           # Build, test, & publish @stacklenzz/ui
+npm run publish:cli          # Build, test, & publish @stacklenzz/cli
+
+# Publish all packages together:
+npm run publish:all
 ```
 
 ---

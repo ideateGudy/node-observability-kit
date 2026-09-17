@@ -25,9 +25,9 @@ This repository contains three standalone, production-ready packages and concret
 
 | Package | Directory | Description | Documentation |
 |---|---|---|---|
-| [`@stacklenzz/server`](./express-nestjs-observability) | `express-nestjs-observability/` | Backend SDK for Express & NestJS (OpenTelemetry tracing, Prometheus `/metrics`, Winston logger, rolling error rate windows, and intelligent error fingerprinting) | [Read SDK Guide →](./express-nestjs-observability/README.md) |
+| [`@stacklenzz/server`](./observability-server) | `observability-server/` | Backend SDK for Express & NestJS (OpenTelemetry tracing, Prometheus `/metrics`, Winston logger, rolling error rate windows, and intelligent error fingerprinting) | [Read SDK Guide →](./observability-server/README.md) |
 | [`@stacklenzz/ui`](./observability-ui) | `observability-ui/` | Modern React/Next.js dashboard suite powered by Redux Toolkit (`@reduxjs/toolkit`), 6 built-in themes with automatic `localStorage` persistence, interactive template switcher, error inspector with breadcrumbs, and latency gauges | [Read UI Guide →](./observability-ui/README.md) |
-| [`stacklenzz-cli`](./observability-cli) | `observability-cli/` | Zero-configuration CLI detecting frameworks and package managers to scaffold dashboards and run `doctor` connectivity diagnostics | [Read CLI Guide →](./observability-cli/README.md) |
+| [`@stacklenzz/cli`](./observability-cli) | `observability-cli/` | Zero-configuration CLI detecting frameworks and package managers to scaffold dashboards and run `doctor` connectivity diagnostics | [Read CLI Guide →](./observability-cli/README.md) |
 
 ---
 
@@ -213,7 +213,7 @@ npm install
 npm test
 
 # Or run tests per package:
-npm run test:sdk   # express-nestjs-observability (12 unit tests)
+npm run test:sdk   # observability-server (12 unit tests)
 npm run test:ui    # observability-ui (4 unit tests)
 npm run test:cli   # observability-cli (5 unit tests)
 
@@ -221,7 +221,7 @@ npm run test:cli   # observability-cli (5 unit tests)
 npm run build
 
 # Or build individual packages:
-npm run build:sdk   # express-nestjs-observability
+npm run build:sdk   # observability-server
 npm run build:ui    # observability-ui
 npm run build:cli   # observability-cli
 

@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Stacklenzz developer-first React dashboard component library for backend observability",
   "author": "Goodnews Azonubi <azonubigoodnews@gmail.com>",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ideateGudy/stacklenzz.git",

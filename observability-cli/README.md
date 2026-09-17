@@ -1,4 +1,4 @@
-# stacklenzz-cli
+# @stacklenzz/cli
 
 A zero-configuration command-line interface to inspect, install, and scaffold **Stacklenzz** backend observability dashboards into React, Next.js (App Router & Pages Router), and Vite applications.
 
@@ -21,8 +21,8 @@ A zero-configuration command-line interface to inspect, install, and scaffold **
 You can run the CLI on-demand via package runners (no permanent installation required):
 
 ```bash
-# Using npx
-npx stacklenzz-cli [command]
+# Using npx (scoped package or alias)
+npx @stacklenzz/cli [command]
 
 # Or with short command runner
 npx stacklenzz [command]
@@ -30,7 +30,7 @@ npx stacklenzz [command]
 
 Or install globally:
 ```bash
-npm install -g stacklenzz-cli
+npm install -g @stacklenzz/cli
 ```
 Once installed globally, you can invoke all commands directly using **`stacklenzz`**:
 ```bash
@@ -55,7 +55,7 @@ stacklenzz doctor
 
 **Example Output:**
 ```
-🩺 stacklenzz-cli - System & Health Doctor
+🩺 @stacklenzz/cli - System & Health Doctor
 
 ✓ Node.js runtime: v24.10.0 (compatible >= 18)
 ✓ Package manager: npm

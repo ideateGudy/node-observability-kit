@@ -4,24 +4,24 @@
   "private": true,
   "description": "Stacklenzz - Developer-first backend observability system and UI ecosystem",
   "workspaces": [
-    "express-nestjs-observability",
+    "observability-server",
     "observability-ui",
     "observability-cli",
     "examples/*"
   ],
   "scripts": {
-    "build:sdk": "npm --prefix express-nestjs-observability run build",
+    "build:server": "npm --prefix observability-server run build",
     "build:ui": "npm --prefix observability-ui run build",
     "build:cli": "npm --prefix observability-cli run build",
-    "build": "npm run build:sdk && npm run build:ui && npm run build:cli",
-    "test:sdk": "npm --prefix express-nestjs-observability run test",
+    "build": "npm run build:server && npm run build:ui && npm run build:cli",
+    "test:server": "npm --prefix observability-server run test",
     "test:ui": "npm --prefix observability-ui run test",
     "test:cli": "npm --prefix observability-cli run test",
-    "test": "npm run test:sdk && npm run test:ui && npm run test:cli",
-    "version:sdk": "npm --prefix express-nestjs-observability version",
+    "test": "npm run test:server && npm run test:ui && npm run test:cli",
+    "version:server": "npm --prefix observability-server version",
     "version:ui": "npm --prefix observability-ui version",
     "version:cli": "npm --prefix observability-cli version",
-    "publish:all": "npm run build && npm run test && npm --prefix express-nestjs-observability publish --access public && npm --prefix observability-ui publish --access public && npm --prefix observability-cli publish --access public"
+    "publish:all": "npm run build && npm run test && npm --prefix observability-server publish --access public && npm --prefix observability-ui publish --access public && npm --prefix observability-cli publish --access public"
   },
   "engines": {
     "node": ">=18.0.0"

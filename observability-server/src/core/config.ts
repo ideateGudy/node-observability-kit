@@ -102,3 +102,19 @@ export const getDefaultConfig = (overrides?: Partial<ObservabilityConfig>): Obse
     ],
   };
 };
+
+import packageJson from "../../package.json" with { type: "json" };
+
+/**
+ * Package metadata object for @stacklenzz/server
+ */
+export const pkg = {
+  name: packageJson.name,
+  version: packageJson.version,
+};
+
+/**
+ * SDK Version string
+ */
+export const SDK_VERSION = pkg.version;
+

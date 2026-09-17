@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "express-nestjs-observability/**"
+      - "observability-server/**"
       - ".github/workflows/publish-sdk.yml"
   workflow_dispatch:
     inputs:
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: express-nestjs-observability
+        working-directory: observability-server
 
     steps:
       - name: Checkout Repository
@@ -85,4 +85,4 @@ jobs:
       - name: Push Git Release Tag
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.version_bump != 'skip' }}
         run: git push --follow-tags
-        working-directory: express-nestjs-observability
+        working-directory: observability-server

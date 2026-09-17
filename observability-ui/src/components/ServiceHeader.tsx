@@ -29,119 +29,77 @@ export function ServiceHeader({
   return (
     <div
       style={{
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: "1rem",
-        padding: "1.25rem 1.5rem",
-        background: themeColors?.headerBg || "linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%)",
-        border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.08)"}`,
-        borderRadius: "1rem",
-        marginBottom: "1.5rem",
-        backdropFilter: "blur(16px)",
-        boxShadow: `0 4px 20px -5px rgba(0, 0, 0, 0.4)`,
+        background: themeColors?.headerBg || "linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%)",
+        borderColor: themeColors?.cardBorder || "rgba(255, 255, 255, 0.1)",
       }}
+      className="flex flex-col gap-4 p-5 sm:p-6 rounded-3xl border backdrop-blur-xl shadow-2xl mb-6 w-full transition-all duration-300 hover:border-white/20"
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        <div
-          style={{
-            width: "2.75rem",
-            height: "2.75rem",
-            borderRadius: "0.75rem",
-            background: `linear-gradient(135deg, ${themeColors?.accent || "#3b82f6"} 0%, ${themeColors?.accentSecondary || "#06b6d4"} 100%)`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#ffffff",
-            boxShadow: `0 0 20px -4px ${themeColors?.glow || "rgba(59, 130, 246, 0.5)"}`,
-          }}
-        >
-          <Server size={22} />
-        </div>
-        <div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
-            <h1 style={{ fontSize: "1.25rem", fontWeight: 700, color: themeColors?.text || "#f8fafc", margin: 0 }}>
-              {serviceName}
-            </h1>
-            <span
-              style={{
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                padding: "0.15rem 0.6rem",
-                borderRadius: "9999px",
-                background: "rgba(16, 185, 129, 0.15)",
-                color: "#34d399",
-                border: "1px solid rgba(16, 185, 129, 0.3)",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.35rem",
-              }}
-            >
-              <span
-                style={{
-                  width: "0.375rem",
-                  height: "0.375rem",
-                  borderRadius: "9999px",
-                  backgroundColor: "#10b981",
-                  display: "inline-block",
-                }}
-              />
-              HEALTHY
-            </span>
-            {isMock && (
-              <span
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 600,
-                  padding: "0.15rem 0.6rem",
-                  borderRadius: "9999px",
-                  background: "rgba(245, 158, 11, 0.15)",
-                  color: "#fbbf24",
-                  border: "1px solid rgba(245, 158, 11, 0.3)",
-                }}
-              >
-                DEMO / MOCK MODE
-              </span>
-            )}
+      {/* Top Hero Section: Server Icon, Title, Env & Refresh Action */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-white/10 w-full">
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            style={{
+              background: `linear-gradient(135deg, ${themeColors?.accent || "#3b82f6"} 0%, ${themeColors?.accentSecondary || "#06b6d4"} 100%)`,
+              boxShadow: `0 0 24px -2px ${themeColors?.glow || "rgba(59, 130, 246, 0.6)"}`,
+            }}
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg"
+          >
+            <Server size={24} />
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "0.25rem", fontSize: "0.8125rem", color: themeColors?.textMuted || "#94a3b8" }}>
-            <span>Env: <strong style={{ color: themeColors?.text || "#cbd5e1" }}>{env}</strong></span>
-            <span>•</span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem" }}>
-              <Clock size={13} /> Uptime: {uptime}
-            </span>
-            <span>•</span>
-            <span>Node {snapshot?.runtime.nodeVersion || "v20"}</span>
-          </div>
-        </div>
-      </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-        <span style={{ fontSize: "0.8125rem", color: "#64748b" }}>
-          Synced at {timestamp}
-        </span>
+          <div className="flex flex-col min-w-0">
+            <div className="flex items-center gap-2">
+              <h1
+                style={{ color: themeColors?.text || "#f8fafc" }}
+                className="text-lg sm:text-2xl font-black tracking-tight m-0 truncate"
+              >
+                {serviceName}
+              </h1>
+              <span className="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-xs font-semibold text-slate-300 shrink-0">
+                Env: <strong className="text-white capitalize">{env}</strong>
+              </span>
+            </div>
+            <span className="text-xs text-slate-400 font-mono mt-0.5">
+              Synced at <strong className="text-slate-200">{timestamp}</strong>
+            </span>
+          </div>
+        </div>
+
+        {/* Refresh Action */}
         <button
           onClick={onRefresh}
           disabled={isRefreshing}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            padding: "0.5rem 0.875rem",
-            borderRadius: "0.5rem",
-            background: "rgba(255, 255, 255, 0.05)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            color: "#f1f5f9",
-            fontSize: "0.8125rem",
-            fontWeight: 500,
-            cursor: isRefreshing ? "not-allowed" : "pointer",
-            transition: "all 0.15s ease",
-          }}
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/35 border border-indigo-500/35 text-indigo-200 text-xs font-bold cursor-pointer transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/10 active:scale-95 disabled:opacity-50 w-full sm:w-auto shrink-0"
         >
-          <RefreshCw size={14} className={isRefreshing ? "animate-spin" : ""} />
-          Refresh
+          <RefreshCw size={14} className={isRefreshing ? "animate-spin text-indigo-400" : "text-indigo-400"} />
+          <span>Refresh</span>
         </button>
+      </div>
+
+      {/* Bottom Compact Toolbar: Status Badges, Uptime & Node Version */}
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-medium w-full">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-xs font-bold uppercase tracking-wider shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            HEALTHY
+          </span>
+
+          {isMock && (
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 text-xs font-bold uppercase tracking-wider shadow-sm">
+              DEMO / MOCK MODE
+            </span>
+          )}
+        </div>
+
+        <div className="flex items-center gap-3 text-slate-300">
+          <span className="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1 rounded-lg border border-white/5">
+            <Clock size={14} className="text-emerald-400" />
+            <span>Uptime: <strong className="text-emerald-400 font-mono">{uptime}</strong></span>
+          </span>
+          <span className="bg-white/5 px-3 py-1 rounded-lg border border-white/5">
+            Node <strong className="text-indigo-300 font-mono">{snapshot?.runtime.nodeVersion || "v20"}</strong>
+          </span>
+        </div>
       </div>
     </div>
   );

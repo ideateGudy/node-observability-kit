@@ -26,8 +26,8 @@ describe("Observability CLI Detect Utilities Test Suite", () => {
   });
 
   it("should detect Next.js App Router project correctly", () => {
-    const nextAdminDir = path.resolve(repoRoot, "examples/nextjs-admin");
-    const ctx = detectProject(nextAdminDir);
+    const nextDocsDir = path.resolve(repoRoot, "examples/nextjs-docs");
+    const ctx = detectProject(nextDocsDir);
     expect(ctx.framework).toBe("next-app");
     expect(ctx.isTypeScript).toBe(true);
   });

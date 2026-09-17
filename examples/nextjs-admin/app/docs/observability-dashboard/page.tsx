@@ -22,8 +22,8 @@ export default function DocsObservabilityDashboardPage() {
 
   if (!mounted) {
     return (
-      <main style={{ minHeight: "100vh", backgroundColor: "#090d16" }}>
-        <div style={{ padding: "2rem", color: "#64748b", fontFamily: "sans-serif" }}>
+      <main className="min-h-screen bg-background">
+        <div className="p-8 text-slate-500 font-sans">
           Loading Documentation Demo Console...
         </div>
       </main>
@@ -37,56 +37,23 @@ export default function DocsObservabilityDashboardPage() {
   };
 
   return (
-    <main style={{ minHeight: "100vh", backgroundColor: "transparent" }}>
+    <main className="min-h-screen bg-transparent">
       {/* Top Demo Banner */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0.6rem 1.5rem",
-          background: "linear-gradient(90deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95))",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-          fontSize: "0.85rem",
-          flexWrap: "wrap",
-          gap: "0.5rem",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.3rem",
-              padding: "0.15rem 0.5rem",
-              borderRadius: "9999px",
-              background: "rgba(99, 102, 241, 0.2)",
-              color: "#a5b4fc",
-              fontWeight: 700,
-              fontSize: "0.72rem",
-              border: "1px solid rgba(99, 102, 241, 0.3)",
-            }}
-          >
+      <div className="flex justify-between items-center px-3 py-2 sm:px-6 sm:py-2.5 bg-gradient-to-r from-slate-800/95 to-slate-900/95 border-b border-white/10 text-xs sm:text-sm flex-wrap gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-bold text-[11px] sm:text-xs border border-indigo-500/30">
             <Sparkles size={11} /> Interactive Demo
           </span>
-          <span style={{ color: "#94a3b8", fontSize: "0.8rem" }}>
+          <span className="text-slate-400 text-[11px] sm:text-xs">
             Loaded with simulated cluster metrics &amp; failure records
           </span>
         </div>
 
         <Link
           href="/docs"
-          style={{
-            color: "#818cf8",
-            textDecoration: "none",
-            fontWeight: 600,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.35rem",
-            fontSize: "0.8rem",
-          }}
+          className="text-indigo-400 hover:text-indigo-300 no-underline font-semibold inline-flex items-center gap-1.5 text-[11px] sm:text-xs"
         >
-          <ArrowLeft size={14} /> Back to Documentation
+          <ArrowLeft size={13} /> Back to Documentation
         </Link>
       </div>
 

@@ -18,6 +18,8 @@ import {
   Play,
   Server,
   ShieldCheck,
+  Menu,
+  X,
   Sparkles,
   Terminal,
   Zap,
@@ -28,6 +30,96 @@ import { CURRENT_PROJECT_VERSION } from "./docs/version";
 
 export default function LandingPage() {
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [codeFramework, setCodeFramework] = useState<"express" | "nestjs" | "react" | "nextjs">("express");
+
+  const frameworkSnippets = {
+    express: {
+      file: "server.ts",
+      lang: "Express.js",
+      code: `import express from "express";
+import { setupObservability, addBreadcrumb } from "@stacklenzz/server";
+
+const app = express();
+
+// 1. One line adds Prometheus metrics, OTEL tracing, Winston logs & stats API
+setupObservability(app, {
+  serviceName: "payment-service",
+  environment: "production",
+});
+
+// 2. Track custom business breadcrumbs on any route
+app.post("/api/checkout", async (req, res) => {
+  addBreadcrumb({ category: "billing", message: "Processing card payment" });
+  res.json({ status: "confirmed" });
+});
+
+app.listen(5000, () => console.log("🚀 Server running on port 5000"));`,
+    },
+    nestjs: {
+      file: "app.module.ts",
+      lang: "NestJS",
+      code: `import { Module } from "@nestjs/common";
+import { ObservabilityModule } from "@stacklenzz/server/nestjs";
+import { PaymentController } from "./payment.controller";
+
+@Module({
+  imports: [
+    ObservabilityModule.forRoot({
+      serviceName: "payment-service",
+      environment: process.env.NODE_ENV || "production",
+      enableMetrics: true,
+      enableTracing: true,
+    }),
+  ],
+  controllers: [PaymentController],
+})
+export class AppModule {}`,
+    },
+    react: {
+      file: "src/App.tsx",
+      lang: "React",
+      code: `import React from "react";
+import { ObservabilityDashboard } from "@stacklenzz/ui";
+
+export function App() {
+  return (
+    <div style={{ minHeight: "100vh", backgroundColor: "#090d16" }}>
+      <ObservabilityDashboard
+        config={{
+          endpoint: "http://localhost:5000/api/observability/stats",
+          refreshIntervalMs: 5000,
+        }}
+        defaultDashboard="full"
+        showSwitcher={true}
+      />
+    </div>
+  );
+}`,
+    },
+    nextjs: {
+      file: "app/admin/observability/page.tsx",
+      lang: "Next.js App Router",
+      code: `"use client";
+
+import { ObservabilityDashboard } from "@stacklenzz/ui";
+
+export default function AdminObservabilityPage() {
+  return (
+    <main className="min-h-screen bg-slate-950 p-6">
+      <ObservabilityDashboard
+        config={{
+          endpoint: "http://localhost:5000/api/observability/stats",
+          refreshIntervalMs: 5000,
+        }}
+        defaultDashboard="full"
+        showSwitcher={true}
+      />
+    </main>
+  );
+}`,
+    },
+  };
 
   const copyCommand = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -75,119 +167,114 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <nav style={{ display: "flex", alignItems: "center", gap: "1.5rem" }} className="landing-nav">
-          {/* Live Monitoring Pulse Status Indicator */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              padding: "0.25rem 0.65rem",
-              borderRadius: "9999px",
-              background: "rgba(16, 185, 129, 0.08)",
-              border: "1px solid rgba(16, 185, 129, 0.25)",
-              fontSize: "0.74rem",
-              color: "#6ee7b7",
-              fontWeight: 500,
-            }}
-            title="Telemetry Engine Active & Polling"
-          >
-            <span style={{ position: "relative", display: "flex", width: "8px", height: "8px" }}>
-              <span
-                style={{
-                  position: "absolute",
-                  display: "inline-flex",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "50%",
-                  backgroundColor: "#10b981",
-                  opacity: 0.75,
-                  animation: "livePulseRing 2s cubic-bezier(0, 0, 0.2, 1) infinite",
-                }}
-              />
-              <span
-                style={{
-                  position: "relative",
-                  display: "inline-flex",
-                  borderRadius: "50%",
-                  width: "8px",
-                  height: "8px",
-                  backgroundColor: "#10b981",
-                }}
-              />
-            </span>
-            <span>Live Telemetry</span>
-          </div>
+        <div className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-6">
+            {/* Live Monitoring Pulse Status Indicator */}
+            <div
+              className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-medium"
+              title="Telemetry Engine Active & Polling"
+            >
+              <span className="relative flex w-2 h-2">
+                <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
+                <span className="relative inline-flex rounded-full w-2 h-2 bg-emerald-500" />
+              </span>
+              <span>Live Telemetry</span>
+            </div>
 
-          <Link
-            href="/docs"
-            style={{
-              color: "#cbd5e1",
-              textDecoration: "none",
-              fontSize: "0.88rem",
-              fontWeight: 500,
-              transition: "color 0.15s ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#cbd5e1")}
-          >
-            Documentation
-          </Link>
-          <Link
-            href="/docs/observability-dashboard"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: "#cbd5e1",
-              textDecoration: "none",
-              fontSize: "0.88rem",
-              fontWeight: 500,
-              transition: "color 0.15s ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#cbd5e1")}
-          >
-            Live Demo
-          </Link>
-          <a
-            href="https://github.com/ideateGudy/stacklenzz"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.4rem",
-              color: "#cbd5e1",
-              textDecoration: "none",
-              fontSize: "0.88rem",
-              fontWeight: 500,
-              transition: "color 0.15s ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#cbd5e1")}
-          >
-            <GitBranch size={15} /> GitHub
-          </a>
-          <Link
-            href="/docs"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.45rem",
-              padding: "0.45rem 1rem",
-              borderRadius: "0.5rem",
-              background: "linear-gradient(135deg, #4f46e5, #3b82f6)",
-              color: "#ffffff",
-              fontSize: "0.85rem",
-              fontWeight: 600,
-              textDecoration: "none",
-              boxShadow: "0 0 16px rgba(79, 70, 229, 0.4)",
-              transition: "transform 0.15s ease, box-shadow 0.15s ease",
-            }}
-          >
-            Get Started <ArrowRight size={14} />
-          </Link>
-        </nav>
+            <Link
+              href="/docs"
+              className="text-slate-300 hover:text-white text-sm font-medium no-underline transition-colors"
+            >
+              Documentation
+            </Link>
+            <Link
+              href="/docs/observability-dashboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-300 hover:text-white text-sm font-medium no-underline transition-colors"
+            >
+              Live Demo
+            </Link>
+            <a
+              href="https://github.com/ideateGudy/stacklenzz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-slate-300 hover:text-white text-sm font-medium no-underline transition-colors"
+            >
+              <GitBranch size={15} /> GitHub
+            </a>
+            <Link
+              href="/docs"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-xs font-semibold no-underline shadow-[0_0_16px_rgba(79,70,229,0.4)] hover:shadow-indigo-500/50 transition-all"
+            >
+              Get Started <ArrowRight size={14} />
+            </Link>
+          </nav>
+        </div>
+
+        {/* Mobile Hamburger Toggle Button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="flex md:hidden items-center justify-center p-2 rounded-lg bg-white/5 border border-white/10 text-white cursor-pointer"
+          aria-label="Toggle Navigation Menu"
+        >
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+
+        {/* Mobile Navigation Drawer */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="absolute top-full left-0 right-0 bg-[#090d16]/98 border-b border-white/10 p-5 flex flex-col gap-4 shadow-2xl backdrop-blur-2xl md:hidden z-50 overflow-hidden"
+            >
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-medium w-fit">
+                <span className="relative flex w-2 h-2">
+                  <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
+                  <span className="relative inline-flex rounded-full w-2 h-2 bg-emerald-500" />
+                </span>
+                <span>Live Telemetry Active</span>
+              </div>
+              <Link
+                href="/docs"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-slate-200 hover:text-white text-base font-semibold no-underline py-2 border-b border-white/5"
+              >
+                Documentation
+              </Link>
+              <Link
+                href="/docs/observability-dashboard"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-slate-200 hover:text-white text-base font-semibold no-underline py-2 border-b border-white/5 flex items-center justify-between"
+              >
+                <span>Live Demo Console</span>
+                <Play size={16} className="text-sky-400" />
+              </Link>
+              <a
+                href="https://github.com/ideateGudy/stacklenzz"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-slate-200 hover:text-white text-base font-semibold no-underline py-2 border-b border-white/5 flex items-center justify-between"
+              >
+                <span>GitHub Repository</span>
+                <GitBranch size={16} />
+              </a>
+              <Link
+                href="/docs"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold text-sm no-underline shadow-lg mt-1"
+              >
+                Get Started <ArrowRight size={16} />
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       {/* Hero Section */}
@@ -393,130 +480,55 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "1.5rem",
-            padding: "0.65rem 1.25rem",
-            marginBottom: "2rem",
-            borderRadius: "0.75rem",
-            background: "rgba(15, 23, 42, 0.65)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            backdropFilter: "blur(10px)",
-            boxShadow: "0 10px 30px -10px rgba(0, 0, 0, 0.5)",
-            position: "relative",
-            zIndex: 1,
-          }}
+          className="w-full max-w-[720px] mx-auto flex flex-col sm:flex-row items-center justify-around gap-4 sm:gap-6 p-3 sm:p-3.5 mb-8 rounded-xl bg-slate-900/85 border border-white/10 backdrop-blur-md shadow-2xl relative z-10"
         >
           {/* Pulse Metric 1: Ingestion Heartbeat */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
-            <span style={{ position: "relative", display: "flex", width: "10px", height: "10px" }}>
-              <span
-                style={{
-                  position: "absolute",
-                  display: "inline-flex",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "50%",
-                  backgroundColor: "#10b981",
-                  opacity: 0.8,
-                  animation: "livePulseRing 1.6s cubic-bezier(0, 0, 0.2, 1) infinite",
-                }}
-              />
-              <span
-                style={{
-                  position: "relative",
-                  display: "inline-flex",
-                  borderRadius: "50%",
-                  width: "10px",
-                  height: "10px",
-                  backgroundColor: "#10b981",
-                }}
-              />
+          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-center sm:justify-start">
+            <span className="relative flex w-2.5 h-2.5 shrink-0">
+              <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-500 opacity-80 animate-ping" />
+              <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-emerald-500" />
             </span>
-            <div style={{ textAlign: "left" }}>
-              <div style={{ fontSize: "0.68rem", color: "#64748b", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>
+            <div className="text-left">
+              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">
                 Heartbeat
               </div>
-              <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#10b981", fontFamily: "monospace" }}>
+              <div className="text-xs sm:text-[13px] font-bold text-emerald-400 font-mono">
                 Healthy • 99.99%
               </div>
             </div>
           </div>
 
-          <div style={{ width: "1px", height: "24px", background: "rgba(255, 255, 255, 0.08)" }} className="metric-divider" />
+          <div className="hidden sm:block w-px h-6 bg-white/10" />
 
           {/* Pulse Metric 2: Real-time Latency (p99) */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
-            <span style={{ position: "relative", display: "flex", width: "10px", height: "10px" }}>
-              <span
-                style={{
-                  position: "absolute",
-                  display: "inline-flex",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "50%",
-                  backgroundColor: "#38bdf8",
-                  opacity: 0.8,
-                  animation: "livePulseRing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite",
-                }}
-              />
-              <span
-                style={{
-                  position: "relative",
-                  display: "inline-flex",
-                  borderRadius: "50%",
-                  width: "10px",
-                  height: "10px",
-                  backgroundColor: "#38bdf8",
-                }}
-              />
+          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-center sm:justify-start">
+            <span className="relative flex w-2.5 h-2.5 shrink-0">
+              <span className="absolute inline-flex w-full h-full rounded-full bg-sky-400 opacity-80 animate-ping" />
+              <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-sky-400" />
             </span>
-            <div style={{ textAlign: "left" }}>
-              <div style={{ fontSize: "0.68rem", color: "#64748b", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>
+            <div className="text-left">
+              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">
                 Latency (p99)
               </div>
-              <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#38bdf8", fontFamily: "monospace" }}>
+              <div className="text-xs sm:text-[13px] font-bold text-sky-400 font-mono">
                 14.2 ms
               </div>
             </div>
           </div>
 
-          <div style={{ width: "1px", height: "24px", background: "rgba(255, 255, 255, 0.08)" }} className="metric-divider" />
+          <div className="hidden sm:block w-px h-6 bg-white/10" />
 
           {/* Pulse Metric 3: Active Stream Throughput */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.55rem" }}>
-            <span style={{ position: "relative", display: "flex", width: "10px", height: "10px" }}>
-              <span
-                style={{
-                  position: "absolute",
-                  display: "inline-flex",
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "50%",
-                  backgroundColor: "#a855f7",
-                  opacity: 0.8,
-                  animation: "livePulseRing 1.9s cubic-bezier(0, 0, 0.2, 1) infinite",
-                }}
-              />
-              <span
-                style={{
-                  position: "relative",
-                  display: "inline-flex",
-                  borderRadius: "50%",
-                  width: "10px",
-                  height: "10px",
-                  backgroundColor: "#a855f7",
-                }}
-              />
+          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-center sm:justify-start">
+            <span className="relative flex w-2.5 h-2.5 shrink-0">
+              <span className="absolute inline-flex w-full h-full rounded-full bg-purple-500 opacity-80 animate-ping" />
+              <span className="relative inline-flex rounded-full w-2.5 h-2.5 bg-purple-500" />
             </span>
-            <div style={{ textAlign: "left" }}>
-              <div style={{ fontSize: "0.68rem", color: "#64748b", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>
+            <div className="text-left">
+              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">
                 Throughput
               </div>
-              <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "#c084fc", fontFamily: "monospace" }}>
+              <div className="text-xs sm:text-[13px] font-bold text-purple-400 font-mono">
                 1,420 req/s
               </div>
             </div>
@@ -823,6 +835,30 @@ export default function LandingPage() {
           boxSizing: "border-box",
         }}
       >
+        {/* Framework Tabs Bar */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", marginBottom: "1rem", flexWrap: "wrap" }}>
+          {(["express", "nestjs", "react", "nextjs"] as const).map((fw) => (
+            <button
+              key={fw}
+              onClick={() => setCodeFramework(fw)}
+              style={{
+                padding: "0.45rem 1rem",
+                borderRadius: "0.5rem",
+                fontSize: "0.82rem",
+                fontWeight: 600,
+                border: "1px solid",
+                borderColor: codeFramework === fw ? "rgba(99, 102, 241, 0.5)" : "rgba(255, 255, 255, 0.08)",
+                background: codeFramework === fw ? "rgba(99, 102, 241, 0.2)" : "rgba(255, 255, 255, 0.03)",
+                color: codeFramework === fw ? "#ffffff" : "#94a3b8",
+                cursor: "pointer",
+                transition: "all 0.15s ease",
+              }}
+            >
+              {frameworkSnippets[fw].lang}
+            </button>
+          ))}
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -836,110 +872,73 @@ export default function LandingPage() {
             boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.7)",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "0.75rem 1.25rem",
-              borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-              backgroundColor: "rgba(255, 255, 255, 0.02)",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <div style={{ width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#ef4444" }} />
-              <div style={{ width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#eab308" }} />
-              <div style={{ width: "10px", height: "10px", borderRadius: "50%", backgroundColor: "#22c55e" }} />
-              <span style={{ marginLeft: "0.5rem", fontSize: "0.78rem", color: "#64748b", fontFamily: "monospace" }}>
-                server.ts (Backend Instrumentation)
+          <div className="flex flex-wrap items-center justify-between gap-3 p-3 sm:px-5 sm:py-3 border-b border-white/10 bg-white/[0.02]">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+              </div>
+              <span className="font-mono text-xs text-slate-400 font-medium truncate max-w-[180px] sm:max-w-none">
+                {frameworkSnippets[codeFramework].file}
               </span>
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.35rem",
-                  marginLeft: "0.75rem",
-                  padding: "0.15rem 0.5rem",
-                  borderRadius: "9999px",
-                  background: "rgba(16, 185, 129, 0.1)",
-                  border: "1px solid rgba(16, 185, 129, 0.25)",
-                  fontSize: "0.7rem",
-                  color: "#34d399",
-                }}
-              >
-                <span style={{ position: "relative", display: "flex", width: "6px", height: "6px" }}>
-                  <span
-                    style={{
-                      position: "absolute",
-                      display: "inline-flex",
-                      width: "100%",
-                      height: "100%",
-                      borderRadius: "50%",
-                      backgroundColor: "#10b981",
-                      opacity: 0.75,
-                      animation: "livePulseRing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite",
-                    }}
-                  />
-                  <span
-                    style={{
-                      position: "relative",
-                      display: "inline-flex",
-                      borderRadius: "50%",
-                      width: "6px",
-                      height: "6px",
-                      backgroundColor: "#10b981",
-                    }}
-                  />
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-[11px] text-emerald-400 font-medium">
+                <span className="relative flex w-1.5 h-1.5 shrink-0">
+                  <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
+                  <span className="relative inline-flex rounded-full w-1.5 h-1.5 bg-emerald-500" />
                 </span>
                 <span>listening :5000</span>
               </div>
             </div>
-            <Link
-              href="/docs"
-              style={{
-                color: "#818cf8",
-                fontSize: "0.78rem",
-                fontWeight: 600,
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.3rem",
-              }}
-            >
-              View Full Docs <ArrowRight size={13} />
-            </Link>
+            
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <button
+                onClick={() => copyCommand(frameworkSnippets[codeFramework].code, "ide-code")}
+                className="flex items-center gap-1 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-400 hover:text-white text-xs font-medium cursor-pointer transition-colors"
+              >
+                {copiedCmd === "ide-code" ? (
+                  <>
+                    <Check size={13} className="text-emerald-400" />
+                    <span className="text-emerald-400">Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={13} />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+              <Link
+                href="/docs"
+                className="text-indigo-400 hover:text-indigo-300 text-xs font-semibold no-underline flex items-center gap-1"
+              >
+                <span className="hidden sm:inline">View Full Docs</span>
+                <span className="sm:hidden">Docs</span>
+                <ArrowRight size={13} />
+              </Link>
+            </div>
           </div>
 
-          <pre
-            style={{
-              margin: 0,
-              padding: "1.5rem",
-              color: "#e2e8f0",
-              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-              fontSize: "0.85rem",
-              lineHeight: 1.6,
-              overflowX: "auto",
-            }}
-          >
-{`import express from "express";
-import { setupObservability, addBreadcrumb } from "@stacklenzz/server";
-
-const app = express();
-
-// 1. One line adds metrics, tracing, Winston logs & stats API
-setupObservability(app, {
-  serviceName: "payment-service",
-  environment: "production",
-});
-
-// 2. Track custom business breadcrumbs on any route
-app.post("/api/checkout", async (req, res) => {
-  addBreadcrumb({ category: "billing", message: "Processing card payment" });
-  res.json({ status: "confirmed" });
-});
-
-app.listen(5000, () => console.log("🚀 Server running on port 5000"));`}
-          </pre>
+          <AnimatePresence mode="wait">
+            <motion.pre
+              key={codeFramework}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                margin: 0,
+                padding: "1.5rem",
+                color: "#e2e8f0",
+                fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+                fontSize: "0.85rem",
+                lineHeight: 1.6,
+                overflowX: "auto",
+              }}
+            >
+              {frameworkSnippets[codeFramework].code}
+            </motion.pre>
+          </AnimatePresence>
         </motion.div>
       </section>
 

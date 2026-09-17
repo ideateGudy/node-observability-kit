@@ -9,15 +9,10 @@ export interface StacklenzzLogoProps {
 export function StacklenzzLogo({ size = 34, className = "", showGlow = true }: StacklenzzLogoProps) {
   return (
     <div
-      className={className}
+      className={`inline-flex items-center justify-center shrink-0 relative ${className}`}
       style={{
         width: size,
         height: size,
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexShrink: 0,
-        position: "relative",
       }}
     >
       <svg

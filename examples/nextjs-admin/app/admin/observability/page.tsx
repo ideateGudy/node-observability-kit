@@ -25,8 +25,8 @@ export default function AdminObservabilityPage() {
 
   if (!mounted) {
     return (
-      <main style={{ minHeight: "100vh", backgroundColor: "#090d16" }}>
-        <div style={{ padding: "2rem", color: "#64748b", fontFamily: "sans-serif" }}>
+      <main className="min-h-screen bg-background">
+        <div className="p-8 text-slate-500 font-sans">
           Loading Observability Console...
         </div>
       </main>
@@ -39,33 +39,16 @@ export default function AdminObservabilityPage() {
   };
 
   return (
-    <main style={{ minHeight: "100vh", backgroundColor: "transparent" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "0.5rem 1.5rem",
-          background: "rgba(15, 23, 42, 0.8)",
-          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-          fontSize: "0.85rem",
-        }}
-      >
-        <div style={{ color: "#94a3b8", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+    <main className="min-h-screen bg-transparent">
+      <div className="flex justify-between items-center px-6 py-2 bg-slate-900/80 border-b border-white/10 text-sm">
+        <div className="text-slate-400 flex items-center gap-2">
           <span>Live Demo Console</span>
-          <span style={{ color: "#475569" }}>•</span>
-          <span style={{ color: "#10b981", fontWeight: 600 }}>Connected</span>
+          <span className="text-slate-600">•</span>
+          <span className="text-emerald-500 font-semibold">Connected</span>
         </div>
         <a
           href="/docs"
-          style={{
-            color: "#818cf8",
-            textDecoration: "none",
-            fontWeight: 600,
-            display: "flex",
-            alignItems: "center",
-            gap: "0.25rem",
-          }}
+          className="text-indigo-400 no-underline font-semibold flex items-center gap-1"
         >
           ← Back to Documentation
         </a>

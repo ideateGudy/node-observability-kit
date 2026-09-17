@@ -198,7 +198,7 @@ export function middleware(req: NextRequest) {
 |---|---|---|---|
 | **Express API** | [`examples/express-api`](./examples/express-api) | `5000` | Express server instrumented with `setupObservability` |
 | **NestJS API** | [`examples/nestjs-api`](./examples/nestjs-api) | `5000` | NestJS app instrumented with `ObservabilityModule` |
-| **Next.js Admin** | [`examples/nextjs-admin`](./examples/nextjs-admin) | `3000` | Next.js 15 App Router admin portal with dashboard switcher |
+| **Next.js Docs & Portal** | [`examples/nextjs-docs`](./examples/nextjs-docs) | `3000` | Next.js 16 App Router interactive documentation & admin portal |
 | **React + Vite** | [`examples/react-vite`](./examples/react-vite) | `5173` | React 19 + Vite dashboard application |
 
 ---
@@ -213,24 +213,40 @@ npm install
 npm test
 
 # Or run tests per package:
-npm run test:sdk   # observability-server (12 unit tests)
-npm run test:ui    # observability-ui (4 unit tests)
-npm run test:cli   # observability-cli (5 unit tests)
+npm run test:server   # observability-server (12 unit tests)
+npm run test:ui       # observability-ui (13 unit tests)
+npm run test:cli      # observability-cli (5 unit tests)
 
 # Build all packages simultaneously
 npm run build
+
+# Or build individual packages:
+npm run build:server  # observability-server
+npm run build:ui      # observability-ui
+npm run build:cli     # observability-cli
+
+# Inspect package tarballs before publishing (dry-run mode):
+npm run pack:server   # Dry-run tarball for @stacklenzz/server
+npm run pack:ui       # Dry-run tarball for @stacklenzz/ui
+npm run pack:cli      # Dry-run tarball for @stacklenzz/cli
+npm run pack:all      # Dry-run tarball for all 3 packages
 
 # Version management:
 npm run version:server patch  # Bump backend server SDK
 npm run version:ui patch      # Bump UI package
 npm run version:cli patch     # Bump CLI package
 
-# Publish packages individually:
+# Publish packages individually (runs build & test first):
 npm run publish:server       # Build, test, & publish @stacklenzz/server
 npm run publish:ui           # Build, test, & publish @stacklenzz/ui
 npm run publish:cli          # Build, test, & publish @stacklenzz/cli
 
-# Publish all packages together:
+# Direct publish without re-building/re-testing:
+npm run publish:server:only
+npm run publish:ui:only
+npm run publish:cli:only
+
+# Safely publish all packages together:
 npm run publish:all
 ```
 

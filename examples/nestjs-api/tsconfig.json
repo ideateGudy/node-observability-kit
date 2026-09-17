@@ -12,12 +12,12 @@
     "outDir": "./dist",
     "skipLibCheck": true,
     "paths": {
-      "@stacklenzz/server": ["../../express-nestjs-observability/dist/core/index.d.ts"],
-      "@stacklenzz/server/core": ["../../express-nestjs-observability/dist/core/index.d.ts"],
-      "@stacklenzz/server/express": ["../../express-nestjs-observability/dist/express/index.d.ts"],
-      "@stacklenzz/server/nestjs": ["../../express-nestjs-observability/dist/nestjs/index.d.ts"],
-      "@nestjs/common": ["../../express-nestjs-observability/node_modules/@nestjs/common"],
-      "@nestjs/core": ["../../express-nestjs-observability/node_modules/@nestjs/core"]
+      "@stacklenzz/server": ["../../observability-server/dist/core/index.d.ts"],
+      "@stacklenzz/server/core": ["../../observability-server/dist/core/index.d.ts"],
+      "@stacklenzz/server/express": ["../../observability-server/dist/express/index.d.ts"],
+      "@stacklenzz/server/nestjs": ["../../observability-server/dist/nestjs/index.d.ts"],
+      "@nestjs/common": ["../../observability-server/node_modules/@nestjs/common"],
+      "@nestjs/core": ["../../observability-server/node_modules/@nestjs/core"]
     },
     "strictNullChecks": false,
     "noImplicitAny": false,

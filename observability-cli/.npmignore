@@ -1,0 +1,17 @@
+# Source code
+src/
+__tests__/
+*.spec.ts
+*.test.ts
+
+# Configuration files
+tsconfig.json
+tsconfig.tsbuildinfo
+tsdown.config.ts
+vitest.config.ts
+
+# Tooling & Logs
+*.log
+npm-debug.log*
+.turbo/
+dist/*.map

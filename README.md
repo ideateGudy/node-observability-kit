@@ -235,18 +235,12 @@ npm run pack:all      # Dry-run tarball for all 3 packages
 npm run version:server patch  # Bump backend server SDK
 npm run version:ui patch      # Bump UI package
 npm run version:cli patch     # Bump CLI package
+# Publish packages individually:
+npm run publish:server       # Publish @stacklenzz/server
+npm run publish:ui           # Publish @stacklenzz/ui
+npm run publish:cli          # Publish @stacklenzz/cli
 
-# Publish packages individually (runs build & test first):
-npm run publish:server       # Build, test, & publish @stacklenzz/server
-npm run publish:ui           # Build, test, & publish @stacklenzz/ui
-npm run publish:cli          # Build, test, & publish @stacklenzz/cli
-
-# Direct publish without re-building/re-testing:
-npm run publish:server:only
-npm run publish:ui:only
-npm run publish:cli:only
-
-# Safely publish all packages together:
+# Safely build, test, and publish all packages together:
 npm run publish:all
 ```
 

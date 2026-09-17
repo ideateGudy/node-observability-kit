@@ -25,13 +25,10 @@
     "pack:ui": "npm --prefix observability-ui pack --dry-run",
     "pack:cli": "npm --prefix observability-cli pack --dry-run",
     "pack:all": "npm run pack:server && npm run pack:ui && npm run pack:cli",
-    "publish:server:only": "npm --prefix observability-server publish --access public",
-    "publish:ui:only": "npm --prefix observability-ui publish --access public",
-    "publish:cli:only": "npm --prefix observability-cli publish --access public",
-    "publish:server": "npm run build:server && npm run test:server && npm run publish:server:only",
-    "publish:ui": "npm run build:ui && npm run test:ui && npm run publish:ui:only",
-    "publish:cli": "npm run build:cli && npm run test:cli && npm run publish:cli:only",
-    "publish:all": "npm run build && npm test && npm run publish:server:only && npm run publish:ui:only && npm run publish:cli:only"
+    "publish:server": "npm --prefix observability-server publish --access public",
+    "publish:ui": "npm --prefix observability-ui publish --access public",
+    "publish:cli": "npm --prefix observability-cli publish --access public",
+    "publish:all": "npm run build && npm test && npm run publish:server && npm run publish:ui && npm run publish:cli"
   },
   "engines": {
     "node": ">=18.0.0"

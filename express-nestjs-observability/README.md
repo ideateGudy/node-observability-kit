@@ -118,16 +118,82 @@ addBreadcrumb({
 });
 ```
 
-### 2. Structured Logging with Trace IDs
-Logs automatically correlate with active OpenTelemetry spans and are captured into the recent error stream if level is `error`:
+### 2. Structured & Automatic Error Logging
+Logs automatically correlate with active OpenTelemetry spans and are captured into the recent error stream if level is `error`.
+
+#### Automatic Error Logging (`logger.error(err)`):
+You **do not** need to manually pass `route`, `method`, `status`, or `stack`. Passing the `Error` instance directly extracts `message` and `stack` while request metadata is captured automatically:
 
 ```typescript
-import { logger } from "@ideategudy/express-nestjs-observability";
+import { logger } from "@stacklenzz/server";
 
+try {
+  throw new Error("Payment gateway connection reset");
+} catch (err) {
+  // Automatically captures error message and full stack trace!
+  logger.error(err);
+}
+```
+
+#### Manual Additional Context:
+You can also pass custom metadata or response payloads:
+
+```typescript
 logger.error("Payment authorization failed", {
-  route: "/api/checkout",
-  statusCode: 502,
   responseBody: { reason: "Gateway timeout" },
+});
+```
+
+---
+
+## Advanced SDK Utilities
+
+### 1. Programmatic Telemetry Snapshot (`getObservabilitySnapshot`)
+Generate an operational JSON snapshot directly in your backend code without an HTTP request:
+
+```typescript
+import { getObservabilitySnapshot } from "@stacklenzz/server";
+
+const snapshot = await getObservabilitySnapshot();
+console.log("Current Error Rate:", snapshot.summary.errorRate);
+console.log("Top Endpoints:", snapshot.http.topEndpoints);
+```
+
+### 2. Custom Prometheus Metrics (`Counter`, `Gauge`, `register`)
+Register custom business metrics directly on the `/metrics` endpoint:
+
+```typescript
+import { Counter, register } from "@stacklenzz/server";
+
+const ordersCounter = new Counter({
+  name: "orders_processed_total",
+  help: "Total processed checkout orders",
+  registers: [register],
+});
+
+ordersCounter.inc();
+```
+
+### 3. OpenTelemetry API Re-exports (`trace`, `context`)
+Access OpenTelemetry tracing primitives directly without installing `@opentelemetry/api`:
+
+```typescript
+import { trace, context } from "@stacklenzz/server";
+
+const activeSpan = trace.getSpan(context.active());
+if (activeSpan) {
+  console.log("Trace ID:", activeSpan.spanContext().traceId);
+}
+```
+
+### 4. Test Metric Resets (`resetMetrics`)
+Clear sliding window buffers and Prometheus counters between test suite runs:
+
+```typescript
+import { resetMetrics } from "@stacklenzz/server";
+
+beforeEach(() => {
+  resetMetrics();
 });
 ```
 

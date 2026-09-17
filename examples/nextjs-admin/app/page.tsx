@@ -33,10 +33,14 @@ export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [codeFramework, setCodeFramework] = useState<"express" | "nestjs" | "react" | "nextjs">("express");
 
-  const frameworkSnippets = {
+  const frameworkSnippets: Record<
+    string,
+    { file: string; lang: string; status: string; code: string }
+  > = {
     express: {
       file: "server.ts",
       lang: "Express.js",
+      status: "listening :5000",
       code: `import express from "express";
 import { setupObservability, addBreadcrumb } from "@stacklenzz/server";
 
@@ -59,6 +63,7 @@ app.listen(5000, () => console.log("🚀 Server running on port 5000"));`,
     nestjs: {
       file: "app.module.ts",
       lang: "NestJS",
+      status: "listening :5000",
       code: `import { Module } from "@nestjs/common";
 import { ObservabilityModule } from "@stacklenzz/server/nestjs";
 import { PaymentController } from "./payment.controller";
@@ -79,6 +84,7 @@ export class AppModule {}`,
     react: {
       file: "src/App.tsx",
       lang: "React",
+      status: "listening :5173",
       code: `import React from "react";
 import { ObservabilityDashboard } from "@stacklenzz/ui";
 
@@ -100,6 +106,7 @@ export function App() {
     nextjs: {
       file: "app/admin/observability/page.tsx",
       lang: "Next.js App Router",
+      status: "listening :3000",
       code: `"use client";
 
 import { ObservabilityDashboard } from "@stacklenzz/ui";
@@ -887,7 +894,7 @@ export default function AdminObservabilityPage() {
                   <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-500 opacity-75 animate-ping" />
                   <span className="relative inline-flex rounded-full w-1.5 h-1.5 bg-emerald-500" />
                 </span>
-                <span>listening :5000</span>
+                <span>{frameworkSnippets[codeFramework].status}</span>
               </div>
             </div>
             

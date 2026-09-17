@@ -1,4 +1,4 @@
-import client, { Registry, Counter, Histogram, Gauge } from "prom-client";
+import client, { Registry, Counter, Histogram, Gauge } from "@prometheus-io/client";
 import { ObservabilityConfig, getDefaultConfig } from "./config.js";
 
 let defaultRegistry: Registry = client.register;

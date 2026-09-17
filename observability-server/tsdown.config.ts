@@ -3,12 +3,12 @@ import { defineConfig } from "tsdown";
 export default defineConfig({
   entry: {
     "core/index": "src/core/index.ts",
+    "config/index": "src/core/config.ts",
     "express/index": "src/express/index.ts",
     "nestjs/index": "src/nestjs/index.ts",
   },
   format: ["cjs", "esm"],
   dts: true,
-  splitting: false,
   sourcemap: true,
   clean: true,
   deps: {
@@ -18,7 +18,7 @@ export default defineConfig({
       "@nestjs/core",
       "rxjs",
       "reflect-metadata",
-      "prom-client",
+      "@prometheus-io/client",
       "winston",
       "@opentelemetry/api",
       "@opentelemetry/sdk-node",

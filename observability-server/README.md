@@ -9,7 +9,7 @@ It provides:
   - Deterministic fingerprinting to automatically group recurring issues and track occurrences.
   - Event breadcrumbs (`addBreadcrumb`, `getBreadcrumbs`) recording HTTP requests, DB queries, and logs leading up to an error.
 - **Sliding Window Error Rates & Counters**: Rolling time windows (`last1m`, `last5m`, `last15m`, `last30m`, `last1h`, `last2h`, `last24h`, `last7d`, `last30d`).
-- **Prometheus Metrics**: Standard Node.js runtime metrics (CPU, RSS, Heap, Event Loop lag) + HTTP request counters, histograms, and active request gauges via `prom-client` on `/metrics`.
+- **Prometheus Metrics**: Standard Node.js runtime metrics (CPU, RSS, Heap, Event Loop lag) + HTTP request counters, histograms, and active request gauges via `@prometheus-io/client` on `/metrics`.
 - **OpenTelemetry Distributed Tracing**: Auto-instrumentations + OTLP trace exporter with Winston trace correlation (`trace_id` and `span_id`).
 - **Clean Subpath Exports**:
   - `@stacklenzz/server` (core)

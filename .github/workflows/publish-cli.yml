@@ -69,7 +69,9 @@ jobs:
       - name: Build Package
         run: npm run build
 
-      - name: Check & Publish to NPM via OIDC
+      - name: Check & Publish to NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           EXISTS=$(npm view @stacklenzz/cli@$CURRENT_VERSION version --silent || echo "not_found")

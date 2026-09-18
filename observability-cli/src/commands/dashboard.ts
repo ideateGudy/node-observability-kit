@@ -152,13 +152,44 @@ export async function runDashboardCommand(options: DashboardCommandOptions) {
     console.log(`${pc.green("✓")} Created ${pc.bold(path.basename(configPath))}`);
   }
 
+  // Install dependencies option
+  let packagesInstalled = false;
+  if (!options.dryRun) {
+    let shouldInstall = options.yes;
+    if (!options.yes) {
+      const installPrompt = await prompts({
+        type: "confirm",
+        name: "install",
+        message: "Would you like to install the required UI packages now? (@stacklenzz/ui, lucide-react)",
+        initial: true,
+      });
+      shouldInstall = installPrompt.install;
+    }
+
+    if (shouldInstall) {
+      console.log(`\n📦 Installing dependencies using ${pc.bold(ctx.packageManager)}...`);
+      try {
+        const { execSync } = await import("node:child_process");
+        const installCmd = `${ctx.packageManager} ${ctx.packageManager === "npm" ? "install" : "add"} @stacklenzz/ui lucide-react`;
+        execSync(installCmd, { stdio: "inherit", cwd });
+        console.log(`${pc.green("✓")} Dependencies installed successfully!`);
+        packagesInstalled = true;
+      } catch (err) {
+        console.log(`${pc.red("✗")} Failed to install dependencies. You may need to run it manually.`);
+      }
+    }
+  }
+
   // Next steps summary
   console.log(pc.bold(pc.green("\n🎉 Stacklenzz Dashboard successfully installed!\n")));
   console.log(pc.bold("Next steps:"));
-  console.log(` 1. Install UI package:`);
-  console.log(`    ${pc.cyan(`${ctx.packageManager} add @stacklenzz/ui lucide-react`)}`);
-  console.log(` 2. Start your backend and frontend apps.`);
-  console.log(` 3. Navigate to:`);
+  let stepNum = 1;
+  if (!packagesInstalled) {
+    console.log(` ${stepNum++}. Install UI packages:`);
+    console.log(`    ${pc.cyan(`${ctx.packageManager} ${ctx.packageManager === "npm" ? "install" : "add"} @stacklenzz/ui lucide-react`)}`);
+  }
+  console.log(` ${stepNum++}. Start your backend and frontend apps.`);
+  console.log(` ${stepNum++}. Navigate to:`);
   console.log(`    ${pc.cyan(`http://localhost:3000${targetRoute}`)}\n`);
   console.log(pc.dim(`🔒 Security Tip: Place ${targetRoute} behind your app's existing admin middleware or route guards.\n`));
 }

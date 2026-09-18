@@ -1,6 +1,16 @@
-# @stacklenzz/server
+<p align="center">
+  <img src="./assets/logo.svg" alt="Stacklenzz Logo" width="80" height="80" />
+</p>
 
-A comprehensive, production-ready observability and monitoring package for **Node.js**, **Express**, and **NestJS** applications with full **TypeScript** support.
+<h1 align="center">@stacklenzz/server</h1>
+
+<p align="center">
+  A comprehensive, production-ready observability and monitoring package for <b>Node.js</b>, <b>Express</b>, and <b>NestJS</b> applications with full <b>TypeScript</b> support.
+</p>
+
+<p align="center">
+  <a href="https://stacklenzz.vercel.app/"><b>📖 Full Documentation & Interactive Portal: https://stacklenzz.vercel.app/</b></a>
+</p>
 
 It provides:
 - **Zero-Config Telemetry Endpoint** (`/api/observability/stats`) feeding real-time operations into frontend dashboards.
@@ -221,6 +231,16 @@ interface ObservabilityConfig {
   ignoredPaths?: string[];    // default: ["/metrics", "/healthz", "/health"]
 }
 ```
+
+---
+
+## 🤝 Contributing & Documentation
+
+Contributions are welcome! Please visit the official **[Stacklenzz Documentation Portal](https://stacklenzz.vercel.app/)** to explore setup guides, architecture overviews, and usage examples.
+
+To report bugs or contribute code:
+1. Open an issue or Pull Request on GitHub.
+2. Ensure unit tests pass (`npm run test:server`).
 
 ---
 

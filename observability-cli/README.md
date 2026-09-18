@@ -1,6 +1,16 @@
-# @stacklenzz/cli
+<p align="center">
+  <img src="./assets/logo.svg" alt="Stacklenzz Logo" width="80" height="80" />
+</p>
 
-A zero-configuration command-line interface to inspect, install, and scaffold **Stacklenzz** backend observability dashboards into React, Next.js (App Router & Pages Router), and Vite applications.
+<h1 align="center">@stacklenzz/cli</h1>
+
+<p align="center">
+  A zero-configuration command-line interface to inspect, install, and scaffold <b>Stacklenzz</b> backend observability dashboards into React, Next.js (App Router & Pages Router), and Vite applications.
+</p>
+
+<p align="center">
+  <a href="https://stacklenzz.vercel.app/"><b>📖 Full Documentation & Interactive Portal: https://stacklenzz.vercel.app/</b></a>
+</p>
 
 ---
 
@@ -101,6 +111,16 @@ Creates a standardized `observability.config.ts` file in your project root:
 ```bash
 npx stacklenzz init
 ```
+
+---
+
+## 🤝 Contributing & Documentation
+
+Contributions are welcome! Please visit the official **[Stacklenzz Documentation Portal](https://stacklenzz.vercel.app/)** for full CLI command guides, framework setup tutorials, and troubleshooting tips.
+
+To report bugs or contribute code:
+1. Open an issue or Pull Request on GitHub.
+2. Ensure unit tests pass (`npm run test:cli`).
 
 ---
 

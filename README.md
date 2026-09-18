@@ -1,6 +1,16 @@
-# Stacklenzz
+<p align="center">
+  <img src="./assets/logo.svg" alt="Stacklenzz Logo" width="80" height="80" />
+</p>
 
-> A developer-first backend observability, monitoring, and logging ecosystem for **Express** and **NestJS**, paired with a zero-configuration, ready-to-install **React & Next.js** dashboard UI and CLI.
+<h1 align="center">Stacklenzz</h1>
+
+<p align="center">
+  A developer-first backend observability, monitoring, and logging ecosystem for <b>Express</b> and <b>NestJS</b>, paired with a zero-configuration, ready-to-install <b>React & Next.js</b> dashboard UI and CLI.
+</p>
+
+<p align="center">
+  <a href="https://stacklenzz.vercel.app/"><b>📖 Documentation & Interactive Portal: https://stacklenzz.vercel.app/</b></a>
+</p>
 
 ---
 
@@ -243,6 +253,20 @@ npm run publish:cli          # Publish @stacklenzz/cli
 # Safely build, test, and publish all packages together:
 npm run publish:all
 ```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Whether you are fixing bugs, adding new features, improving documentation, or creating new dashboard components, your input is appreciated.
+
+1. **Fork the Repository**: Create your feature branch (`git checkout -b feature/amazing-feature`).
+2. **Setup Workspace**: Run `npm install` at the root to install all workspace dependencies.
+3. **Run Tests**: Execute `npm test` to run tests across `@stacklenzz/server`, `@stacklenzz/ui`, and `@stacklenzz/cli`.
+4. **Commit Changes**: Use conventional commit messages (`git commit -m 'feat: add amazing feature'`).
+5. **Submit a PR**: Push to your branch and open a Pull Request.
+
+For complete guides and live interactive documentation, visit **[stacklenzz.vercel.app](https://stacklenzz.vercel.app/)**.
 
 ---
 

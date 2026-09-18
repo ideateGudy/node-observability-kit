@@ -1,6 +1,16 @@
-# @stacklenzz/ui
+<p align="center">
+  <img src="./assets/logo.svg" alt="Stacklenzz Logo" width="80" height="80" />
+</p>
 
-A stunning, developer-first React & Next.js dashboard UI ecosystem for backend observability, monitoring, and error tracking.
+<h1 align="center">@stacklenzz/ui</h1>
+
+<p align="center">
+  A stunning, developer-first React & Next.js dashboard UI ecosystem for backend observability, monitoring, and error tracking.
+</p>
+
+<p align="center">
+  <a href="https://stacklenzz.vercel.app/"><b>📖 Full Documentation & Interactive Portal: https://stacklenzz.vercel.app/</b></a>
+</p>
 
 Built with Vanilla CSS & zero heavy UI framework lock-in, featuring glassmorphism, curated dark mode aesthetics, dynamic Redux Toolkit state management, and micro-interactions.
 
@@ -141,6 +151,16 @@ const nextConfig = {
 
 export default nextConfig;
 ```
+
+---
+
+## 🤝 Contributing & Documentation
+
+Contributions are welcome! Please visit the official **[Stacklenzz Documentation Portal](https://stacklenzz.vercel.app/)** to explore setup guides, interactive UI demos, and usage examples.
+
+To report bugs or contribute code:
+1. Open an issue or Pull Request on GitHub.
+2. Ensure unit tests pass (`npm run test:ui`).
 
 ---
 

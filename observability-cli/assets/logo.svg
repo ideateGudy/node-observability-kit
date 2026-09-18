@@ -1,0 +1,41 @@
+<svg width="120" height="120" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="slz-base-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="slz-lens-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+    <linearGradient id="slz-pulse-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#a5b4fc" />
+    </linearGradient>
+    <radialGradient id="slz-center-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(56, 189, 248, 0.4)" />
+      <stop offset="100%" stop-color="rgba(99, 102, 241, 0)" />
+    </radialGradient>
+  </defs>
+
+  <!-- Container -->
+  <rect x="1" y="1" width="38" height="38" rx="11" fill="#090d16" stroke="url(#slz-base-grad)" stroke-width="1.8" />
+
+  <!-- Radial Glow -->
+  <circle cx="20" cy="20" r="14" fill="url(#slz-center-glow)" />
+
+  <!-- Lens Ring -->
+  <circle cx="20" cy="20" r="11.5" stroke="url(#slz-lens-grad)" stroke-width="1.6" stroke-dasharray="4 2" stroke-opacity="0.85" />
+
+  <!-- Stack Layers -->
+  <path d="M 12 28 L 20 31.5 L 28 28" stroke="#475569" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 12 24 L 20 27.5 L 28 24" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Pulse Wave -->
+  <path d="M 10 20 L 15 20 L 17.5 14 L 21 25 L 23.5 17 L 25.5 20 L 30 20" stroke="url(#slz-pulse-grad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Focal Point -->
+  <circle cx="20" cy="20" r="2" fill="#38bdf8" />
+  <circle cx="20" cy="20" r="1" fill="#ffffff" />
+</svg>

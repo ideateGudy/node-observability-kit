@@ -196,10 +196,10 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
             style={{
               display: "flex",
               alignItems: "center",
-              background: "rgba(15, 23, 42, 0.9)",
+              background: themeColors?.surfaceSubtle || "rgba(15, 23, 42, 0.9)",
               padding: "0.25rem",
               borderRadius: "0.75rem",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
+              border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"}`,
               fontSize: "0.75rem",
               fontWeight: 700,
               flexShrink: 0,
@@ -216,7 +216,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                 fontWeight: 800,
                 fontSize: "0.75rem",
                 backgroundColor: viewMode === "errors" ? "#dc2626" : "transparent",
-                color: viewMode === "errors" ? "#ffffff" : "#94a3b8",
+                color: viewMode === "errors" ? "#ffffff" : (themeColors?.textMuted || "#94a3b8"),
                 boxShadow: viewMode === "errors" ? "0 4px 12px rgba(220, 38, 38, 0.4)" : "none",
               }}
             >
@@ -232,9 +232,9 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                 transition: "all 0.2s ease",
                 fontWeight: 700,
                 fontSize: "0.75rem",
-                backgroundColor: viewMode === "breadcrumbs" ? "#4f46e5" : "transparent",
-                color: viewMode === "breadcrumbs" ? "#ffffff" : "#94a3b8",
-                boxShadow: viewMode === "breadcrumbs" ? "0 4px 12px rgba(79, 70, 229, 0.4)" : "none",
+                backgroundColor: viewMode === "breadcrumbs" ? (themeColors?.accentSecondary || "#4f46e5") : "transparent",
+                color: viewMode === "breadcrumbs" ? "#ffffff" : (themeColors?.textMuted || "#94a3b8"),
+                boxShadow: viewMode === "breadcrumbs" ? `0 4px 12px ${themeColors?.glow || "rgba(79, 70, 229, 0.4)"}` : "none",
               }}
             >
               Live Breadcrumbs ({filteredGlobalBreadcrumbs.length})
@@ -248,10 +248,10 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
               style={{
                 display: "flex",
                 alignItems: "center",
-                background: "rgba(15, 23, 42, 0.9)",
+                background: themeColors?.surfaceSubtle || "rgba(15, 23, 42, 0.9)",
                 padding: "0.25rem",
                 borderRadius: "0.65rem",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
+                border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"}`,
                 fontSize: "0.75rem",
                 fontWeight: 700,
               }}
@@ -264,8 +264,9 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                   border: "none",
                   cursor: "pointer",
                   fontSize: "0.72rem",
-                  backgroundColor: statusFilter === "all" ? "#334155" : "transparent",
-                  color: statusFilter === "all" ? "#ffffff" : "#94a3b8",
+                  backgroundColor: statusFilter === "all" ? (themeColors?.badgeBg || "#334155") : "transparent",
+                  color: statusFilter === "all" ? (themeColors?.text || "#ffffff") : (themeColors?.textMuted || "#94a3b8"),
+                  fontWeight: statusFilter === "all" ? 700 : 500,
                 }}
               >
                 All
@@ -346,8 +347,8 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
               <div
                 key={err.id}
                 style={{
-                  background: "rgba(30, 41, 59, 0.4)",
-                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  background: themeColors?.surfaceSubtle || "rgba(30, 41, 59, 0.4)",
+                  border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.08)"}`,
                   borderRadius: "0.75rem",
                   overflow: "hidden",
                   transition: "all 0.2s ease",
@@ -366,11 +367,11 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                     userSelect: "none",
                     gap: "0.65rem",
                     transition: "background 0.15s ease",
-                    background: isExpanded ? "rgba(30, 41, 59, 0.7)" : "transparent",
+                    background: isExpanded ? (themeColors?.badgeBg || "rgba(30, 41, 59, 0.7)") : "transparent",
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", minWidth: 0, flex: 1 }}>
-                    <div style={{ flexShrink: 0, color: "#94a3b8", display: "flex", alignItems: "center" }}>
+                    <div style={{ flexShrink: 0, color: themeColors?.textMuted || "#94a3b8", display: "flex", alignItems: "center" }}>
                       {isExpanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
                     </div>
 
@@ -417,7 +418,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                     {err.method && (
                       <span
                         style={{
-                          color: "#94a3b8",
+                          color: themeColors?.textMuted || "#94a3b8",
                           fontSize: "0.75rem",
                           fontFamily: "monospace",
                           fontWeight: 700,
@@ -431,7 +432,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                     {err.route && (
                       <span
                         style={{
-                          color: "#cbd5e1",
+                          color: themeColors?.text || "#cbd5e1",
                           fontSize: "0.8rem",
                           fontFamily: "monospace",
                           overflow: "hidden",
@@ -462,7 +463,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
 
                   <div
                     style={{
-                      color: "#64748b",
+                      color: themeColors?.textMuted || "#64748b",
                       display: "flex",
                       alignItems: "center",
                       gap: "0.4rem",
@@ -480,8 +481,8 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                   <div
                     style={{
                       padding: "0.85rem 1rem",
-                      borderTop: "1px solid rgba(255, 255, 255, 0.06)",
-                      backgroundColor: "rgba(2, 6, 23, 0.75)",
+                      borderTop: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.06)"}`,
+                      backgroundColor: "rgba(0, 0, 0, 0.35)",
                     }}
                   >
                     {/* Action Bar with cURL, JSON, and Tab Selector */}
@@ -506,9 +507,9 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                             cursor: "pointer",
                             transition: "all 0.15s ease",
                             border: "1px solid",
-                            backgroundColor: currentTab === "breadcrumbs" ? "rgba(79, 70, 229, 0.35)" : "rgba(30, 41, 59, 0.8)",
-                            color: currentTab === "breadcrumbs" ? "#e0e7ff" : "#94a3b8",
-                            borderColor: currentTab === "breadcrumbs" ? "rgba(99, 102, 241, 0.6)" : "rgba(255, 255, 255, 0.1)",
+                            backgroundColor: currentTab === "breadcrumbs" ? (themeColors?.badgeBg || "rgba(79, 70, 229, 0.35)") : "rgba(255, 255, 255, 0.04)",
+                            color: currentTab === "breadcrumbs" ? (themeColors?.text || "#ffffff") : (themeColors?.textMuted || "#94a3b8"),
+                            borderColor: currentTab === "breadcrumbs" ? (themeColors?.accent || "rgba(99, 102, 241, 0.6)") : (themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"),
                           }}
                         >
                           Breadcrumbs ({err.filteredBreadcrumbs?.length ?? err.breadcrumbs?.length ?? 0})
@@ -524,9 +525,9 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                             cursor: "pointer",
                             transition: "all 0.15s ease",
                             border: "1px solid",
-                            backgroundColor: currentTab === "response" ? "rgba(220, 38, 38, 0.35)" : "rgba(30, 41, 59, 0.8)",
-                            color: currentTab === "response" ? "#fca5a5" : "#94a3b8",
-                            borderColor: currentTab === "response" ? "rgba(239, 68, 68, 0.6)" : "rgba(255, 255, 255, 0.1)",
+                            backgroundColor: currentTab === "response" ? "rgba(220, 38, 38, 0.35)" : "rgba(255, 255, 255, 0.04)",
+                            color: currentTab === "response" ? "#fca5a5" : (themeColors?.textMuted || "#94a3b8"),
+                            borderColor: currentTab === "response" ? "rgba(239, 68, 68, 0.6)" : (themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"),
                           }}
                         >
                           Response Payload
@@ -543,9 +544,9 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                             cursor: "pointer",
                             transition: "all 0.15s ease",
                             border: "1px solid",
-                            backgroundColor: currentTab === "stack" ? "#334155" : "rgba(30, 41, 59, 0.8)",
-                            color: currentTab === "stack" ? "#ffffff" : "#94a3b8",
-                            borderColor: currentTab === "stack" ? "#64748b" : "rgba(255, 255, 255, 0.1)",
+                            backgroundColor: currentTab === "stack" ? (themeColors?.surfaceSubtle || "#334155") : "rgba(255, 255, 255, 0.04)",
+                            color: currentTab === "stack" ? (themeColors?.text || "#ffffff") : (themeColors?.textMuted || "#94a3b8"),
+                            borderColor: currentTab === "stack" ? (themeColors?.accent || "#64748b") : (themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"),
                           }}
                         >
                           Stack Trace
@@ -561,9 +562,9 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                           cursor: "pointer",
                           transition: "all 0.15s ease",
                           border: "1px solid",
-                          backgroundColor: currentTab === "context" ? "rgba(5, 150, 105, 0.35)" : "rgba(30, 41, 59, 0.8)",
-                          color: currentTab === "context" ? "#a7f3d0" : "#94a3b8",
-                          borderColor: currentTab === "context" ? "rgba(16, 185, 129, 0.6)" : "rgba(255, 255, 255, 0.1)",
+                          backgroundColor: currentTab === "context" ? (themeColors?.badgeBg || "rgba(5, 150, 105, 0.35)") : "rgba(255, 255, 255, 0.04)",
+                          color: currentTab === "context" ? (themeColors?.accent || "#a7f3d0") : (themeColors?.textMuted || "#94a3b8"),
+                          borderColor: currentTab === "context" ? (themeColors?.accent || "rgba(16, 185, 129, 0.6)") : (themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"),
                         }}
                       >
                         Context & Tags
@@ -579,9 +580,9 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                             copyText(`curl-${err.id}`, curlCmd);
                           }}
                           style={{
-                            backgroundColor: "rgba(30, 41, 59, 0.9)",
-                            color: "#cbd5e1",
-                            border: "1px solid rgba(255, 255, 255, 0.1)",
+                            backgroundColor: themeColors?.surfaceSubtle || "rgba(30, 41, 59, 0.9)",
+                            color: themeColors?.text || "#cbd5e1",
+                            border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"}`,
                             borderRadius: "0.375rem",
                             fontSize: "0.7rem",
                             padding: "0.25rem 0.65rem",
@@ -605,9 +606,9 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                           copyText(`json-${err.id}`, fullError);
                         }}
                         style={{
-                          backgroundColor: "rgba(30, 41, 59, 0.9)",
-                          color: "#cbd5e1",
-                          border: "1px solid rgba(255, 255, 255, 0.1)",
+                          backgroundColor: themeColors?.surfaceSubtle || "rgba(30, 41, 59, 0.9)",
+                          color: themeColors?.text || "#cbd5e1",
+                          border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"}`,
                           borderRadius: "0.375rem",
                           fontSize: "0.7rem",
                           padding: "0.25rem 0.65rem",
@@ -646,11 +647,11 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                               setBreadcrumbOrder((prev) => (prev === "newest" ? "oldest" : "newest"));
                             }}
                             style={{
-                              background: "rgba(30, 41, 59, 0.8)",
-                              color: "#cbd5e1",
-                              border: "1px solid rgba(255, 255, 255, 0.1)",
-                              borderRadius: "0.25rem",
-                              padding: "0.15rem 0.5rem",
+                              background: themeColors?.surfaceSubtle || "rgba(30, 41, 59, 0.8)",
+                              color: themeColors?.text || "#cbd5e1",
+                              border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"}`,
+                              borderRadius: "0.375rem",
+                              padding: "0.2rem 0.55rem",
                               fontSize: "0.68rem",
                               fontFamily: "monospace",
                               display: "inline-flex",
@@ -660,26 +661,26 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                             }}
                             title="Toggle breadcrumbs sort order"
                           >
-                            <ArrowUpDown size={11} color="#94a3b8" />
+                            <ArrowUpDown size={11} color={themeColors?.textMuted || "#94a3b8"} />
                             <span>{breadcrumbOrder === "newest" ? "Newest First" : "Oldest First"}</span>
                           </button>
                         </div>
 
                         {sortedCrumbs.length === 0 ? (
-                          <div style={{ fontSize: "0.75rem", color: "#64748b", padding: "0.5rem 0", fontStyle: "italic" }}>
+                          <div style={{ fontSize: "0.75rem", color: themeColors?.textMuted || "#64748b", padding: "0.5rem 0", fontStyle: "italic" }}>
                             No breadcrumb events were recorded {timeWindow !== "all" ? `within ${timeWindow}` : "prior to this failure"}.
                           </div>
                         ) : (
                           <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                             {sortedCrumbs.map((crumb, idx) => {
                               const crumbTime = new Date(crumb.timestamp).toLocaleTimeString();
-                              const borderLeftColor = crumb.level === "error" ? "#ef4444" : crumb.level === "warn" ? "#f59e0b" : "#6366f1";
+                              const borderLeftColor = crumb.level === "error" ? "#ef4444" : crumb.level === "warn" ? "#f59e0b" : (themeColors?.accent || "#6366f1");
                               return (
                                 <div
                                   key={idx}
                                   style={{
-                                    backgroundColor: "rgba(30, 41, 59, 0.5)",
-                                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                                    backgroundColor: themeColors?.surfaceSubtle || "rgba(30, 41, 59, 0.5)",
+                                    border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.08)"}`,
                                     borderLeft: `4px solid ${borderLeftColor}`,
                                     borderRadius: "0.65rem",
                                     padding: "0.65rem 0.85rem",
@@ -692,7 +693,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                                     {getBreadcrumbIcon(crumb.category)}
                                     <span
                                       style={{
-                                        color: "#94a3b8",
+                                        color: themeColors?.textMuted || "#94a3b8",
                                         fontSize: "0.65rem",
                                         fontFamily: "monospace",
                                         fontWeight: 800,
@@ -705,7 +706,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
 
                                   <span
                                     style={{
-                                      color: "#e2e8f0",
+                                      color: themeColors?.text || "#e2e8f0",
                                       fontSize: "0.78rem",
                                       fontFamily: "monospace",
                                       flex: 1,
@@ -815,7 +816,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                   {/* TAB 4: System Context & Tags */}
                   {currentTab === "context" && (
                     <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                      <div style={{ fontSize: "0.75rem", color: "#94a3b8", fontWeight: 500 }}>
+                      <div style={{ fontSize: "0.75rem", color: themeColors?.textMuted || "#94a3b8", fontWeight: 500 }}>
                         System Context & Environment Tags:
                       </div>
                       <div
@@ -827,32 +828,32 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                       >
                         <div
                           style={{
-                            background: "rgba(15, 23, 42, 0.8)",
+                            background: themeColors?.surfaceSubtle || "rgba(15, 23, 42, 0.8)",
                             padding: "0.65rem",
                             borderRadius: "0.5rem",
-                            border: "1px solid rgba(255, 255, 255, 0.05)",
+                            border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
                           }}
                         >
-                          <div style={{ fontSize: "0.7rem", color: "#94a3b8", display: "flex", alignItems: "center", gap: "0.3rem", marginBottom: "0.2rem" }}>
+                          <div style={{ fontSize: "0.7rem", color: themeColors?.textMuted || "#94a3b8", display: "flex", alignItems: "center", gap: "0.3rem", marginBottom: "0.2rem" }}>
                             <Server size={11} /> OS & Architecture
                           </div>
-                          <div style={{ fontSize: "0.75rem", fontFamily: "monospace", fontWeight: 700, color: "#e2e8f0" }}>
+                          <div style={{ fontSize: "0.75rem", fontFamily: "monospace", fontWeight: 700, color: themeColors?.text || "#e2e8f0" }}>
                             {err.context?.os || "Node Host"}
                           </div>
                         </div>
 
                         <div
                           style={{
-                            background: "rgba(15, 23, 42, 0.8)",
+                            background: themeColors?.surfaceSubtle || "rgba(15, 23, 42, 0.8)",
                             padding: "0.65rem",
                             borderRadius: "0.5rem",
-                            border: "1px solid rgba(255, 255, 255, 0.05)",
+                            border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
                           }}
                         >
-                          <div style={{ fontSize: "0.7rem", color: "#94a3b8", display: "flex", alignItems: "center", gap: "0.3rem", marginBottom: "0.2rem" }}>
+                          <div style={{ fontSize: "0.7rem", color: themeColors?.textMuted || "#94a3b8", display: "flex", alignItems: "center", gap: "0.3rem", marginBottom: "0.2rem" }}>
                             <Cpu size={11} /> Node Runtime
                           </div>
-                          <div style={{ fontSize: "0.75rem", fontFamily: "monospace", fontWeight: 700, color: "#e2e8f0" }}>
+                          <div style={{ fontSize: "0.75rem", fontFamily: "monospace", fontWeight: 700, color: themeColors?.text || "#e2e8f0" }}>
                             {err.context?.nodeVersion || "Node.js"}
                           </div>
                         </div>
@@ -860,14 +861,14 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                         {err.context?.memoryMb !== undefined && (
                           <div
                             style={{
-                              background: "rgba(15, 23, 42, 0.8)",
+                              background: themeColors?.surfaceSubtle || "rgba(15, 23, 42, 0.8)",
                               padding: "0.65rem",
                               borderRadius: "0.5rem",
-                              border: "1px solid rgba(255, 255, 255, 0.05)",
+                              border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
                             }}
                           >
-                            <div style={{ fontSize: "0.7rem", color: "#94a3b8", marginBottom: "0.2rem" }}>Heap Memory at Crash</div>
-                            <div style={{ fontSize: "0.75rem", fontFamily: "monospace", fontWeight: 700, color: "#38bdf8" }}>
+                            <div style={{ fontSize: "0.7rem", color: themeColors?.textMuted || "#94a3b8", marginBottom: "0.2rem" }}>Heap Memory at Crash</div>
+                            <div style={{ fontSize: "0.75rem", fontFamily: "monospace", fontWeight: 700, color: themeColors?.accent || "#38bdf8" }}>
                               {err.context.memoryMb} MB
                             </div>
                           </div>
@@ -876,14 +877,14 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                         {err.fingerprint && (
                           <div
                             style={{
-                              background: "rgba(15, 23, 42, 0.8)",
+                              background: themeColors?.surfaceSubtle || "rgba(15, 23, 42, 0.8)",
                               padding: "0.65rem",
                               borderRadius: "0.5rem",
-                              border: "1px solid rgba(255, 255, 255, 0.05)",
+                              border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
                             }}
                           >
-                            <div style={{ fontSize: "0.7rem", color: "#94a3b8", marginBottom: "0.2rem" }}>Fingerprint Hash</div>
-                            <div style={{ fontSize: "0.75rem", fontFamily: "monospace", color: "#a5b4fc" }}>
+                            <div style={{ fontSize: "0.7rem", color: themeColors?.textMuted || "#94a3b8", marginBottom: "0.2rem" }}>Fingerprint Hash</div>
+                            <div style={{ fontSize: "0.75rem", fontFamily: "monospace", color: themeColors?.accentSecondary || "#a5b4fc" }}>
                               {err.fingerprint}
                             </div>
                           </div>
@@ -931,18 +932,18 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
       return (
         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-            <span style={{ fontSize: "0.75rem", color: "#94a3b8", fontWeight: 500 }}>
+            <span style={{ fontSize: "0.75rem", color: themeColors?.textMuted || "#94a3b8", fontWeight: 500 }}>
               Showing {sortedGlobalCrumbs.length} events {timeWindow !== "all" ? `within ${timeWindow}` : "across session"}
             </span>
 
             <button
               onClick={() => setBreadcrumbOrder((prev) => (prev === "newest" ? "oldest" : "newest"))}
               style={{
-                background: "rgba(30, 41, 59, 0.8)",
-                color: "#cbd5e1",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                borderRadius: "0.25rem",
-                padding: "0.2rem 0.6rem",
+                background: themeColors?.surfaceSubtle || "rgba(30, 41, 59, 0.8)",
+                color: themeColors?.text || "#cbd5e1",
+                border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"}`,
+                borderRadius: "0.375rem",
+                padding: "0.2rem 0.55rem",
                 fontSize: "0.7rem",
                 fontFamily: "monospace",
                 display: "inline-flex",
@@ -952,19 +953,19 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
               }}
               title="Toggle breadcrumb sort order"
             >
-              <ArrowUpDown size={11} color="#94a3b8" />
+              <ArrowUpDown size={11} color={themeColors?.textMuted || "#94a3b8"} />
               <span>{breadcrumbOrder === "newest" ? "Newest First" : "Oldest First"}</span>
             </button>
           </div>
 
           {sortedGlobalCrumbs.length === 0 ? (
-            <div style={{ padding: "1.5rem", textAlign: "center", color: "#64748b", fontSize: "0.75rem", fontStyle: "italic", background: "rgba(15, 23, 42, 0.5)", borderRadius: "0.75rem", border: "1px solid rgba(255, 255, 255, 0.05)" }}>
+            <div style={{ padding: "1.5rem", textAlign: "center", color: themeColors?.textMuted || "#64748b", fontSize: "0.75rem", fontStyle: "italic", background: themeColors?.surfaceSubtle || "rgba(15, 23, 42, 0.5)", borderRadius: "0.75rem", border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}` }}>
               No breadcrumb events recorded in this time window ({timeWindow}).
             </div>
           ) : (
             sortedGlobalCrumbs.map((crumb, idx) => {
               const crumbTime = new Date(crumb.timestamp).toLocaleTimeString();
-              const borderLeftColor = crumb.level === "error" ? "#ef4444" : crumb.level === "warn" ? "#f59e0b" : "#6366f1";
+              const borderLeftColor = crumb.level === "error" ? "#ef4444" : crumb.level === "warn" ? "#f59e0b" : (themeColors?.accent || "#6366f1");
               return (
                 <div
                   key={idx}
@@ -972,8 +973,8 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                     display: "flex",
                     alignItems: "center",
                     gap: "0.65rem",
-                    background: "rgba(30, 41, 59, 0.5)",
-                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    background: themeColors?.surfaceSubtle || "rgba(30, 41, 59, 0.5)",
+                    border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.08)"}`,
                     borderLeft: `4px solid ${borderLeftColor}`,
                     borderRadius: "0.65rem",
                     padding: "0.65rem 0.85rem",
@@ -986,7 +987,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                         fontSize: "0.65rem",
                         fontFamily: "monospace",
                         fontWeight: 800,
-                        color: "#94a3b8",
+                        color: themeColors?.textMuted || "#94a3b8",
                         textTransform: "uppercase",
                       }}
                     >
@@ -998,7 +999,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                     style={{
                       fontSize: "0.78rem",
                       fontFamily: "monospace",
-                      color: "#e2e8f0",
+                      color: themeColors?.text || "#e2e8f0",
                       flex: 1,
                       minWidth: 0,
                       overflow: "hidden",
@@ -1014,11 +1015,11 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                       style={{
                         fontSize: "0.7rem",
                         fontFamily: "monospace",
-                        color: "#94a3b8",
-                        backgroundColor: "rgba(15, 23, 42, 0.8)",
+                        color: themeColors?.textMuted || "#94a3b8",
+                        backgroundColor: "rgba(0, 0, 0, 0.35)",
                         padding: "0.15rem 0.5rem",
                         borderRadius: "0.25rem",
-                        border: "1px solid rgba(255, 255, 255, 0.05)",
+                        border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
@@ -1034,7 +1035,7 @@ export function ErrorInspector({ errors = [], globalBreadcrumbs = [], timeWindow
                       display: "flex",
                       alignItems: "center",
                       gap: "0.25rem",
-                      color: "#64748b",
+                      color: themeColors?.textMuted || "#64748b",
                       fontSize: "0.7rem",
                       flexShrink: 0,
                     }}

@@ -64,8 +64,8 @@ export function EndpointTable({ endpoints }: EndpointTableProps) {
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
               width: "100%",
-              background: themeColors?.switcherBg || "rgba(30, 41, 59, 0.6)",
-              border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.1)"}`,
+              background: themeColors?.surfaceSubtle || "rgba(30, 41, 59, 0.6)",
+              border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.1)"}`,
               borderRadius: "0.5rem",
               padding: "0.4rem 0.75rem 0.4rem 2.2rem",
               fontSize: "0.8125rem",

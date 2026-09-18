@@ -96,9 +96,8 @@ export const getDefaultConfig = (overrides?: Partial<ObservabilityConfig>): Obse
     ],
     ignoredPaths: overrides?.ignoredPaths ?? [
       "/metrics",
-      "/healthz",
-      "/health",
       "/api/observability/stats",
+      "/favicon.ico"
     ],
   };
 };

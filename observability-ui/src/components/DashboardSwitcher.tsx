@@ -119,11 +119,15 @@ export function DashboardSwitcher({
         border: `1px solid ${activeTheme.cardBorder}`,
         borderRadius: "0.75rem",
         boxShadow: "0 4px 20px -5px rgba(0, 0, 0, 0.4)",
+        boxSizing: "border-box",
+        width: "100%",
+        maxWidth: "100%",
+        overflow: "hidden",
       }}
     >
       {/* Selector & Tabs */}
-      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap", minWidth: 0, maxWidth: "100%" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", flexShrink: 0 }}>
           <span
             style={{
               fontSize: "0.75rem",
@@ -138,7 +142,7 @@ export function DashboardSwitcher({
         </div>
 
         {/* Tab Pills for wide screens */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.35rem", flexWrap: "wrap", minWidth: 0, maxWidth: "100%" }}>
           {DASHBOARD_TEMPLATES.map((tmpl) => {
             const isActive = tmpl.id === currentDashboard;
             return (
@@ -162,6 +166,7 @@ export function DashboardSwitcher({
                   cursor: "pointer",
                   transition: "all 0.15s ease-in-out",
                   boxShadow: isActive ? `0 0 12px ${activeTheme.glow}` : "none",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {tmpl.icon}
@@ -173,9 +178,9 @@ export function DashboardSwitcher({
       </div>
 
       {/* Right controls: Theme Switcher & Endpoint Live Indicator */}
-      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap", minWidth: 0, maxWidth: "100%" }}>
         {/* 6 Runtime Themes Dropdown Switcher */}
-        <div style={{ position: "relative" }} ref={themeMenuRef}>
+        <div style={{ position: "relative", flexShrink: 0 }} ref={themeMenuRef}>
           <button
             onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
             style={{
@@ -301,20 +306,24 @@ export function DashboardSwitcher({
           )}
         </div>
 
-        {/* Endpoint Live Indicator */}
+        {/* Endpoint Live Indicator - Mobile Safe with text ellipsis */}
         {endpoint && (
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "0.5rem",
+              gap: "0.45rem",
               fontSize: "0.72rem",
               color: activeTheme.textMuted,
               background: "rgba(0, 0, 0, 0.25)",
               padding: "0.25rem 0.65rem",
               borderRadius: "0.375rem",
               border: "1px solid rgba(255, 255, 255, 0.05)",
+              maxWidth: "100%",
+              minWidth: 0,
+              boxSizing: "border-box",
             }}
+            title={endpoint}
           >
             <span
               style={{
@@ -323,10 +332,23 @@ export function DashboardSwitcher({
                 borderRadius: "50%",
                 backgroundColor: "#10b981",
                 boxShadow: "0 0 8px #10b981",
+                flexShrink: 0,
               }}
             />
-            <span>Telemetry:</span>
-            <code style={{ color: activeTheme.accent, fontWeight: 600 }}>{endpoint}</code>
+            <span style={{ flexShrink: 0 }}>Telemetry:</span>
+            <code
+              style={{
+                color: activeTheme.accent,
+                fontWeight: 600,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                maxWidth: "240px",
+                display: "inline-block",
+              }}
+            >
+              {endpoint}
+            </code>
           </div>
         )}
       </div>

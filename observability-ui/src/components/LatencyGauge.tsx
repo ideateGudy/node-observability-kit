@@ -42,8 +42,8 @@ export function LatencyGauge({ p50, p95, p99, avg }: LatencyGaugeProps) {
           style={{
             padding: "0.875rem",
             borderRadius: "0.625rem",
-            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
-            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
+            background: themeColors?.surfaceSubtle || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
             textAlign: "center",
           }}
         >
@@ -59,8 +59,8 @@ export function LatencyGauge({ p50, p95, p99, avg }: LatencyGaugeProps) {
           style={{
             padding: "0.875rem",
             borderRadius: "0.625rem",
-            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
-            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
+            background: themeColors?.surfaceSubtle || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
             textAlign: "center",
           }}
         >
@@ -76,8 +76,8 @@ export function LatencyGauge({ p50, p95, p99, avg }: LatencyGaugeProps) {
           style={{
             padding: "0.875rem",
             borderRadius: "0.625rem",
-            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
-            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
+            background: themeColors?.surfaceSubtle || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
             textAlign: "center",
           }}
         >

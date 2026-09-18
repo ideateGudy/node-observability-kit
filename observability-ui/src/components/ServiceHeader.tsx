@@ -122,9 +122,9 @@ export function ServiceHeader({
             gap: "0.45rem",
             padding: "0.45rem 0.95rem",
             borderRadius: "0.65rem",
-            background: "rgba(99, 102, 241, 0.18)",
-            border: "1px solid rgba(99, 102, 241, 0.35)",
-            color: "#c7d2fe",
+            background: themeColors?.badgeBg || "rgba(99, 102, 241, 0.18)",
+            border: `1px solid ${themeColors?.badgeBorder || "rgba(99, 102, 241, 0.35)"}`,
+            color: themeColors?.accent || "#c7d2fe",
             fontSize: "0.78rem",
             fontWeight: 700,
             cursor: isRefreshing ? "not-allowed" : "pointer",
@@ -138,15 +138,16 @@ export function ServiceHeader({
         </button>
       </div>
 
-      {/* Bottom Compact Toolbar: Status Badges, Uptime & Node Version */}
+      {/* Bottom Service Status Bar */}
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           flexWrap: "wrap",
-          gap: "0.75rem",
+          gap: "0.85rem",
           fontSize: "0.78rem",
+          color: themeColors?.textMuted || "#94a3b8",
           fontWeight: 500,
           width: "100%",
         }}
@@ -201,16 +202,16 @@ export function ServiceHeader({
           )}
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", color: "#cbd5e1", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", color: themeColors?.text || "#cbd5e1", flexWrap: "wrap" }}>
           <span
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "0.4rem",
-              background: "rgba(255, 255, 255, 0.05)",
+              background: themeColors?.surfaceSubtle || "rgba(255, 255, 255, 0.05)",
               padding: "0.3rem 0.65rem",
               borderRadius: "0.5rem",
-              border: "1px solid rgba(255, 255, 255, 0.06)",
+              border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.06)"}`,
             }}
           >
             <Clock size={13} color="#34d399" />
@@ -218,13 +219,13 @@ export function ServiceHeader({
           </span>
           <span
             style={{
-              background: "rgba(255, 255, 255, 0.05)",
+              background: themeColors?.surfaceSubtle || "rgba(255, 255, 255, 0.05)",
               padding: "0.3rem 0.65rem",
               borderRadius: "0.5rem",
-              border: "1px solid rgba(255, 255, 255, 0.06)",
+              border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.06)"}`,
             }}
           >
-            Node <strong style={{ color: "#a5b4fc", fontFamily: "monospace" }}>{snapshot?.runtime.nodeVersion || "v20"}</strong>
+            Node <strong style={{ color: themeColors?.accentSecondary || "#a5b4fc", fontFamily: "monospace" }}>{snapshot?.runtime.nodeVersion || "v20"}</strong>
           </span>
         </div>
       </div>

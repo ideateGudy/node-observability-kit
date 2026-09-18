@@ -48,8 +48,8 @@ export function RuntimeMetrics({
           style={{
             padding: "1rem",
             borderRadius: "0.75rem",
-            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
-            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
+            background: themeColors?.surfaceSubtle || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: themeColors?.accent || "#38bdf8", marginBottom: "0.5rem" }}>
@@ -69,8 +69,8 @@ export function RuntimeMetrics({
           style={{
             padding: "1rem",
             borderRadius: "0.75rem",
-            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
-            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
+            background: themeColors?.surfaceSubtle || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: themeColors?.accentSecondary || "#a855f7", marginBottom: "0.5rem" }}>
@@ -90,8 +90,8 @@ export function RuntimeMetrics({
           style={{
             padding: "1rem",
             borderRadius: "0.75rem",
-            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
-            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
+            background: themeColors?.surfaceSubtle || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#10b981", marginBottom: "0.5rem" }}>
@@ -111,8 +111,8 @@ export function RuntimeMetrics({
           style={{
             padding: "1rem",
             borderRadius: "0.75rem",
-            background: themeColors?.switcherBg || "rgba(255, 255, 255, 0.03)",
-            border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.05)"}`,
+            background: themeColors?.surfaceSubtle || "rgba(255, 255, 255, 0.03)",
+            border: `1px solid ${themeColors?.borderSubtle || "rgba(255, 255, 255, 0.05)"}`,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "#f59e0b", marginBottom: "0.5rem" }}>

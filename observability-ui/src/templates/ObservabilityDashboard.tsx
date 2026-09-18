@@ -61,7 +61,7 @@ function ObservabilityDashboardInner({
         <NodeRuntimeDashboard config={config} />
       )}
       {currentDashboard === "minimal" && (
-        <div style={{ padding: "1.25rem", maxWidth: "600px", width: "100%", boxSizing: "border-box" }}>
+        <div style={{ padding: "0 1.5rem 2rem 1.5rem", width: "100%", maxWidth: "100%", boxSizing: "border-box" }}>
           <MinimalDashboard config={config} />
         </div>
       )}

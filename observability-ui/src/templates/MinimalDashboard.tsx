@@ -16,22 +16,15 @@ function MinimalContent() {
   return (
     <div
       style={{
-        padding: "0.5rem",
+        width: "100%",
+        maxWidth: "100%",
+        boxSizing: "border-box",
         background: "transparent",
         color: themeColors ? themeColors.text : "#f8fafc",
         fontFamily: "Inter, system-ui, -apple-system, sans-serif",
-        width: "100%",
-        boxSizing: "border-box",
       }}
     >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
-          gap: "0.85rem",
-          width: "100%",
-        }}
-      >
+      <MetricGrid>
         <MetricCard
           title="Requests"
           value={s.summary.totalRequests.toLocaleString()}
@@ -60,7 +53,7 @@ function MinimalContent() {
           icon={<Zap size={16} color="#f59e0b" />}
           statusColor="amber"
         />
-      </div>
+      </MetricGrid>
     </div>
   );
 }

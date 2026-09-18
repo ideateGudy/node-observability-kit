@@ -16,6 +16,11 @@ export async function runDashboardCommand(options: DashboardCommandOptions) {
   const cwd = process.cwd();
   console.log(pc.bold(pc.cyan("\n🚀 Stacklenzz CLI - Dashboard Installer\n")));
 
+  const onCancel = () => {
+    console.log(pc.red("\n✖ Operation cancelled by user"));
+    process.exit(1);
+  };
+
   const ctx = detectProject(cwd, options.packageManager);
 
   // Framework status
@@ -45,7 +50,7 @@ export async function runDashboardCommand(options: DashboardCommandOptions) {
         { title: "Custom route", value: "custom" },
       ],
       initial: 0,
-    });
+    }, { onCancel });
 
     if (routePrompt.route === "custom") {
       const customPrompt = await prompts({
@@ -53,7 +58,7 @@ export async function runDashboardCommand(options: DashboardCommandOptions) {
         name: "customRoute",
         message: "Enter custom route path (e.g. /dashboard/metrics):",
         initial: "/dashboard/observability",
-      });
+      }, { onCancel });
       targetRoute = customPrompt.customRoute;
     } else if (routePrompt.route) {
       targetRoute = routePrompt.route;
@@ -75,7 +80,7 @@ export async function runDashboardCommand(options: DashboardCommandOptions) {
         { title: "Node.js Runtime (CPU, RSS memory, heap, event loop lag)", value: "NodeRuntimeDashboard" },
       ],
       initial: 0,
-    });
+    }, { onCancel });
     if (templatePrompt.template) {
       template = templatePrompt.template;
     }
@@ -127,7 +132,7 @@ export async function runDashboardCommand(options: DashboardCommandOptions) {
         name: "overwrite",
         message: `File already exists at ${destFile}. Overwrite?`,
         initial: false,
-      });
+      }, { onCancel });
       if (!overwritePrompt.overwrite) {
         console.log(pc.yellow("Aborted without overwriting."));
         return;
@@ -162,7 +167,7 @@ export async function runDashboardCommand(options: DashboardCommandOptions) {
         name: "install",
         message: "Would you like to install the required UI packages now? (@stacklenzz/ui, lucide-react)",
         initial: true,
-      });
+      }, { onCancel });
       shouldInstall = installPrompt.install;
     }
 

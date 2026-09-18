@@ -33,7 +33,12 @@ export async function runInitCommand() {
       message: "Dashboard auto-refresh interval in milliseconds:",
       initial: 5000,
     },
-  ]);
+  ], {
+    onCancel: () => {
+      console.log(pc.red("\n✖ Operation cancelled by user"));
+      process.exit(1);
+    }
+  });
 
   const content = `// @stacklenzz Observability Configuration
 export default {

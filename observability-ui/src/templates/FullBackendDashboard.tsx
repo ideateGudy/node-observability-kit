@@ -212,9 +212,12 @@ function DashboardContent() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
           gap: "1.25rem",
           marginBottom: "1.5rem",
+          width: "100%",
+          maxWidth: "100%",
+          boxSizing: "border-box",
         }}
       >
         <HttpStatusChart breakdown={s.http.statusBreakdown} />

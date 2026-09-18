@@ -35,6 +35,10 @@ export function HttpStatusChart({ breakdown }: HttpStatusChartProps) {
         border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.08)"}`,
         borderRadius: "0.875rem",
         padding: "1.25rem",
+        width: "100%",
+        maxWidth: "100%",
+        boxSizing: "border-box",
+        minWidth: 0,
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
@@ -64,7 +68,7 @@ export function HttpStatusChart({ breakdown }: HttpStatusChartProps) {
         <div style={{ width: `${pct5xx}%`, background: "#ef4444", transition: "width 0.4s ease" }} title={`5xx: ${pct5xx}%`} />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.75rem" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 140px), 1fr))", gap: "0.75rem" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <CheckCircle2 size={16} color="#10b981" />
           <div style={{ fontSize: "0.8125rem" }}>

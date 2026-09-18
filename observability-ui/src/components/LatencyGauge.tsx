@@ -26,6 +26,10 @@ export function LatencyGauge({ p50, p95, p99, avg }: LatencyGaugeProps) {
         border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.08)"}`,
         borderRadius: "0.875rem",
         padding: "1.25rem",
+        width: "100%",
+        maxWidth: "100%",
+        boxSizing: "border-box",
+        minWidth: 0,
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
@@ -37,7 +41,7 @@ export function LatencyGauge({ p50, p95, p99, avg }: LatencyGaugeProps) {
         </span>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.75rem", marginTop: "0.5rem" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 80px), 1fr))", gap: "0.75rem", marginTop: "0.5rem" }}>
         <div
           style={{
             padding: "0.875rem",

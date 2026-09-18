@@ -122,7 +122,9 @@ export function DashboardSwitcher({
         boxSizing: "border-box",
         width: "100%",
         maxWidth: "100%",
-        overflow: "hidden",
+        position: "relative",
+        zIndex: 50,
+        overflow: "visible",
       }}
     >
       {/* Selector & Tabs */}

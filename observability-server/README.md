@@ -42,13 +42,27 @@ pnpm add @stacklenzz/server
 
 ---
 
-## Quick Start: Express
+## Package Subpath Exports
 
-Instrument your Express app with one function:
+`@stacklenzz/server` is organized into clean, modern subpath exports:
+
+| Subpath | Purpose | Key Exports |
+|---|---|---|
+| `@stacklenzz/server/express` | Express.js framework integration | `setupObservability`, `createObservabilityMiddleware`, `createMetricsHandler`, `createStatsHandler` |
+| `@stacklenzz/server/nestjs` | NestJS framework integration | `ObservabilityModule`, `ObservabilityInterceptor`, `ObservabilityExceptionFilter` |
+| `@stacklenzz/server/core` | Core telemetry, metrics, Winston logger & snapshots | `getObservabilitySnapshot`, `Counter`, `Gauge`, `register`, `logger`, `addBreadcrumb`, `trace`, `context`, `resetMetrics` |
+| `@stacklenzz/server` | Default root export | Re-exports all core primitives + Express utilities |
+
+---
+
+## Quick Start: Express (`@stacklenzz/server/express`)
+
+Instrument your Express application with a single call:
 
 ```typescript
 import express from "express";
-import { setupObservability, logger, addBreadcrumb } from "@stacklenzz/server";
+import { setupObservability } from "@stacklenzz/server/express";
+import { logger, addBreadcrumb } from "@stacklenzz/server/core";
 
 const app = express();
 
@@ -56,6 +70,8 @@ const app = express();
 setupObservability(app, {
   serviceName: "my-express-api",
   environment: "production",
+  statsPath: "/api/observability/stats", // default
+  metricsPath: "/metrics",              // default
 });
 
 app.get("/api/users", (req, res) => {
@@ -74,8 +90,9 @@ app.listen(5000, () => console.log("API running on port 5000"));
 
 ---
 
-## Quick Start: NestJS
+## Quick Start: NestJS (`@stacklenzz/server/nestjs`)
 
+### Synchronous Setup:
 In your root module (`app.module.ts`):
 
 ```typescript
@@ -87,7 +104,29 @@ import { ObservabilityModule } from "@stacklenzz/server/nestjs";
     ObservabilityModule.forRoot({
       serviceName: "my-nestjs-api",
       environment: "production",
-      autoInitTracing: false,
+      autoInitTracing: true,
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+### Asynchronous Setup with `ConfigService`:
+```typescript
+import { Module } from "@nestjs/common";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ObservabilityModule } from "@stacklenzz/server/nestjs";
+
+@Module({
+  imports: [
+    ConfigModule.forRoot(),
+    ObservabilityModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        serviceName: config.get<string>("APP_NAME", "my-nestjs-api"),
+        environment: config.get<string>("NODE_ENV", "production"),
+      }),
     }),
   ],
 })

@@ -139,9 +139,11 @@ export function CustomDashboard() {
 
 ---
 
-## Next.js Configuration (`next.config.mjs`)
+## Next.js & Framework Integration
 
-When importing `@stacklenzz/ui` in Next.js:
+`@stacklenzz/ui` is **100% standalone and self-styled** with zero Tailwind CSS or external component library requirements. All glassmorphism styles, glowing gradients, theme variables, and keyframe animations are encapsulated in pure Vanilla inline styles.
+
+When importing `@stacklenzz/ui` in Next.js (App Router or Pages Router), add it to `transpilePackages` in `next.config.mjs`:
 
 ```javascript
 /** @type {import('next').NextConfig} */

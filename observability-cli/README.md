@@ -53,6 +53,14 @@ stacklenzz init
 
 ## Commands & Usage
 
+### Supported Binaries & Aliases
+When installed globally or via package managers, the CLI is available under three equivalent commands:
+- `stacklenzz`
+- `stackcli`
+- `stack`
+
+---
+
 ### 1. `stacklenzz doctor` (or `npx stacklenzz doctor`)
 Diagnoses your environment, checks for installed dependencies, and verifies that your backend telemetry endpoint (`/api/observability/stats`) is online:
 
@@ -61,17 +69,17 @@ stacklenzz doctor
 ```
 
 **Options:**
-- `-e, --endpoint <url>`: Test a custom backend telemetry URL (e.g., `-e http://api.internal.com:5000/api/observability/stats`).
+- `-e, --endpoint <url>`: Test a custom backend telemetry URL (e.g., `-e http://localhost:5000/api/observability/stats`).
 
 **Example Output:**
 ```
-🩺 @stacklenzz/cli - System & Health Doctor
+🩺 Stacklenzz CLI - System & Health Doctor
 
 ✓ Node.js runtime: v24.10.0 (compatible >= 18)
 ✓ Package manager: npm
 ✓ Frontend framework: next-app (TypeScript)
-✓ Observability UI: Installed
-✓ Telemetry endpoint reachable! HTTP 200 (69ms)
+✓ Stacklenzz UI: Installed
+✓ Telemetry endpoint reachable! HTTP 200 (45ms)
    Backend service: my-backend-api [production]
    Requests recorded: 14,291
 
@@ -81,32 +89,44 @@ Doctor check finished.
 ---
 
 ### 2. `stacklenzz dashboard`
-Scaffolds an observability dashboard page into your React or Next.js app:
+Scaffolds a production-ready observability dashboard page into your React or Next.js app:
 
 ```bash
 npx stacklenzz dashboard
 ```
 
+**Interactive Templates Available:**
+1. `ObservabilityDashboard`: Universal console featuring interactive template switcher and 6 runtime themes *(Recommended)*
+2. `FullBackendDashboard`: Complete health suite with metric cards, HTTP status breakdown, latency gauge, runtime metrics, and live error inspector
+3. `ApiOverviewDashboard`: Request rates, status distribution, and top endpoints breakdown
+4. `BackendPerformanceDashboard`: P50, P95, and P99 latency percentiles and slowest routes
+5. `ErrorMonitoringDashboard`: Error spike tracking, 4xx/5xx streams, occurrence counters, and breadcrumbs
+6. `NodeRuntimeDashboard`: Process CPU %, RSS memory, heap allocations, and event loop lag
+7. `MinimalDashboard`: Compact status summary tile for embedding in existing admin sidebars
+
 **Options:**
 - `-r, --route <route>`: Destination route path (default: `/admin/observability`).
-- `-t, --template <template>`: Template to generate (`FullBackendDashboard`, `ApiOverviewDashboard`, `ErrorMonitoringDashboard`, etc.).
+- `-t, --template <template>`: Template to generate (`ObservabilityDashboard`, `FullBackendDashboard`, etc.).
 - `-p, --package-manager <pm>`: Force a package manager (`npm`, `pnpm`, `yarn`, `bun`).
 - `--dry-run`: Preview file generation in the terminal without modifying any files.
 - `-y, --yes`: Skip interactive prompts and accept smart defaults.
 
 **Examples:**
 ```bash
-# Preview what would be created:
+# Preview what would be created without disk writes:
 npx stacklenzz dashboard --dry-run -y
 
 # Generate a custom route in Next.js:
 npx stacklenzz dashboard --route /admin/system-health -y
+
+# Scaffold with specific package manager:
+npx stacklenzz dashboard --package-manager pnpm
 ```
 
 ---
 
 ### 3. `stacklenzz init`
-Creates a standardized `observability.config.ts` file in your project root:
+Creates a standardized, strongly-typed `observability.config.ts` configuration file in your project root:
 
 ```bash
 npx stacklenzz init

@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://stacklenzz.vercel.app/"><b>📖 Documentation & Interactive Portal: https://stacklenzz.vercel.app/</b></a>
+  <a href="https://stacklenzz.vercel.app/"><b>📖 Full Documentation & Interactive Portal: https://stacklenzz.vercel.app/</b></a>
 </p>
 
 ---
@@ -29,29 +29,38 @@
 
 ---
 
-## 📦 Monorepo Architecture
+## 📦 Monorepo Architecture & NPM Packages
 
-This repository contains three standalone, production-ready packages and concrete example applications:
+This repository contains three standalone, production-ready NPM packages and practical example applications:
 
 | Package | Directory | Description | Documentation |
 |---|---|---|---|
-| [`@stacklenzz/server`](./observability-server) | `observability-server/` | Backend SDK for Express & NestJS (OpenTelemetry tracing, Prometheus `/metrics`, Winston logger, rolling error rate windows, and intelligent error fingerprinting) | [Read SDK Guide →](./observability-server/README.md) |
-| [`@stacklenzz/ui`](./observability-ui) | `observability-ui/` | Modern React/Next.js dashboard suite powered by Redux Toolkit (`@reduxjs/toolkit`), 6 built-in themes with automatic `localStorage` persistence, interactive template switcher, error inspector with breadcrumbs, and latency gauges | [Read UI Guide →](./observability-ui/README.md) |
+| [`@stacklenzz/server`](./observability-server) | `observability-server/` | Full-featured backend SDK for Express & NestJS with OpenTelemetry tracing, Prometheus `/metrics`, Winston logger, rolling error rate windows, and deterministic error fingerprinting | [Read SDK Guide →](./observability-server/README.md) |
+| [`@stacklenzz/ui`](./observability-ui) | `observability-ui/` | Modern React/Next.js dashboard suite powered by Redux Toolkit (`@reduxjs/toolkit`), 6 built-in runtime themes with automatic `localStorage` persistence, interactive template switcher, error inspector with breadcrumbs, and latency gauges | [Read UI Guide →](./observability-ui/README.md) |
 | [`@stacklenzz/cli`](./observability-cli) | `observability-cli/` | Zero-configuration CLI detecting frameworks and package managers to scaffold dashboards and run `doctor` connectivity diagnostics | [Read CLI Guide →](./observability-cli/README.md) |
 
 ---
 
-## 🚀 Quick Start: Backend Setup
+## 🚀 Backend Integration Guide (`@stacklenzz/server`)
+
+`@stacklenzz/server` provides dedicated, tree-shakable subpath exports tailored to your architecture:
+- `@stacklenzz/server/express` (Express setup & middleware)
+- `@stacklenzz/server/nestjs` (`ObservabilityModule.forRoot()` & `forRootAsync()`)
+- `@stacklenzz/server/core` or `@stacklenzz/server` (Core telemetry, Prometheus metrics, Winston logger, snapshots, and OpenTelemetry)
 
 ### 1. Express Setup
 
 ```typescript
 import express from "express";
-import { setupObservability, logger, addBreadcrumb } from "@stacklenzz/server";
+import { setupObservability, logger, addBreadcrumb } from "@stacklenzz/server/express";
 
 const app = express();
 
-// Automatically configures /metrics, Winston logging, and /api/observability/stats
+// Automatically configures:
+// - /metrics (Prometheus scrape endpoint)
+// - /api/observability/stats (JSON telemetry feed for dashboard UI)
+// - OpenTelemetry NodeSDK distributed tracing
+// - Winston JSON logging with trace_id / span_id correlation
 setupObservability(app, {
   serviceName: "my-express-api",
   environment: "production",
@@ -82,7 +91,29 @@ import { ObservabilityModule } from "@stacklenzz/server/nestjs";
     ObservabilityModule.forRoot({
       serviceName: "my-nestjs-api",
       environment: "production",
-      autoInitTracing: false,
+      autoInitTracing: true,
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+Async configuration with `ConfigService`:
+```typescript
+import { Module } from "@nestjs/common";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ObservabilityModule } from "@stacklenzz/server/nestjs";
+
+@Module({
+  imports: [
+    ConfigModule.forRoot(),
+    ObservabilityModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        serviceName: config.get<string>("SERVICE_NAME", "my-nestjs-api"),
+        environment: config.get<string>("NODE_ENV", "production"),
+      }),
     }),
   ],
 })
@@ -102,11 +133,43 @@ async function bootstrap() {
 bootstrap();
 ```
 
+### 3. Core Telemetry & Custom Instrumentation (`@stacklenzz/server/core`)
+
+When building background jobs, cron workers, or microservices:
+
+```typescript
+import {
+  getObservabilitySnapshot,
+  Counter,
+  Gauge,
+  register,
+  logger,
+  addBreadcrumb,
+  trace,
+} from "@stacklenzz/server/core";
+
+// Record breadcrumbs leading up to events
+addBreadcrumb({ category: "db", message: "Executing order payment", level: "info" });
+
+// Custom Prometheus business metric
+const checkoutCounter = new Counter({
+  name: "orders_processed_total",
+  help: "Total processed checkout orders",
+  registers: [register],
+});
+checkoutCounter.inc();
+
+// Retrieve instantaneous operational telemetry snapshot
+const snapshot = await getObservabilitySnapshot();
+console.log("Current Error Rate (%):", snapshot.summary.errorRate);
+console.log("Active Requests:", snapshot.summary.activeRequests);
+```
+
 ---
 
-## 🖥 Quick Start: Frontend Setup
+## 🖥 Frontend Setup (`@stacklenzz/ui`)
 
-### Option A: Using the CLI (Fastest)
+### Option A: Using the CLI (Recommended)
 
 Run inside your Next.js or React project:
 ```bash
@@ -118,10 +181,10 @@ The CLI detects whether you are using **Next.js (App Router / Pages Router)** or
 
 Install the UI package:
 ```bash
-npm install @stacklenzz/ui lucide-react
+npm install @stacklenzz/ui lucide-react @reduxjs/toolkit react-redux
 ```
 
-Create your page (e.g., in Next.js App Router `app/admin/observability/page.tsx`):
+Create your page (e.g. Next.js App Router `app/admin/observability/page.tsx`):
 ```tsx
 "use client";
 
@@ -129,7 +192,7 @@ import { ObservabilityDashboard } from "@stacklenzz/ui";
 
 export default function AdminObservabilityPage() {
   return (
-    <main style={{ minHeight: "100vh", backgroundColor: "#090d16" }}>
+    <main style={{ minHeight: "100vh", backgroundColor: "transparent" }}>
       <ObservabilityDashboard
         config={{
           endpoint: process.env.NEXT_PUBLIC_OBSERVABILITY_URL || "http://localhost:5000/api/observability/stats",
@@ -167,16 +230,29 @@ npx stacklenzz doctor
 
 ---
 
-## 🎨 Available Dashboard Templates
+## 🎨 Available Dashboard Templates & 6 Runtime Themes
 
+### 6 Pre-Composed Dashboard Templates
 `@stacklenzz/ui` includes 6 distinct dashboard views with an interactive switcher:
 
-1. **Full Suite** (`<FullBackendDashboard />`): Key metric cards, HTTP status distribution, latency gauges, runtime resources, top endpoints, and live error inspector.
-2. **API Overview** (`<ApiOverviewDashboard />`): High-level traffic rates, status breakdown, and endpoint volume.
-3. **Performance** (`<BackendPerformanceDashboard />`): P50, P95, and P99 latency percentiles and route response times.
-4. **Errors & Failures** (`<ErrorMonitoringDashboard />`): Incident & error tracking with 4xx/5xx filters, fingerprint aggregation, occurrence count (`x4` ➔ `x2` by window), and event breadcrumbs.
-5. **Node Runtime** (`<NodeRuntimeDashboard />`): Process CPU load, RSS/Heap memory usage, and V8 event loop lag.
-6. **Minimal Widget** (`<MinimalDashboard />`): Compact card designed to be embedded in an existing admin layout.
+1. **Universal Console** (`<ObservabilityDashboard />`): Master template featuring the integrated dashboard switcher and theme dropdown picker.
+2. **Full Suite** (`<FullBackendDashboard />`): Key metric cards, HTTP status distribution, latency gauges, runtime resources, top endpoints, and live error inspector.
+3. **API Overview** (`<ApiOverviewDashboard />`): High-level traffic rates, status breakdown, active requests, and endpoint volume.
+4. **Backend Performance** (`<BackendPerformanceDashboard />`): P50, P95, and P99 latency percentiles and route response times.
+5. **Error Monitoring** (`<ErrorMonitoringDashboard />`): Incident & error tracking with 4xx/5xx filters, fingerprint aggregation, occurrence count (`x4` ➔ `x2` by window), and event breadcrumbs.
+6. **Node Runtime** (`<NodeRuntimeDashboard />`): Process CPU load, RSS/Heap memory usage, and V8 event loop lag.
+7. **Minimal Widget** (`<MinimalDashboard />`): Compact card designed to be embedded in an existing admin layout.
+
+### 6 Built-In Runtime Themes
+All dashboard components adapt automatically to the active theme with zero CSS configuration required:
+- **Tokyo Night** (`tokyo-night`) - Deep indigo with neon accents *(Default)*
+- **Nord** (`nord`) - Arctic cool frost blues
+- **Dracula** (`dracula`) - Vibrant purple and pink accents
+- **Catppuccin Mocha** (`catppuccin`) - Soothing pastel dark palette
+- **Emerald Terminal** (`emerald-terminal`) - High-contrast matrix terminal green
+- **Cyberpunk** (`cyberpunk`) - High-energy neon pink and cyan
+
+> **Persistence**: Theme selections automatically persist to `localStorage` under key `stacklenzz_theme` across page reloads and route navigation.
 
 ---
 

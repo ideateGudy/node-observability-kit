@@ -19,10 +19,13 @@ export async function runDoctorCommand(options: DoctorCommandOptions) {
   // 1. Node.js check
   const nodeVer = process.version;
   const major = parseInt(nodeVer.replace("v", "").split(".")[0], 10);
-  if (major >= Number(pkg.version)) {
-    console.log(`${pc.green("✓")} Node.js runtime: ${nodeVer} (compatible >= ${pkg.version})`);
+  const engineVersion = pkg.engine.replace(/[^\d.]/g, ''); // Extracts "18.0.0" from ">=18.0.0"
+  const requiredMajor = parseInt(engineVersion.split(".")[0], 10);
+
+  if (major >= requiredMajor) {
+    console.log(`${pc.green("✓")} Node.js runtime: ${nodeVer} (compatible >= ${requiredMajor})`);
   } else {
-    console.log(`${pc.red("✗")} Node.js runtime: ${nodeVer} (Requires Node.js >= ${pkg.version})`);
+    console.log(`${pc.red("✗")} Node.js runtime: ${nodeVer} (Requires Node.js >= ${requiredMajor})`);
   }
 
   // 2. Package manager

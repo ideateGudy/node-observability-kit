@@ -6,7 +6,8 @@ import { runInitCommand } from "./commands/init.js";
 
 export const pkg = {
   name: packageJson.name,
-  version: packageJson.engines.node
+  version: packageJson.version,
+  engine: packageJson.engines?.node || "18"
 };
 
 const program = new Command();

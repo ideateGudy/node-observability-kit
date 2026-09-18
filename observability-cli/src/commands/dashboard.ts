@@ -66,18 +66,20 @@ export async function runDashboardCommand(options: DashboardCommandOptions) {
   }
 
   // Prompt template
-  let template = options.template || "FullBackendDashboard";
+  let template = options.template || "ObservabilityDashboard";
   if (!options.yes && !options.template) {
     const templatePrompt = await prompts({
       type: "select",
       name: "template",
       message: "Choose default dashboard template:",
       choices: [
-        { title: "Full Backend (All-in-one health, requests, errors, CPU, latency)", value: "FullBackendDashboard" },
+        { title: "Universal Console (Recommended - Includes interactive switcher & 6 runtime themes)", value: "ObservabilityDashboard" },
+        { title: "Full Backend Suite (All-in-one health, requests, errors, CPU, latency)", value: "FullBackendDashboard" },
         { title: "API Overview (Routes, request rates, HTTP status breakdown)", value: "ApiOverviewDashboard" },
         { title: "Performance (Latency percentiles P50, P95, P99, slow requests)", value: "BackendPerformanceDashboard" },
         { title: "Error Monitoring (Spikes, 4xx/5xx breakdown, failure logs)", value: "ErrorMonitoringDashboard" },
         { title: "Node.js Runtime (CPU, RSS memory, heap, event loop lag)", value: "NodeRuntimeDashboard" },
+        { title: "Minimal Widget (Compact summary for existing admin sidebars)", value: "MinimalDashboard" },
       ],
       initial: 0,
     }, { onCancel });
@@ -221,7 +223,7 @@ export default function ObservabilityDashboardPage() {
         config={{
           endpoint: process.env.NEXT_PUBLIC_OBSERVABILITY_URL || "http://localhost:5000/api/observability/stats",
           refreshIntervalMs: 5000,
-        }}
+        }}${template === "ObservabilityDashboard" ? `\n        defaultDashboard="full"\n        showSwitcher={true}` : ""}
       />
     </main>
   );

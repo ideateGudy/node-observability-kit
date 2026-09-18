@@ -30,37 +30,83 @@ export function ServiceHeader({
     <div
       style={{
         background: themeColors?.headerBg || "linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.85) 100%)",
-        borderColor: themeColors?.cardBorder || "rgba(255, 255, 255, 0.1)",
+        border: `1px solid ${themeColors?.cardBorder || "rgba(255, 255, 255, 0.1)"}`,
+        borderRadius: "1.25rem",
+        padding: "1.25rem 1.5rem",
+        marginBottom: "1.5rem",
+        boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.5)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        width: "100%",
+        boxSizing: "border-box",
       }}
-      className="flex flex-col gap-4 p-5 sm:p-6 rounded-3xl border backdrop-blur-xl shadow-2xl mb-6 w-full transition-all duration-300 hover:border-white/20"
     >
       {/* Top Hero Section: Server Icon, Title, Env & Refresh Action */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-white/10 w-full">
-        <div className="flex items-center gap-3 min-w-0">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "0.85rem",
+          paddingBottom: "0.85rem",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          width: "100%",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "0.85rem", minWidth: 0, flexWrap: "wrap" }}>
           <div
             style={{
               background: `linear-gradient(135deg, ${themeColors?.accent || "#3b82f6"} 0%, ${themeColors?.accentSecondary || "#06b6d4"} 100%)`,
-              boxShadow: `0 0 24px -2px ${themeColors?.glow || "rgba(59, 130, 246, 0.6)"}`,
+              boxShadow: `0 0 20px -2px ${themeColors?.glow || "rgba(59, 130, 246, 0.5)"}`,
+              width: "2.75rem",
+              height: "2.75rem",
+              borderRadius: "0.875rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#ffffff",
+              flexShrink: 0,
             }}
-            className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg"
           >
-            <Server size={24} />
+            <Server size={22} />
           </div>
 
-          <div className="flex flex-col min-w-0">
-            <div className="flex items-center gap-2">
+          <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
               <h1
-                style={{ color: themeColors?.text || "#f8fafc" }}
-                className="text-lg sm:text-2xl font-black tracking-tight m-0 truncate"
+                style={{
+                  color: themeColors?.text || "#f8fafc",
+                  fontSize: "1.35rem",
+                  fontWeight: 800,
+                  letterSpacing: "-0.025em",
+                  margin: 0,
+                }}
               >
                 {serviceName}
               </h1>
-              <span className="px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-xs font-semibold text-slate-300 shrink-0">
-                Env: <strong className="text-white capitalize">{env}</strong>
+              <span
+                style={{
+                  padding: "0.2rem 0.6rem",
+                  borderRadius: "0.375rem",
+                  background: "rgba(255, 255, 255, 0.06)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  color: "#cbd5e1",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.3rem",
+                }}
+              >
+                Env: <strong style={{ color: "#ffffff", textTransform: "capitalize" }}>{env}</strong>
               </span>
             </div>
-            <span className="text-xs text-slate-400 font-mono mt-0.5">
-              Synced at <strong className="text-slate-200">{timestamp}</strong>
+            <span style={{ fontSize: "0.75rem", color: themeColors?.textMuted || "#94a3b8", fontFamily: "monospace", marginTop: "0.25rem" }}>
+              Synced at <strong style={{ color: "#e2e8f0" }}>{timestamp}</strong>
             </span>
           </div>
         </div>
@@ -69,35 +115,116 @@ export function ServiceHeader({
         <button
           onClick={onRefresh}
           disabled={isRefreshing}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/35 border border-indigo-500/35 text-indigo-200 text-xs font-bold cursor-pointer transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/10 active:scale-95 disabled:opacity-50 w-full sm:w-auto shrink-0"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.45rem",
+            padding: "0.45rem 0.95rem",
+            borderRadius: "0.65rem",
+            background: "rgba(99, 102, 241, 0.18)",
+            border: "1px solid rgba(99, 102, 241, 0.35)",
+            color: "#c7d2fe",
+            fontSize: "0.78rem",
+            fontWeight: 700,
+            cursor: isRefreshing ? "not-allowed" : "pointer",
+            transition: "all 0.2s ease",
+            opacity: isRefreshing ? 0.6 : 1,
+            outline: "none",
+          }}
         >
-          <RefreshCw size={14} className={isRefreshing ? "animate-spin text-indigo-400" : "text-indigo-400"} />
-          <span>Refresh</span>
+          <RefreshCw size={13} style={{ animation: isRefreshing ? "spin 1s linear infinite" : "none" }} />
+          <span>{isRefreshing ? "Refreshing..." : "Refresh"}</span>
         </button>
       </div>
 
       {/* Bottom Compact Toolbar: Status Badges, Uptime & Node Version */}
-      <div className="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-medium w-full">
-        <div className="flex flex-wrap items-center gap-2.5">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-xs font-bold uppercase tracking-wider shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "0.75rem",
+          fontSize: "0.78rem",
+          fontWeight: 500,
+          width: "100%",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              padding: "0.25rem 0.75rem",
+              borderRadius: "9999px",
+              background: "rgba(16, 185, 129, 0.15)",
+              color: "#34d399",
+              border: "1px solid rgba(16, 185, 129, 0.3)",
+              fontSize: "0.72rem",
+              fontWeight: 800,
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+            }}
+          >
+            <span
+              style={{
+                width: "0.45rem",
+                height: "0.45rem",
+                borderRadius: "50%",
+                backgroundColor: "#10b981",
+                boxShadow: "0 0 8px #10b981",
+              }}
+            />
             HEALTHY
           </span>
 
           {isMock && (
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 text-xs font-bold uppercase tracking-wider shadow-sm">
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                padding: "0.25rem 0.75rem",
+                borderRadius: "9999px",
+                background: "rgba(245, 158, 11, 0.15)",
+                color: "#fbbf24",
+                border: "1px solid rgba(245, 158, 11, 0.3)",
+                fontSize: "0.72rem",
+                fontWeight: 800,
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+              }}
+            >
               DEMO / MOCK MODE
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-3 text-slate-300">
-          <span className="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1 rounded-lg border border-white/5">
-            <Clock size={14} className="text-emerald-400" />
-            <span>Uptime: <strong className="text-emerald-400 font-mono">{uptime}</strong></span>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", color: "#cbd5e1", flexWrap: "wrap" }}>
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              background: "rgba(255, 255, 255, 0.05)",
+              padding: "0.3rem 0.65rem",
+              borderRadius: "0.5rem",
+              border: "1px solid rgba(255, 255, 255, 0.06)",
+            }}
+          >
+            <Clock size={13} color="#34d399" />
+            <span>Uptime: <strong style={{ color: "#34d399", fontFamily: "monospace" }}>{uptime}</strong></span>
           </span>
-          <span className="bg-white/5 px-3 py-1 rounded-lg border border-white/5">
-            Node <strong className="text-indigo-300 font-mono">{snapshot?.runtime.nodeVersion || "v20"}</strong>
+          <span
+            style={{
+              background: "rgba(255, 255, 255, 0.05)",
+              padding: "0.3rem 0.65rem",
+              borderRadius: "0.5rem",
+              border: "1px solid rgba(255, 255, 255, 0.06)",
+            }}
+          >
+            Node <strong style={{ color: "#a5b4fc", fontFamily: "monospace" }}>{snapshot?.runtime.nodeVersion || "v20"}</strong>
           </span>
         </div>
       </div>

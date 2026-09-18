@@ -94,33 +94,33 @@ describe("Observability UI Components & Templates Test Suite", () => {
   it("should have correct curated aesthetics for each of the 6 themes", () => {
     // Tokyo Night
     expect(UI.RUNTIME_THEMES["tokyo-night"].name).toBe("Tokyo Night");
-    expect(UI.RUNTIME_THEMES["tokyo-night"].accent).toBe("#7aa2f7");
-    expect(UI.RUNTIME_THEMES["tokyo-night"].background).toBe("#1a1b26");
+    expect(UI.RUNTIME_THEMES["tokyo-night"].accent).toBe("#38bdf8");
+    expect(UI.RUNTIME_THEMES["tokyo-night"].background).toBe("#0b0d14");
 
     // Nord
     expect(UI.RUNTIME_THEMES["nord"].name).toBe("Nord");
-    expect(UI.RUNTIME_THEMES["nord"].accent).toBe("#88c0d0");
-    expect(UI.RUNTIME_THEMES["nord"].background).toBe("#2e3440");
+    expect(UI.RUNTIME_THEMES["nord"].accent).toBe("#38bdf8");
+    expect(UI.RUNTIME_THEMES["nord"].background).toBe("#0f141c");
 
     // Dracula
     expect(UI.RUNTIME_THEMES["dracula"].name).toBe("Dracula");
-    expect(UI.RUNTIME_THEMES["dracula"].accent).toBe("#bd93f9");
-    expect(UI.RUNTIME_THEMES["dracula"].background).toBe("#282a36");
+    expect(UI.RUNTIME_THEMES["dracula"].accent).toBe("#c084fc");
+    expect(UI.RUNTIME_THEMES["dracula"].background).toBe("#0e0d15");
 
     // Catppuccin Mocha
     expect(UI.RUNTIME_THEMES["catppuccin"].name).toBe("Catppuccin Mocha");
-    expect(UI.RUNTIME_THEMES["catppuccin"].accent).toBe("#cba6f7");
-    expect(UI.RUNTIME_THEMES["catppuccin"].background).toBe("#1e1e2e");
+    expect(UI.RUNTIME_THEMES["catppuccin"].accent).toBe("#b4befe");
+    expect(UI.RUNTIME_THEMES["catppuccin"].background).toBe("#11111b");
 
     // Emerald Terminal
     expect(UI.RUNTIME_THEMES["emerald-terminal"].name).toBe("Emerald Terminal");
     expect(UI.RUNTIME_THEMES["emerald-terminal"].accent).toBe("#10b981");
-    expect(UI.RUNTIME_THEMES["emerald-terminal"].background).toBe("#021d12");
+    expect(UI.RUNTIME_THEMES["emerald-terminal"].background).toBe("#030d08");
 
     // Cyberpunk
     expect(UI.RUNTIME_THEMES["cyberpunk"].name).toBe("Cyberpunk");
-    expect(UI.RUNTIME_THEMES["cyberpunk"].accent).toBe("#ff007f");
-    expect(UI.RUNTIME_THEMES["cyberpunk"].background).toBe("#0d0221");
+    expect(UI.RUNTIME_THEMES["cyberpunk"].accent).toBe("#ff2a85");
+    expect(UI.RUNTIME_THEMES["cyberpunk"].background).toBe("#090514");
   });
 
   it("should provide consistent contrast: background and cardBg are distinct from text", () => {

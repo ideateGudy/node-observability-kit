@@ -1,14 +1,20 @@
+import packageJson from "../package.json" with { type: "json" };
 import { Command } from "commander";
 import { runDashboardCommand } from "./commands/dashboard.js";
 import { runDoctorCommand } from "./commands/doctor.js";
 import { runInitCommand } from "./commands/init.js";
+
+export const pkg = {
+  name: packageJson.name,
+  version: packageJson.version,
+};
 
 const program = new Command();
 
 program
   .name("stacklenzz")
   .description("Stacklenzz - Developer-first backend observability dashboard installer for React & Next.js")
-  .version("0.1.0");
+  .version(packageJson.version);
 
 program
   .command("dashboard")

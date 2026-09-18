@@ -4,6 +4,7 @@ import http from "node:http";
 import https from "node:https";
 import pc from "picocolors";
 import { detectProject } from "../utils/detect.js";
+import { pkg } from "../index.js";
 
 export interface DoctorCommandOptions {
   endpoint?: string;
@@ -18,10 +19,10 @@ export async function runDoctorCommand(options: DoctorCommandOptions) {
   // 1. Node.js check
   const nodeVer = process.version;
   const major = parseInt(nodeVer.replace("v", "").split(".")[0], 10);
-  if (major >= 18) {
-    console.log(`${pc.green("✓")} Node.js runtime: ${nodeVer} (compatible >= 18)`);
+  if (major >= Number(pkg.version)) {
+    console.log(`${pc.green("✓")} Node.js runtime: ${nodeVer} (compatible >= ${pkg.version})`);
   } else {
-    console.log(`${pc.red("✗")} Node.js runtime: ${nodeVer} (Requires Node.js >= 18)`);
+    console.log(`${pc.red("✗")} Node.js runtime: ${nodeVer} (Requires Node.js >= ${pkg.version})`);
   }
 
   // 2. Package manager
@@ -43,7 +44,9 @@ export async function runDoctorCommand(options: DoctorCommandOptions) {
   if (allDeps["@stacklenzz/ui"]) {
     console.log(`${pc.green("✓")} Stacklenzz UI: Installed (${allDeps["@stacklenzz/ui"]})`);
   } else {
-    console.log(`${pc.yellow("!")} Stacklenzz UI: Not found in package.json. Run: ${pc.bold(`${ctx.packageManager} add @stacklenzz/ui`)}`);
+    console.log(
+      `${pc.yellow("!")} Stacklenzz UI: Not found in package.json. Run: ${pc.bold(`${ctx.packageManager} add @stacklenzz/ui`)} or use ${pc.bold("stacklenzz dashboard")} to generate a pre-built UI`
+    );
   }
 
   // 5. Config file

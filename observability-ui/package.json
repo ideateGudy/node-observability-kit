@@ -1,6 +1,6 @@
 {
   "name": "@stacklenzz/ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Stacklenzz developer-first React dashboard component library for backend observability",
   "author": "Goodnews Azonubi <azonubigoodnews@gmail.com>",
   "publishConfig": {
@@ -27,6 +27,9 @@
     "express",
     "nestjs"
   ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "sideEffects": false,
   "type": "module",
   "main": "./dist/index.cjs",

@@ -403,6 +403,8 @@ We welcome contributions from the community! Whether you are fixing bugs, adding
 4. **Commit Changes**: Use conventional commit messages (`git commit -m 'feat: add amazing feature'`).
 5. **Submit a PR**: Push to your branch and open a Pull Request.
 
+- **Documentation Website Repo:** [https://github.com/ideateGudy/stacklenzz-docs](https://github.com/ideateGudy/stacklenzz-docs)
+
 For complete guides and live interactive documentation, visit **[stacklenzz.vercel.app](https://stacklenzz.vercel.app/)**.
 
 ---

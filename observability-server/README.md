@@ -151,6 +151,100 @@ bootstrap();
 
 ---
 
+## Node.js Framework Compatibility (Fastify, Koa, Hono, Hapi, Pure Node)
+
+`@stacklenzz/server` is framework-agnostic at its core. If you are using frameworks other than Express or NestJS, you can import `@stacklenzz/server/core` to wire up telemetry, error recording, and your snapshot endpoint:
+
+### 1. Fastify Integration
+```typescript
+import Fastify from "fastify";
+import { getObservabilitySnapshot, recordError, addBreadcrumb, logger } from "@stacklenzz/server/core";
+
+const fastify = Fastify({ logger: false });
+
+// Expose telemetry snapshot endpoint for @stacklenzz/ui
+fastify.get("/api/observability/stats", async (request, reply) => {
+  const snapshot = await getObservabilitySnapshot();
+  return reply.header("Access-Control-Allow-Origin", "*").send(snapshot);
+});
+
+// Fastify error handler capturing failure details into dashboard
+fastify.setErrorHandler((error, request, reply) => {
+  recordError({
+    message: error.message,
+    stack: error.stack,
+    route: request.url,
+    method: request.method,
+    statusCode: error.statusCode || 500,
+  });
+  reply.status(error.statusCode || 500).send({ error: error.message });
+});
+```
+
+### 2. Koa Integration
+```typescript
+import Koa from "koa";
+import Router from "@koa/router";
+import { getObservabilitySnapshot, recordError } from "@stacklenzz/server/core";
+
+const app = new Koa();
+const router = new Router();
+
+// Stats endpoint
+router.get("/api/observability/stats", async (ctx) => {
+  ctx.set("Access-Control-Allow-Origin", "*");
+  ctx.body = await getObservabilitySnapshot();
+});
+
+// Error tracking middleware
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err: any) {
+    recordError({
+      message: err.message,
+      stack: err.stack,
+      route: ctx.path,
+      method: ctx.method,
+      statusCode: err.status || 500,
+    });
+    throw err;
+  }
+});
+
+app.use(router.routes());
+```
+
+### 3. Hono (Node.js Adapter)
+```typescript
+import { Hono } from "hono";
+import { serve } from "@hono/node-server";
+import { getObservabilitySnapshot, recordError } from "@stacklenzz/server/core";
+
+const app = new Hono();
+
+app.get("/api/observability/stats", async (c) => {
+  c.header("Access-Control-Allow-Origin", "*");
+  const snapshot = await getObservabilitySnapshot();
+  return c.json(snapshot);
+});
+
+app.onError((err, c) => {
+  recordError({
+    message: err.message,
+    stack: err.stack,
+    route: c.req.path,
+    method: c.req.method,
+    statusCode: 500,
+  });
+  return c.text("Internal Server Error", 500);
+});
+
+serve(app, (info) => console.log(`Listening on http://localhost:${info.port}`));
+```
+
+---
+
 ## Telemetry & Incident Intelligence Features
 
 ### 1. Adding Breadcrumbs

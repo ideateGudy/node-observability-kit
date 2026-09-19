@@ -133,10 +133,71 @@ async function bootstrap() {
 bootstrap();
 ```
 
-### 3. Core Telemetry & Custom Instrumentation (`@stacklenzz/server/core`)
+### 3. Other Node.js Frameworks & Background Services (`@stacklenzz/server/core`)
 
-When building background jobs, cron workers, or microservices:
+If you are using **Fastify**, **Koa**, **Hono**, **Hapi**, a pure Node `http` server, or background queues (BullMQ, Kafka, RabbitMQ), you can use `@stacklenzz/server/core` to record metrics, capture errors, and serve the `/api/observability/stats` endpoint:
 
+#### Fastify Example:
+```typescript
+import Fastify from "fastify";
+import { getObservabilitySnapshot, recordError, addBreadcrumb, logger } from "@stacklenzz/server/core";
+
+const fastify = Fastify({ logger: false });
+
+// 1. Expose the telemetry stats endpoint for @stacklenzz/ui dashboards
+fastify.get("/api/observability/stats", async (request, reply) => {
+  const snapshot = await getObservabilitySnapshot();
+  return reply.header("Access-Control-Allow-Origin", "*").send(snapshot);
+});
+
+// 2. Global error hook to capture issues into the dashboard
+fastify.setErrorHandler((error, request, reply) => {
+  recordError({
+    message: error.message,
+    stack: error.stack,
+    route: request.url,
+    method: request.method,
+    statusCode: error.statusCode || 500,
+  });
+  reply.status(error.statusCode || 500).send({ error: error.message });
+});
+```
+
+#### Koa Example:
+```typescript
+import Koa from "koa";
+import Router from "@koa/router";
+import { getObservabilitySnapshot, recordError } from "@stacklenzz/server/core";
+
+const app = new Koa();
+const router = new Router();
+
+// Observability stats endpoint for dashboard UI
+router.get("/api/observability/stats", async (ctx) => {
+  ctx.set("Access-Control-Allow-Origin", "*");
+  ctx.body = await getObservabilitySnapshot();
+});
+
+// Middleware for error tracking
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err: any) {
+    recordError({
+      message: err.message,
+      stack: err.stack,
+      route: ctx.path,
+      method: ctx.method,
+      statusCode: err.status || 500,
+    });
+    throw err;
+  }
+});
+
+app.use(router.routes());
+```
+
+#### Background Workers, Crons & Microservices:
 ```typescript
 import {
   getObservabilitySnapshot,
